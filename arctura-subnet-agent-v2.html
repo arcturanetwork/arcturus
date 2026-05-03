@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="color-scheme" content="dark"/>
+<title>Arctura Subnet Agent — Bittensor Launch Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ink:        #02040f;
+  --ink-raise:  #080d20;
+  --ink-lift:   #0d1530;
+  --rule:       #162044;
+  --rule-soft:  #0f1838;
+  --blue:       #2b5bff;
+  --blue-soft:  #5b8aff;
+  --blue-glow:  rgba(43,91,255,0.35);
+  --blue-wash:  rgba(43,91,255,0.06);
+  --violet:     #7c5cfc;
+  --gold:       #c8a96e;
+  --gold-soft:  #e5cc9a;
+  --gold-glow:  rgba(200,169,110,0.2);
+  --text-high:  #eef1ff;
+  --text-mid:   #b0bbdc;
+  --text-low:   #7a86aa;
+  --text-ghost: #3d4a6a;
+  --signal:     #4dd9ac;
+  --signal-glow:rgba(77,217,172,0.2);
+  --danger:     #ff5e5e;
+  --r-xs: 4px; --r-sm: 8px; --r: 14px; --r-lg: 22px; --r-xl: 32px;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+  --sans:  'DM Sans', system-ui, sans-serif;
+  --sidebar-w: 280px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; height: 100%; }
+
+body {
+  font-family: var(--sans);
+  background: var(--ink);
+  color: var(--text-mid);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 1200px 600px at 80% -10%, rgba(124,92,252,0.12), transparent 55%),
+    radial-gradient(ellipse 800px 500px at -5% 60%, rgba(43,91,255,0.09), transparent 50%),
+    radial-gradient(ellipse 600px 400px at 50% 110%, rgba(77,217,172,0.05), transparent 55%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0; opacity: 0.35;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index: 10;
+  border-bottom: 1px solid var(--rule);
+  background: rgba(2,4,15,0.92);
+  backdrop-filter: blur(24px) saturate(1.6);
+  flex-shrink: 0;
+}
+.nav-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 24px; max-width: 1200px; margin: 0 auto; gap: 16px;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-seal {
+  width: 34px; height: 34px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 17px; color: var(--text-high);
+  font-style: italic;
+  box-shadow: 0 0 20px var(--blue-glow);
+}
+.logo-text { display: flex; flex-direction: column; }
+.logo-name { font-family: var(--serif); font-size: 16px; color: var(--text-high); }
+.logo-sub  { font-family: var(--mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-top: 1px; }
+
+.header-right { display: flex; align-items: center; gap: 16px; }
+
+.header-status {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--text-ghost);
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--signal); box-shadow: 0 0 8px var(--signal);
+  animation: flare 2.4s ease-in-out infinite;
+}
+.status-label { color: var(--signal); }
+
+.header-actions { display: flex; gap: 8px; }
+
+.hdr-btn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-ghost);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.hdr-btn:hover { border-color: rgba(200,169,110,0.3); color: var(--gold); background: rgba(200,169,110,0.04); }
+.hdr-btn svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+.sidebar-toggle {
+  display: none;
+  background: transparent; border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  padding: 6px 10px; cursor: pointer; color: var(--text-ghost);
+}
+.sidebar-toggle:hover { color: var(--text-mid); border-color: var(--text-ghost); }
+.sidebar-toggle svg { width: 16px; height: 16px; display: block; }
+
+@keyframes flare { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.7)} }
+
+/* ── MAIN LAYOUT ── */
+.app-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 0;
+  position: relative; z-index: 1;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  border-right: 1px solid var(--rule);
+  padding: 24px 18px;
+  display: flex; flex-direction: column; gap: 24px;
+  overflow-y: auto;
+  background: rgba(8,13,32,0.5);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-section-title {
+  font-family: var(--mono);
+  font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--text-ghost);
+  margin-bottom: 10px;
+}
+
+.suggested-prompts { display: flex; flex-direction: column; gap: 5px; }
+
+.prompt-category {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--blue-soft); opacity: 0.7;
+  margin: 10px 0 5px;
+  padding-left: 4px;
+}
+.prompt-category:first-child { margin-top: 0; }
+
+.prompt-chip {
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  padding: 9px 12px;
+  font-family: var(--sans);
+  font-size: 12px;
+  color: var(--text-low);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s;
+  line-height: 1.4;
+}
+.prompt-chip:hover {
+  border-color: rgba(200,169,110,0.3);
+  color: var(--text-mid);
+  background: rgba(200,169,110,0.03);
+  transform: translateX(2px);
+}
+.prompt-chip .chip-icon {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--gold); display: block; margin-bottom: 2px;
+  letter-spacing: 1px;
+}
+
+.context-panel {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  overflow: hidden;
+  font-family: var(--mono); font-size: 11px;
+}
+.cp-head {
+  padding: 8px 12px;
+  background: rgba(13,21,48,0.6);
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-ghost);
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 8px;
+}
+.cp-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 6px var(--signal); animation: flare 2s infinite; }
+.cp-row { display: flex; justify-content: space-between; padding: 7px 12px; border-bottom: 1px solid rgba(22,32,68,0.4); gap: 8px; }
+.cp-row:last-child { border-bottom: none; }
+.cp-k { color: var(--text-ghost); font-size: 10px; white-space: nowrap; }
+.cp-v { color: var(--text-mid); font-size: 10px; text-align: right; }
+.cp-v.live { color: var(--signal); }
+.cp-v.warn { color: var(--gold); }
+.cp-v.loading { color: var(--text-ghost); animation: pulse-text 1.5s ease-in-out infinite; }
+@keyframes pulse-text { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+.clear-btn-wrap { margin-top: auto; }
+.clear-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255,94,94,0.2);
+  border-radius: var(--r-sm);
+  padding: 8px 12px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,94,94,0.5);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.clear-btn:hover { border-color: rgba(255,94,94,0.5); color: var(--danger); background: rgba(255,94,94,0.04); }
+.clear-btn svg { width: 11px; height: 11px; }
+
+/* ── CHAT AREA ── */
+.chat-area {
+  display: flex; flex-direction: column;
+  min-height: 0;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px 32px;
+  display: flex; flex-direction: column; gap: 24px;
+  scroll-behavior: smooth;
+}
+
+/* Welcome state */
+.welcome-state {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center;
+  flex: 1; gap: 18px; padding: 40px 20px;
+}
+.welcome-sigil {
+  width: 68px; height: 68px;
+  background: linear-gradient(135deg, rgba(43,91,255,0.15), rgba(124,92,252,0.15));
+  border: 1px solid rgba(43,91,255,0.3);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 34px; color: var(--blue-soft);
+  font-style: italic;
+  box-shadow: 0 0 40px var(--blue-glow);
+  animation: pulse-sigil 3s ease-in-out infinite;
+}
+@keyframes pulse-sigil {
+  0%,100% { box-shadow: 0 0 40px var(--blue-glow); }
+  50% { box-shadow: 0 0 60px rgba(43,91,255,0.5), 0 0 100px rgba(124,92,252,0.2); }
+}
+.welcome-title {
+  font-family: var(--serif);
+  font-size: 26px; color: var(--text-high); font-weight: 400;
+}
+.welcome-title em { font-style: italic; color: var(--gold); }
+.welcome-desc { font-size: 14px; color: var(--text-low); max-width: 440px; line-height: 1.7; }
+.welcome-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.welcome-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  border: 1px solid rgba(43,91,255,0.25); color: var(--blue-soft);
+  background: rgba(43,91,255,0.05);
+}
+
+/* Messages */
+.message { display: flex; flex-direction: column; gap: 5px; animation: msg-in 0.28s ease; }
+@keyframes msg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.message.user { align-items: flex-end; }
+.message.assistant { align-items: flex-start; }
+
+.msg-meta {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-ghost);
+  display: flex; align-items: center; gap: 8px;
+}
+.msg-meta .meta-icon {
+  width: 17px; height: 17px; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+}
+.user .meta-icon { background: rgba(200,169,110,0.12); color: var(--gold); }
+.assistant .meta-icon { background: linear-gradient(135deg, rgba(43,91,255,0.2), rgba(124,92,252,0.2)); color: var(--blue-soft); }
+
+.msg-actions {
+  display: none;
+  gap: 6px;
+  margin-left: auto;
+}
+.message:hover .msg-actions { display: flex; }
+.msg-copy-btn {
+  background: transparent; border: 1px solid var(--rule);
+  border-radius: 4px; padding: 2px 7px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--text-ghost); cursor: pointer;
+  transition: all 0.15s;
+}
+.msg-copy-btn:hover { color: var(--text-mid); border-color: var(--text-ghost); }
+.msg-copy-btn.copied { color: var(--signal); border-color: var(--signal); }
+
+.msg-bubble {
+  max-width: 740px;
+  padding: 14px 18px;
+  border-radius: var(--r-lg);
+  font-size: 14px; line-height: 1.75;
+}
+.user .msg-bubble {
+  background: rgba(200,169,110,0.06);
+  border: 1px solid rgba(200,169,110,0.2);
+  color: var(--text-mid);
+  border-bottom-right-radius: var(--r-xs);
+}
+.assistant .msg-bubble {
+  background: var(--ink-raise);
+  border: 1px solid var(--rule);
+  color: var(--text-mid);
+  border-bottom-left-radius: var(--r-xs);
+}
+
+.msg-bubble strong { color: var(--text-high); font-weight: 600; }
+.msg-bubble em { color: var(--gold-soft); font-style: italic; }
+.msg-bubble code {
+  font-family: var(--mono); font-size: 12px; color: var(--blue-soft);
+  background: rgba(43,91,255,0.08); padding: 2px 7px; border-radius: var(--r-xs);
+}
+.msg-bubble pre {
+  background: rgba(2,4,15,0.8);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  margin: 12px 0;
+  overflow-x: auto;
+  position: relative;
+}
+.pre-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+}
+.pre-lang { color: var(--text-ghost); }
+.pre-copy {
+  background: transparent; border: none;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+  color: var(--text-ghost); cursor: pointer;
+  transition: color 0.15s;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+.pre-copy:hover { color: var(--signal); }
+.pre-copy.copied { color: var(--signal); }
+.msg-bubble pre code {
+  display: block;
+  background: none; padding: 14px 16px; font-size: 12.5px; color: var(--signal);
+  white-space: pre; overflow-x: auto;
+}
+.msg-bubble a { color: var(--gold); border-bottom: 1px solid rgba(200,169,110,0.25); text-decoration: none; }
+.msg-bubble a:hover { color: var(--gold-soft); }
+.msg-bubble ul, .msg-bubble ol { padding-left: 20px; margin: 10px 0; }
+.msg-bubble li { margin-bottom: 5px; }
+.msg-bubble h3 { font-family: var(--serif); font-size: 17px; color: var(--text-high); font-weight: 400; margin: 16px 0 8px; }
+.msg-bubble h4 { font-family: var(--mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--gold); margin: 14px 0 6px; }
+.msg-bubble p + p { margin-top: 10px; }
+.msg-bubble hr { border: none; border-top: 1px solid var(--rule); margin: 14px 0; }
+
+/* Thinking indicator */
+.thinking {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 16px;
+  background: var(--ink-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  border-bottom-left-radius: var(--r-xs);
+  font-family: var(--mono); font-size: 11px; color: var(--text-ghost);
+  letter-spacing: 1px;
+  width: fit-content;
+  animation: msg-in 0.28s ease;
+}
+.thinking-dots { display: flex; gap: 4px; }
+.thinking-dots span {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--blue-soft);
+  animation: tdot 1.4s ease-in-out infinite;
+}
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes tdot { 0%,80%,100%{opacity:0.2;transform:scale(0.7)} 40%{opacity:1;transform:scale(1)} }
+
+/* Streaming cursor */
+.stream-cursor {
+  display: inline-block;
+  width: 2px; height: 14px;
+  background: var(--blue-soft);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* Token counter badge */
+.token-badge {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  color: var(--text-ghost); margin-top: 4px;
+  display: flex; align-items: center; gap: 6px;
+}
+.token-badge .tb-bar {
+  width: 60px; height: 2px;
+  background: var(--rule);
+  border-radius: 1px;
+  overflow: hidden;
+}
+.token-badge .tb-fill {
+  height: 100%; border-radius: 1px;
+  background: var(--blue-soft);
+  transition: width 0.3s ease;
+}
+.token-badge .tb-fill.warn { background: var(--gold); }
+.token-badge .tb-fill.danger { background: var(--danger); }
+
+/* ── INPUT AREA ── */
+.input-area {
+  border-top: 1px solid var(--rule);
+  padding: 18px 24px;
+  background: rgba(2,4,15,0.85);
+  backdrop-filter: blur(12px);
+  flex-shrink: 0;
+}
+.input-row {
+  display: flex; gap: 10px; align-items: flex-end;
+  max-width: 780px; margin: 0 auto;
+}
+.input-wrap { flex: 1; position: relative; }
+textarea#msg-input {
+  width: 100%; resize: none;
+  background: var(--ink-raise);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 12px 15px;
+  font-family: var(--sans); font-size: 14px; color: var(--text-high);
+  line-height: 1.6; min-height: 48px; max-height: 200px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+textarea#msg-input::placeholder { color: var(--text-ghost); }
+textarea#msg-input:focus {
+  border-color: rgba(43,91,255,0.5);
+  box-shadow: 0 0 0 3px rgba(43,91,255,0.08);
+}
+.send-btn {
+  width: 44px; height: 44px; border-radius: var(--r);
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+  box-shadow: 0 0 16px var(--blue-glow);
+}
+.send-btn:hover { transform: translateY(-1px); box-shadow: 0 0 24px var(--blue-glow); }
+.send-btn:active { transform: translateY(0); }
+.send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+.send-btn svg { width: 17px; height: 17px; }
+
+.stop-btn {
+  width: 44px; height: 44px; border-radius: var(--r);
+  background: rgba(255,94,94,0.1);
+  border: 1px solid rgba(255,94,94,0.3);
+  cursor: pointer;
+  display: none;
+  align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.stop-btn.visible { display: flex; }
+.stop-btn:hover { background: rgba(255,94,94,0.2); border-color: var(--danger); }
+.stop-btn svg { width: 14px; height: 14px; }
+
+.input-hint {
+  max-width: 780px; margin: 7px auto 0;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-ghost); text-align: center;
+}
+
+/* Error toast */
+.error-toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,94,94,0.1); border: 1px solid rgba(255,94,94,0.3);
+  border-radius: var(--r); padding: 10px 18px;
+  font-family: var(--mono); font-size: 11px; color: var(--danger);
+  z-index: 100; animation: toast-in 0.3s ease;
+  display: none;
+}
+.error-toast.show { display: block; }
+@keyframes toast-in { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-ghost); }
+
+/* Responsive */
+@media (max-width: 800px) {
+  .app-layout { grid-template-columns: 1fr; }
+  .sidebar {
+    position: fixed; left: 0; top: 57px; bottom: 0;
+    width: var(--sidebar-w); z-index: 50;
+    transform: translateX(-100%);
+    background: rgba(8,13,32,0.97);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--rule);
+  }
+  .sidebar.open { transform: translateX(0); }
+  .sidebar-toggle { display: flex; }
+  .messages-container { padding: 20px 16px; }
+  .input-area { padding: 14px 16px; }
+  .header-actions { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-row">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="sidebar-toggle" onclick="toggleSidebar()" title="Toggle sidebar">
+        <svg viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="1.5" rx=".75" fill="currentColor"/><rect x="1" y="7.25" width="14" height="1.5" rx=".75" fill="currentColor"/><rect x="1" y="11.5" width="14" height="1.5" rx=".75" fill="currentColor"/></svg>
+      </button>
+      <a href="#" class="logo">
+        <div class="logo-seal">A</div>
+        <div class="logo-text">
+          <span class="logo-name">Arctura Agent</span>
+          <span class="logo-sub">Subnet Launch Intelligence</span>
+        </div>
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="header-status">
+        <div class="status-dot"></div>
+        <span class="status-label">Signal · Live</span>
+        &nbsp;·&nbsp; Bittensor Advisor
+      </div>
+      <div class="header-actions">
+        <button class="hdr-btn" onclick="exportChat()" title="Export conversation">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M6 1v6M3.5 5L6 7.5 8.5 5M1.5 9.5h9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Export
+        </button>
+        <button class="hdr-btn" onclick="clearChat()" title="Clear conversation">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2 2l8 8M10 2L2 10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div id="error-toast" class="error-toast"></div>
+
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div>
+      <div class="sidebar-section-title">Quick Mandates</div>
+      <div class="suggested-prompts">
+
+        <div class="prompt-category">Capital &amp; Registration</div>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P0 ·</span>
+          What TAO do I need to register a subnet right now?
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P1 ·</span>
+          Walk me through setting up the three wallets for subnet launch
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P2 ·</span>
+          Give me the exact btcli commands to create and register a subnet
+        </button>
+
+        <div class="prompt-category">Protocol &amp; Architecture</div>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P3 ·</span>
+          How does Resonance BFT map to Bittensor validator scoring?
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P4 ·</span>
+          How do I define the incentive mechanism for attested mandates?
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P5 ·</span>
+          Show me the full Arctura subnet template directory structure
+        </button>
+
+        <div class="prompt-category">Code &amp; Launch</div>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P6 ·</span>
+          What code do I write first — miner or validator?
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P7 ·</span>
+          How do I recruit external validators before mainnet launch?
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P8 ·</span>
+          Give me a go/no-go checklist for mainnet registration
+        </button>
+        <button class="prompt-chip" onclick="usePrompt(this)">
+          <span class="chip-icon">P9 ·</span>
+          How do I run on testnet before committing to mainnet?
+        </button>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-title">Subnet Context</div>
+      <div class="context-panel">
+        <div class="cp-head"><div class="cp-dot"></div>arctura.network · live signal</div>
+        <div class="cp-row"><span class="cp-k">consensus</span><span class="cp-v">Resonance BFT</span></div>
+        <div class="cp-row"><span class="cp-k">finality</span><span class="cp-v">forward-only</span></div>
+        <div class="cp-row"><span class="cp-k">phase</span><span class="cp-v live">01 · active</span></div>
+        <div class="cp-row"><span class="cp-k">protocol</span><span class="cp-v">MCP · A2A · ACP</span></div>
+        <div class="cp-row"><span class="cp-k">license</span><span class="cp-v">Apache-2.0</span></div>
+        <div class="cp-row"><span class="cp-k">bt.mainnet</span><span class="cp-v warn">finney</span></div>
+        <div class="cp-row"><span class="cp-k">bt.testnet</span><span class="cp-v live">test · ready</span></div>
+        <div class="cp-row"><span class="cp-k">burn cost</span><span class="cp-v live" id="burn-cost">—</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-section-title">Launch Phases</div>
+      <div class="context-panel">
+        <div class="cp-head"><div class="cp-dot"></div>activation protocol</div>
+        <div class="cp-row"><span class="cp-k">Phase 0</span><span class="cp-v warn">Capital &amp; Wallets</span></div>
+        <div class="cp-row"><span class="cp-k">Phase 1</span><span class="cp-v">Local Chain</span></div>
+        <div class="cp-row"><span class="cp-k">Phase 2</span><span class="cp-v">Testnet</span></div>
+        <div class="cp-row"><span class="cp-k">Phase 3</span><span class="cp-v">Mainnet Reg.</span></div>
+        <div class="cp-row"><span class="cp-k">Phase 4</span><span class="cp-v live">Emission On</span></div>
+      </div>
+    </div>
+
+    <div class="clear-btn-wrap">
+      <button class="clear-btn" onclick="clearChat()">
+        <svg viewBox="0 0 12 12" fill="none"><path d="M1.5 3h9M4.5 3V1.5h3V3M2.5 3l.5 7.5h6L10 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Clear conversation
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- CHAT -->
+  <div class="chat-area">
+    <div class="messages-container" id="messages">
+      <div class="welcome-state" id="welcome">
+        <div class="welcome-sigil">A</div>
+        <h1 class="welcome-title">Arctura Subnet <em>Agent</em></h1>
+        <p class="welcome-desc">
+          Your dedicated launch intelligence for registering Arctura as a Bittensor subnet.
+          Ask anything — wallet setup, TAO cost, incentive design, validator recruitment, or mainnet go/no-go.
+        </p>
+        <div class="welcome-tags">
+          <span class="welcome-tag">Resonance BFT</span>
+          <span class="welcome-tag">Mandate Registry</span>
+          <span class="welcome-tag">Finney Mainnet</span>
+          <span class="welcome-tag">Testnet Ready</span>
+          <span class="welcome-tag">Streaming</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <div class="input-row">
+        <div class="input-wrap">
+          <textarea
+            id="msg-input"
+            placeholder="Ask about subnet registration, wallet setup, TAO costs, incentive mechanism design…"
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"
+          ></textarea>
+        </div>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()" title="Send (Enter)">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M3 10L17 3L10 17L9 11L3 10Z" fill="white" stroke="white" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="stop-btn" id="stop-btn" onclick="stopStream()" title="Stop generation">
+          <svg viewBox="0 0 12 12" fill="none"><rect x="2" y="2" width="8" height="8" rx="1.5" fill="currentColor" style="fill:var(--danger)"/></svg>
+        </button>
+      </div>
+      <div class="input-hint">⏎ Send · Shift+⏎ New line · Powered by Claude Sonnet · Streaming</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── SYSTEM PROMPT ──────────────────────────────────────────────────────────
+const SYSTEM_PROMPT = `You are the Arctura Subnet Launch Agent — a specialized AI assistant embedded in the Arctura Academy ecosystem. Your sole purpose is to help the Arctura team launch arctura.network as a registered Bittensor subnet on the Finney mainnet.
+
+## Arctura Context (know this deeply)
+Arctura is a high-frequency decentralized subnet for autonomous resource management. It coordinates verifiable agent action across Earth-bound nodes using a six-layer signal stack and Byzantine-fault-tolerant consensus called Resonance.
+
+**Five Primitives:**
+- P1 Sovereignty — Every node owns its mandate. Authority flows through the chain, not from it.
+- P2 Coherence — Byzantine partitions resolve to a single forward-only state. No reorgs.
+- P3 Attestation — Every action emits a Merkle-anchored proof readable on or off-chain.
+- P4 Resonance — BFT cadence adapts to network coherence; consensus is in-tune, not just safe and live.
+- P5 Stewardship — Carbon-aware scheduling. Node weight reflects energy provenance, not only stake.
+
+**Six-Layer Signal Stack:**
+- L0 Intent — Human and agent goals as attested mandates.
+- L1 Orchestration — Mandate routing, retry, saga coordination.
+- L2 Sandbox & Safety — Capability-scoped, deterministic, replayable execution.
+- L3 Cognitive Mesh — Multi-agent reasoning with pluggable models.
+- L4 Memory Fabric — Vector + relational + ledger memory with attested provenance.
+- L5 Action Surface — Tool, MCP, A2A, and ACP bindings.
+
+**Roadmap:**
+- Phase 01 (active) — Resonance BFT v1, MCP tool bindings, mandate registry.
+- Phase 02 (Q3 2026) — A2A & ACP protocols, cross-subnet attestation, public bridge audit.
+- Phase 03 (Q1 2027) — Carbon scheduler, edge node program, Stewardship Index v1.
+- Phase 04 (Q3 2027) — Mandate marketplace, verified-agent registry, public Truth Ledger.
+
+**Current repos:** github.com/virtualmase/arctura and github.com/virtualmase/arctura.network — currently static HTML marketing sites. The subnet protocol code (neurons/miner.py, neurons/validator.py, protocol.py) does not yet exist publicly and needs to be built.
+
+## Bittensor Subnet Knowledge
+- Bittensor is a decentralized AI network where subnets define their own incentive mechanisms
+- Each subnet has miners (do work), validators (score work, set weights), and an owner (creates subnet, sets hyperparameters)
+- The unit of work: miners receive synapse requests from validators and return scored responses
+- Validators use Yuma Consensus — their weight-sets are combined on-chain into emissions
+- Registration costs TAO and is dynamic: doubles every time a new subnet registers, linearly decays to a floor
+- You need three wallets: owner coldkey/hotkey, validator coldkey/hotkey, miner coldkey/hotkey
+- Owner must have ~100 TAO minimum (mainnet costs vary, check taostats.io for live burn cost since it fluctuates)
+- Subnet limit: 128 subnets max; immunity period 4 months from registration
+- Block time: 12 seconds; tempo period determines when weights are set and emissions distributed
+- After 7 days post-registration, owner enables emissions
+
+**CLI commands (btcli):**
+- Check burn cost: \`btcli subnet burn_cost --subtensor.network finney\`
+- Create subnet: \`btcli subnet create --wallet.name owner --subtensor.network finney\`  
+- Register validator: \`btcli subnet recycle_register --netuid <N> --wallet.name validator\`
+- Register miner: \`btcli subnet recycle_register --netuid <N> --wallet.name miner\`
+- Check wallets: \`btcli wallet overview --wallet.name <name> --subtensor.network finney\`
+
+**How Arctura maps to Bittensor:**
+- Attested mandate → Synapse (the task miners perform)
+- Resonance BFT scoring → Validator weight-setting logic
+- P3 Attestation proof → Miner response payload
+- P1 Sovereignty (mandate chain) → Hotkey identity + UID ownership  
+- P5 Stewardship (carbon-aware) → Custom validator scoring modifier
+- L4 Memory Fabric → Off-chain state referenced in mandates
+- MCP tool bindings (L5) → Axon endpoints for external tools
+
+**Subnet template structure:**
+\`\`\`
+arctura-subnet/
+├── neurons/
+│   ├── miner.py       # Executes attested mandates (L1+L2)
+│   └── validator.py   # Resonance BFT scoring, sets weights
+├── arctura/
+│   ├── protocol.py    # Synapse: mandate request/attestation response
+│   ├── incentive.py   # Scoring logic for attestation quality
+│   └── utils.py
+├── tests/
+├── scripts/
+│   └── start_miner.sh
+│   └── start_validator.sh
+└── README.md
+\`\`\`
+
+## Behavioral Instructions
+- Be precise and technical. This is a builder audience — no padding, no condescension.
+- Always ground advice in Arctura's actual architecture (primitives, signal stack, phases).
+- For cost questions, remind the user to check taostats.io/subnets for live burn cost since it fluctuates.
+- When giving code, use proper btcli syntax and Python.
+- Format responses with clear headers, code blocks where needed.
+- If asked about things outside Bittensor subnet launch, gently redirect back to the mission.
+- Match Arctura's tone: signal-forward, precise, cosmically confident but not arrogant.
+- Use Arctura terminology: "mandate" not "task", "attestation" not "proof" (unless referring to Merkle proof), "node" not "server", "signal" for general communication.
+`;
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let messages = [];
+let isStreaming = false;
+let abortController = null;
+const MAX_MESSAGES = 40; // keep context manageable
+
+// ── SIDEBAR TOGGLE ─────────────────────────────────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+
+// Close sidebar when clicking outside on mobile
+document.addEventListener('click', (e) => {
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.querySelector('.sidebar-toggle');
+  if (window.innerWidth <= 800 && sidebar.classList.contains('open')) {
+    if (!sidebar.contains(e.target) && !toggle.contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  }
+});
+
+// ── UTILS ──────────────────────────────────────────────────────────────────
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 200) + 'px';
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+function usePrompt(btn) {
+  const text = btn.textContent.replace(/^[A-Z0-9]+ ·\s*/,'').trim();
+  const input = document.getElementById('msg-input');
+  input.value = text; autoResize(input); input.focus();
+}
+
+function removeWelcome() {
+  const w = document.getElementById('welcome'); if (w) w.remove();
+}
+
+function scrollToBottom() {
+  const mc = document.getElementById('messages');
+  mc.scrollTop = mc.scrollHeight;
+}
+
+function showError(msg, duration = 4000) {
+  const t = document.getElementById('error-toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+  }).catch(() => showError('Copy failed — check clipboard permissions'));
+}
+
+// ── MARKDOWN RENDERER ──────────────────────────────────────────────────────
+function renderMarkdown(text) {
+  // Extract code blocks first to protect them
+  const codeBlocks = [];
+  text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+    const idx = codeBlocks.length;
+    codeBlocks.push({ lang: lang || 'text', code: code.trim() });
+    return `\x00CODE${idx}\x00`;
+  });
+
+  let html = text
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, '<em>$1</em>')
+    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+    .replace(/^#### (.+)$/gm, '<h4>$1</h4>')
+    .replace(/^---+$/gm, '<hr/>')
+    .replace(/^\- (.+)$/gm, '<li>$1</li>')
+    .replace(/^\* (.+)$/gm, '<li>$1</li>')
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    .replace(/(<li>.*?<\/li>\n?)+/g, m => `<ul>${m}</ul>`)
+    .replace(/\n\n/g, '</p><p>')
+    .replace(/\n/g, '<br/>');
+
+  html = `<p>${html}</p>`;
+
+  // Restore code blocks with copy button
+  html = html.replace(/\x00CODE(\d+)\x00/g, (_, i) => {
+    const { lang, code } = codeBlocks[parseInt(i)];
+    const escaped = code.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const id = `cb-${Date.now()}-${i}`;
+    return `<pre id="${id}">
+      <div class="pre-header">
+        <span class="pre-lang">${lang}</span>
+        <button class="pre-copy" onclick="copyCodeBlock('${id}', this)">Copy</button>
+      </div>
+      <code>${escaped}</code>
+    </pre>`;
+  });
+
+  return html;
+}
+
+function copyCodeBlock(preId, btn) {
+  const pre = document.getElementById(preId);
+  const code = pre.querySelector('code').textContent;
+  copyText(code, btn);
+}
+
+// ── TOKEN COUNTER ──────────────────────────────────────────────────────────
+function estimateTokens() {
+  const text = messages.map(m => m.content).join(' ');
+  return Math.round(text.length / 4);
+}
+
+function updateTokenBadge() {
+  const badge = document.getElementById('token-badge');
+  if (!badge) return;
+  const tokens = estimateTokens();
+  const max = 8000;
+  const pct = Math.min(tokens / max * 100, 100);
+  const fill = badge.querySelector('.tb-fill');
+  const label = badge.querySelector('.tb-label');
+  fill.style.width = pct + '%';
+  fill.className = 'tb-fill' + (pct > 85 ? ' danger' : pct > 60 ? ' warn' : '');
+  label.textContent = `~${tokens.toLocaleString()} tokens`;
+}
+
+// ── MESSAGE RENDERING ──────────────────────────────────────────────────────
+function addMessage(role, content, streaming = false) {
+  const mc = document.getElementById('messages');
+  removeWelcome();
+
+  const div = document.createElement('div');
+  div.className = `message ${role}`;
+
+  const metaRow = document.createElement('div');
+  metaRow.style.cssText = 'display:flex;align-items:center;gap:8px;width:100%;';
+
+  const metaDiv = document.createElement('div');
+  metaDiv.className = 'msg-meta';
+  metaDiv.innerHTML = role === 'user'
+    ? `<div class="meta-icon">↑</div><span>You</span>`
+    : `<div class="meta-icon">A</div><span>Arctura Agent</span>`;
+
+  const actionsDiv = document.createElement('div');
+  actionsDiv.className = 'msg-actions';
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'msg-copy-btn';
+  copyBtn.textContent = 'Copy';
+  copyBtn.onclick = () => copyText(content, copyBtn);
+  actionsDiv.appendChild(copyBtn);
+
+  metaRow.appendChild(metaDiv);
+  metaRow.appendChild(actionsDiv);
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+
+  if (role === 'user') {
+    bubble.textContent = content;
+    copyBtn.onclick = () => copyText(content, copyBtn);
+  } else {
+    if (streaming) {
+      bubble.innerHTML = '<span class="stream-cursor"></span>';
+    } else {
+      bubble.innerHTML = renderMarkdown(content);
+      copyBtn.onclick = () => copyText(content, copyBtn);
+    }
+  }
+
+  div.appendChild(metaRow);
+  div.appendChild(bubble);
+  mc.appendChild(div);
+  scrollToBottom();
+  return { div, bubble, copyBtn };
+}
+
+function addThinking() {
+  const mc = document.getElementById('messages');
+  removeWelcome();
+  const div = document.createElement('div');
+  div.className = 'message assistant';
+  div.id = 'thinking-msg';
+  div.innerHTML = `
+    <div class="msg-meta"><div class="meta-icon">A</div><span>Arctura Agent</span></div>
+    <div class="thinking">
+      <div class="thinking-dots"><span></span><span></span><span></span></div>
+      <span>Processing mandate…</span>
+    </div>`;
+  mc.appendChild(div);
+  scrollToBottom();
+}
+
+function removeThinking() {
+  const t = document.getElementById('thinking-msg'); if (t) t.remove();
+}
+
+// ── STREAMING ──────────────────────────────────────────────────────────────
+function setStreamingUI(active) {
+  isStreaming = active;
+  document.getElementById('send-btn').disabled = active;
+  document.getElementById('stop-btn').classList.toggle('visible', active);
+}
+
+function stopStream() {
+  if (abortController) { abortController.abort(); abortController = null; }
+}
+
+async function sendMessage() {
+  if (isStreaming) return;
+  const input = document.getElementById('msg-input');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = ''; input.style.height = 'auto';
+  setStreamingUI(true);
+
+  messages.push({ role: 'user', content: text });
+  addMessage('user', text);
+  addThinking();
+
+  // Trim history if too long (keep system aware but lean)
+  let apiMessages = messages.slice();
+  if (apiMessages.length > MAX_MESSAGES) {
+    apiMessages = apiMessages.slice(apiMessages.length - MAX_MESSAGES);
+  }
+
+  abortController = new AbortController();
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-beta': 'messages-2023-12-15'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        stream: true,
+        system: SYSTEM_PROMPT,
+        messages: apiMessages
+      }),
+      signal: abortController.signal
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `HTTP ${response.status}`);
+    }
+
+    removeThinking();
+    const { bubble, copyBtn } = addMessage('assistant', '', true);
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let fullText = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n');
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') break;
+        try {
+          const parsed = JSON.parse(data);
+          if (parsed.type === 'content_block_delta' && parsed.delta?.text) {
+            fullText += parsed.delta.text;
+            bubble.innerHTML = renderMarkdown(fullText) + '<span class="stream-cursor"></span>';
+            scrollToBottom();
+          }
+        } catch {}
+      }
+    }
+
+    // Finalize
+    bubble.innerHTML = renderMarkdown(fullText);
+    copyBtn.onclick = () => copyText(fullText, copyBtn);
+    messages.push({ role: 'assistant', content: fullText });
+    updateTokenBadge();
+
+  } catch (err) {
+    removeThinking();
+    if (err.name === 'AbortError') {
+      // Stream was stopped by user — silently finalize
+    } else {
+      addMessage('assistant', `**Signal interruption.** ${err.message || 'Unable to reach the API.'}`);
+      messages.pop(); // remove the user message that failed
+    }
+  }
+
+  setStreamingUI(false);
+  input.focus();
+  updateTokenBadge();
+}
+
+// ── EXPORT ─────────────────────────────────────────────────────────────────
+function exportChat() {
+  if (messages.length === 0) { showError('No conversation to export yet.'); return; }
+  let md = `# Arctura Subnet Agent — Conversation Export\n_${new Date().toLocaleString()}_\n\n---\n\n`;
+  messages.forEach(m => {
+    md += `### ${m.role === 'user' ? 'You' : 'Arctura Agent'}\n${m.content}\n\n---\n\n`;
+  });
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `arctura-session-${Date.now()}.md`;
+  a.click(); URL.revokeObjectURL(url);
+}
+
+// ── CLEAR ──────────────────────────────────────────────────────────────────
+function clearChat() {
+  if (isStreaming) { showError('Stop generation before clearing.'); return; }
+  messages = [];
+  const mc = document.getElementById('messages');
+  mc.innerHTML = `
+    <div class="welcome-state" id="welcome">
+      <div class="welcome-sigil">A</div>
+      <h1 class="welcome-title">Arctura Subnet <em>Agent</em></h1>
+      <p class="welcome-desc">Conversation cleared. Ready for new mandates.</p>
+      <div class="welcome-tags">
+        <span class="welcome-tag">Resonance BFT</span>
+        <span class="welcome-tag">Mandate Registry</span>
+        <span class="welcome-tag">Finney Mainnet</span>
+        <span class="welcome-tag">Testnet Ready</span>
+      </div>
+    </div>`;
+  updateTokenBadge();
+}
+
+// ── TOKEN BADGE INIT ───────────────────────────────────────────────────────
+function initTokenBadge() {
+  const hint = document.querySelector('.input-hint');
+  const badge = document.createElement('div');
+  badge.id = 'token-badge';
+  badge.className = 'token-badge';
+  badge.innerHTML = `
+    <div class="tb-bar"><div class="tb-fill" style="width:0%"></div></div>
+    <span class="tb-label">0 tokens</span>
+  `;
+  hint.parentNode.insertBefore(badge, hint.nextSibling);
+}
+
+// ── BURN COST INDICATOR ─────────────────────────────────────────────────────
+// Shows a static note; live price requires a CORS-enabled proxy
+function initBurnCost() {
+  const el = document.getElementById('burn-cost');
+  if (!el) return;
+  // Since taostats doesn't offer a public CORS-friendly JSON endpoint,
+  // we show a helpful redirect note instead of a broken fetch
+  el.textContent = 'check taostats.io';
+  el.style.cursor = 'pointer';
+  el.style.textDecoration = 'underline';
+  el.title = 'Click to check live burn cost on taostats.io';
+  el.onclick = () => window.open('https://taostats.io/subnets', '_blank');
+}
+
+// ── KEYBOARD SHORTCUTS ─────────────────────────────────────────────────────
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    clearChat();
+  }
+  if ((e.metaKey || e.ctrlKey) && e.key === 'e') {
+    e.preventDefault();
+    exportChat();
+  }
+});
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+initTokenBadge();
+initBurnCost();
+</script>
+</body>
+</html>
