@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="color-scheme" content="dark"/>
+<meta name="base:app_id" content="69f930d142d4fe010f1c28d2" />
+<title>Arctura Command Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── TOKENS ── */
+:root {
+  /* Brand palette */
+  --base-blue:       #2b5bff;
+  --base-blue-soft:  #5b8aff;
+  --base-blue-glow:  rgba(43,91,255,0.35);
+  --base-blue-wash:  rgba(43,91,255,0.06);
+  --arc-violet:      #7c5cfc;
+  --arc-violet-soft: #a98fff;
+  --arc-violet-glow: rgba(124,92,252,0.3);
+  --signal-green:    #4dd9ac;
+  --signal-glow:     rgba(77,217,172,0.2);
+  --council-gold:    #c8a96e;
+  --council-gold-s:  #e5cc9a;
+  --council-gold-g:  rgba(200,169,110,0.2);
+  --danger:          #ff5e5e;
+  --warn:            #f0a04e;
+
+  /* Surfaces */
+  --ink:       #02040f;
+  --ink-raise: #080d20;
+  --ink-lift:  #0d1530;
+  --rule:      #162044;
+  --rule-soft: #0f1838;
+
+  /* Text */
+  --text-high:  #eef1ff;
+  --text-mid:   #b0bbdc;
+  --text-low:   #7a86aa;
+  --text-ghost: #3d4a6a;
+
+  /* Radii */
+  --r-xs: 4px; --r-sm: 8px; --r: 14px; --r-lg: 22px; --r-xl: 32px;
+
+  /* Typography */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  /* Layout */
+  --nav-h: 62px;
+  --sidebar-w: 260px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--ink);
+  color: var(--text-mid);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUNDS ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 1200px 600px at 80% -10%, rgba(124,92,252,0.12), transparent 55%),
+    radial-gradient(ellipse 800px 500px at -5% 60%, rgba(43,91,255,0.09), transparent 50%),
+    radial-gradient(ellipse 600px 400px at 50% 110%, rgba(77,217,172,0.06), transparent 55%);
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(2,4,15,0.92);
+  backdrop-filter: blur(24px) saturate(1.6);
+  border-bottom: 1px solid var(--rule);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  width: 100%; max-width: 1400px; margin: 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.logo-seal {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--base-blue), var(--arc-violet));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 18px; color: var(--text-high);
+  font-style: italic;
+  box-shadow: 0 0 24px var(--base-blue-glow);
+}
+.logo-name { font-family: var(--serif); font-size: 18px; color: var(--text-high); }
+.logo-sub  { font-family: var(--mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--council-gold); margin-top: 1px; }
+
+.nav-center {
+  display: flex; align-items: center; gap: 4px;
+  background: rgba(13,21,48,0.5);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 4px;
+}
+.nav-tab {
+  padding: 6px 14px;
+  border-radius: var(--r-sm);
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-ghost);
+  cursor: pointer;
+  background: transparent; border: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-tab:hover { color: var(--text-mid); background: rgba(255,255,255,0.04); }
+.nav-tab.active { color: var(--text-high); background: rgba(43,91,255,0.15); border: 1px solid rgba(43,91,255,0.2); }
+
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.status-pill {
+  display: flex; align-items: center; gap: 7px;
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid rgba(77,217,172,0.25);
+  background: rgba(77,217,172,0.05);
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--signal-green);
+}
+.pulse-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--signal-green); box-shadow: 0 0 8px var(--signal-green);
+  animation: flare 2.4s ease-in-out infinite;
+}
+@keyframes flare { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.8)} }
+
+.ext-link {
+  display: flex; align-items: center; gap: 5px;
+  padding: 5px 10px; border-radius: var(--r-sm);
+  background: transparent; border: 1px solid var(--rule);
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.2px; text-transform: uppercase;
+  color: var(--text-ghost); text-decoration: none;
+  transition: all 0.2s;
+}
+.ext-link:hover { color: var(--council-gold); border-color: rgba(200,169,110,0.3); background: rgba(200,169,110,0.04); }
+.ext-link svg { width: 10px; height: 10px; }
+
+/* ── APP SHELL ── */
+.app-shell {
+  display: flex;
+  margin-top: var(--nav-h);
+  min-height: calc(100vh - var(--nav-h));
+  position: relative; z-index: 1;
+  max-width: 1400px;
+  margin-left: auto; margin-right: auto;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  border-right: 1px solid var(--rule);
+  padding: 24px 16px;
+  display: flex; flex-direction: column; gap: 20px;
+  position: sticky; top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+}
+
+.sidebar-section { display: flex; flex-direction: column; gap: 4px; }
+.sidebar-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--text-ghost); padding: 0 8px; margin-bottom: 4px;
+}
+
+.sidebar-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 10px; border-radius: var(--r-sm);
+  text-decoration: none; color: var(--text-low);
+  font-size: 13px;
+  transition: all 0.18s;
+  cursor: pointer; border: none; background: transparent; width: 100%; text-align: left;
+}
+.sidebar-link:hover { color: var(--text-mid); background: rgba(255,255,255,0.04); }
+.sidebar-link.active { color: var(--text-high); background: rgba(43,91,255,0.12); }
+.sidebar-link .sl-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--r-xs);
+  font-size: 13px;
+  background: rgba(255,255,255,0.04);
+}
+.sidebar-link.active .sl-icon { background: rgba(43,91,255,0.2); }
+
+.sidebar-stat-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: rgba(8,13,32,0.6);
+}
+.ssc-head {
+  padding: 8px 12px;
+  background: rgba(13,21,48,0.5);
+  border-bottom: 1px solid var(--rule-soft);
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-ghost);
+}
+.ssc-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--signal-green); box-shadow: 0 0 5px var(--signal-green); animation: flare 2s infinite; }
+.ssc-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 12px; border-bottom: 1px solid rgba(22,32,68,0.4);
+}
+.ssc-row:last-child { border-bottom: none; }
+.ssc-k { font-family: var(--mono); font-size: 9px; color: var(--text-ghost); }
+.ssc-v { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+.ssc-v.green { color: var(--signal-green); }
+.ssc-v.blue  { color: var(--base-blue-soft); }
+.ssc-v.gold  { color: var(--council-gold); }
+.ssc-v.violet{ color: var(--arc-violet-soft); }
+
+/* ── MAIN CONTENT ── */
+.main { flex: 1; min-width: 0; }
+
+/* ── PANELS ── */
+.panel { display: none; padding: 32px; }
+.panel.active { display: block; }
+
+/* ── OVERVIEW PANEL ── */
+.overview-hero {
+  padding: 40px 0 32px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 32px;
+}
+.overview-eyebrow {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--council-gold); margin-bottom: 14px;
+}
+.overview-title {
+  font-family: var(--serif); font-size: 38px; color: var(--text-high);
+  line-height: 1.15; margin-bottom: 14px;
+}
+.overview-title em { font-style: italic; color: var(--base-blue-soft); }
+.overview-desc { font-size: 15px; color: var(--text-low); max-width: 560px; line-height: 1.75; }
+
+.metrics-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+  margin-bottom: 32px;
+}
+.metric-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  background: rgba(8,13,32,0.6);
+  transition: border-color 0.2s;
+}
+.metric-card:hover { border-color: rgba(43,91,255,0.3); }
+.metric-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-ghost); margin-bottom: 10px;
+}
+.metric-value {
+  font-family: var(--mono); font-size: 26px; font-weight: 600;
+  color: var(--text-high); line-height: 1;
+}
+.metric-value.blue   { color: var(--base-blue-soft); }
+.metric-value.green  { color: var(--signal-green); }
+.metric-value.gold   { color: var(--council-gold); }
+.metric-value.violet { color: var(--arc-violet-soft); }
+.metric-delta {
+  font-family: var(--mono); font-size: 9px;
+  color: var(--signal-green); margin-top: 6px;
+}
+
+/* ── PROPERTIES GRID ── */
+.properties-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  margin-bottom: 32px;
+}
+.prop-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  background: rgba(8,13,32,0.6);
+  position: relative; overflow: hidden;
+  transition: all 0.2s;
+}
+.prop-card::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 140px; height: 140px; border-radius: 50%;
+  opacity: 0.07; pointer-events: none;
+}
+.prop-card.blue::before  { background: var(--base-blue); }
+.prop-card.violet::before{ background: var(--arc-violet); }
+.prop-card.green::before { background: var(--signal-green); }
+.prop-card.gold::before  { background: var(--council-gold); }
+.prop-card:hover { border-color: rgba(43,91,255,0.3); transform: translateY(-1px); }
+
+.prop-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1.8px; text-transform: uppercase;
+  padding: 3px 8px; border-radius: 999px;
+  margin-bottom: 12px;
+}
+.prop-badge.blue   { background: rgba(43,91,255,0.12);  border: 1px solid rgba(43,91,255,0.25);  color: var(--base-blue-soft); }
+.prop-badge.violet { background: rgba(124,92,252,0.12); border: 1px solid rgba(124,92,252,0.25); color: var(--arc-violet-soft); }
+.prop-badge.green  { background: rgba(77,217,172,0.1);  border: 1px solid rgba(77,217,172,0.25); color: var(--signal-green); }
+.prop-badge.gold   { background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.25);color: var(--council-gold); }
+.prop-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: flare 2s infinite; }
+
+.prop-name { font-family: var(--serif); font-size: 20px; color: var(--text-high); margin-bottom: 6px; }
+.prop-url  { font-family: var(--mono); font-size: 10px; color: var(--text-ghost); margin-bottom: 12px; }
+.prop-desc { font-size: 13px; color: var(--text-low); line-height: 1.65; margin-bottom: 16px; }
+
+.prop-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 16px; }
+.prop-tag {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1.2px; text-transform: uppercase;
+  padding: 3px 7px; border-radius: var(--r-xs);
+  background: rgba(255,255,255,0.04); border: 1px solid var(--rule);
+  color: var(--text-ghost);
+}
+
+.prop-actions { display: flex; gap: 8px; }
+.prop-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 7px 12px; border-radius: var(--r-sm);
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.18s;
+}
+.prop-btn.primary {
+  background: rgba(43,91,255,0.15); border: 1px solid rgba(43,91,255,0.3);
+  color: var(--base-blue-soft);
+}
+.prop-btn.primary:hover { background: rgba(43,91,255,0.25); border-color: rgba(43,91,255,0.5); }
+.prop-btn.ghost {
+  background: transparent; border: 1px solid var(--rule);
+  color: var(--text-ghost);
+}
+.prop-btn.ghost:hover { border-color: var(--text-ghost); color: var(--text-mid); }
+
+/* ── ROADMAP ── */
+.roadmap-timeline { display: flex; flex-direction: column; gap: 0; }
+.phase-row {
+  display: grid; grid-template-columns: 100px 28px 1fr;
+  gap: 0 16px; align-items: start;
+  padding-bottom: 0;
+}
+.phase-time {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text-ghost); padding-top: 4px; text-align: right;
+}
+.phase-spine { display: flex; flex-direction: column; align-items: center; }
+.phase-node {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  z-index: 1;
+}
+.phase-node.active   { background: var(--base-blue); color: white; box-shadow: 0 0 16px var(--base-blue-glow); }
+.phase-node.upcoming { background: var(--ink-lift); border: 1px solid var(--rule); color: var(--text-ghost); }
+.phase-node.done     { background: rgba(77,217,172,0.2); border: 1px solid rgba(77,217,172,0.3); color: var(--signal-green); }
+.phase-line {
+  width: 1px; background: var(--rule); flex: 1; min-height: 40px;
+}
+.phase-content { padding-bottom: 32px; padding-top: 2px; }
+.phase-title { font-family: var(--serif); font-size: 17px; color: var(--text-high); margin-bottom: 6px; }
+.phase-label {
+  display: inline-block;
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px; margin-bottom: 10px;
+}
+.phase-label.active   { background: rgba(43,91,255,0.12); border: 1px solid rgba(43,91,255,0.25); color: var(--base-blue-soft); }
+.phase-label.upcoming { background: rgba(255,255,255,0.04); border: 1px solid var(--rule); color: var(--text-ghost); }
+.phase-items { display: flex; flex-direction: column; gap: 5px; }
+.phase-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 13px; color: var(--text-low);
+}
+.phase-item::before {
+  content: '▸'; color: var(--base-blue-soft); font-size: 10px;
+  flex-shrink: 0; margin-top: 3px;
+}
+.phase-item.done { color: var(--text-ghost); }
+.phase-item.done::before { content: '✓'; color: var(--signal-green); }
+
+/* ── FUNDING PANEL ── */
+.funding-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.fund-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r-lg);
+  padding: 22px;
+  background: rgba(8,13,32,0.6);
+  transition: all 0.2s;
+}
+.fund-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-1px); }
+.fund-status {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1.8px; text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.fund-status.active  { color: var(--signal-green); }
+.fund-status.phase1  { color: var(--base-blue-soft); }
+.fund-status.ongoing { color: var(--arc-violet-soft); }
+.fund-status.batches { color: var(--council-gold); }
+.fund-amount {
+  font-family: var(--mono); font-size: 28px; font-weight: 600;
+  color: var(--text-high); line-height: 1; margin-bottom: 4px;
+}
+.fund-period { font-family: var(--mono); font-size: 10px; color: var(--text-ghost); margin-bottom: 12px; }
+.fund-name { font-family: var(--serif); font-size: 17px; color: var(--text-mid); margin-bottom: 8px; }
+.fund-desc { font-size: 13px; color: var(--text-low); line-height: 1.65; margin-bottom: 14px; }
+.fund-req {
+  font-family: var(--mono); font-size: 9px; color: var(--text-ghost);
+  padding: 6px 10px; border-radius: var(--r-xs);
+  background: rgba(255,255,255,0.03); border: 1px solid var(--rule-soft);
+  margin-bottom: 12px;
+}
+.fund-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--council-gold); text-decoration: none;
+  padding: 6px 10px; border: 1px solid rgba(200,169,110,0.2); border-radius: var(--r-sm);
+  transition: all 0.18s;
+}
+.fund-link:hover { background: rgba(200,169,110,0.06); border-color: rgba(200,169,110,0.4); }
+
+/* ── PRIMITIVES ── */
+.primitives-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.prim-card {
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 20px;
+  background: rgba(8,13,32,0.6);
+  transition: all 0.2s;
+}
+.prim-card:hover { border-color: rgba(43,91,255,0.2); }
+.prim-code {
+  font-family: var(--mono); font-size: 22px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.prim-code.blue   { color: var(--base-blue-soft); }
+.prim-code.green  { color: var(--signal-green); }
+.prim-code.gold   { color: var(--council-gold); }
+.prim-code.violet { color: var(--arc-violet-soft); }
+.prim-name { font-family: var(--serif); font-size: 16px; color: var(--text-high); margin-bottom: 8px; }
+.prim-desc { font-size: 12px; color: var(--text-low); line-height: 1.65; }
+
+/* ── AGENT PANEL ── */
+.agent-shell {
+  display: flex;
+  height: calc(100vh - var(--nav-h) - 64px);
+  gap: 0;
+}
+.agent-sidebar {
+  width: 220px; flex-shrink: 0;
+  border-right: 1px solid var(--rule);
+  padding: 20px 14px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.agent-prompts { display: flex; flex-direction: column; gap: 4px; }
+.agent-prompt-chip {
+  background: transparent; border: 1px solid var(--rule);
+  border-radius: var(--r-sm); padding: 8px 10px;
+  font-family: var(--sans); font-size: 11px; color: var(--text-low);
+  cursor: pointer; text-align: left; transition: all 0.18s; line-height: 1.4;
+}
+.agent-prompt-chip:hover { border-color: rgba(200,169,110,0.3); color: var(--text-mid); background: rgba(200,169,110,0.03); transform: translateX(2px); }
+.agent-prompt-cat {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--base-blue-soft); opacity: 0.7; padding: 8px 4px 4px;
+}
+
+.agent-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.agent-messages {
+  flex: 1; overflow-y: auto; padding: 24px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+.agent-welcome {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; flex: 1; gap: 14px; padding: 40px 20px;
+}
+.agent-sigil {
+  width: 60px; height: 60px;
+  background: linear-gradient(135deg, rgba(43,91,255,0.15), rgba(124,92,252,0.15));
+  border: 1px solid rgba(43,91,255,0.3); border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 30px; color: var(--base-blue-soft);
+  font-style: italic; box-shadow: 0 0 40px var(--base-blue-glow);
+  animation: pulse-sigil 3s ease-in-out infinite;
+}
+@keyframes pulse-sigil {
+  0%,100% { box-shadow: 0 0 40px var(--base-blue-glow); }
+  50% { box-shadow: 0 0 60px rgba(43,91,255,0.5), 0 0 100px rgba(124,92,252,0.2); }
+}
+.agent-welcome-title { font-family: var(--serif); font-size: 22px; color: var(--text-high); }
+.agent-welcome-desc { font-size: 13px; color: var(--text-low); max-width: 380px; line-height: 1.7; }
+.agent-welcome-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.agent-welcome-tag {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 999px;
+  border: 1px solid rgba(43,91,255,0.25); color: var(--base-blue-soft); background: rgba(43,91,255,0.05);
+}
+
+.msg { display: flex; gap: 12px; animation: msg-in 0.25s ease-out; }
+@keyframes msg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.msg.user { flex-direction: row-reverse; }
+.msg-avatar {
+  width: 30px; height: 30px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 14px; font-style: italic;
+}
+.msg-avatar.ai   { background: linear-gradient(135deg, var(--base-blue), var(--arc-violet)); color: white; }
+.msg-avatar.user { background: rgba(200,169,110,0.15); border: 1px solid rgba(200,169,110,0.25); color: var(--council-gold); font-style: normal; font-family: var(--mono); font-size: 10px; }
+.msg-bubble {
+  max-width: 72%; padding: 12px 16px;
+  border-radius: var(--r); font-size: 13.5px; line-height: 1.7;
+}
+.msg.user .msg-bubble {
+  background: rgba(43,91,255,0.12); border: 1px solid rgba(43,91,255,0.2);
+  color: var(--text-mid); border-bottom-right-radius: var(--r-xs);
+}
+.msg.ai .msg-bubble {
+  background: rgba(13,21,48,0.7); border: 1px solid var(--rule);
+  color: var(--text-mid); border-bottom-left-radius: var(--r-xs);
+}
+.msg-bubble code {
+  font-family: var(--mono); font-size: 11px;
+  background: rgba(255,255,255,0.06); border: 1px solid var(--rule);
+  padding: 1px 5px; border-radius: 4px; color: var(--signal-green);
+}
+.msg-bubble pre {
+  background: rgba(8,13,32,0.8); border: 1px solid var(--rule);
+  border-radius: var(--r-sm); padding: 12px; margin: 8px 0;
+  font-family: var(--mono); font-size: 11px; overflow-x: auto;
+  color: var(--text-mid);
+}
+.streaming-cursor {
+  display: inline-block; width: 2px; height: 14px;
+  background: var(--base-blue-soft);
+  margin-left: 2px; vertical-align: text-bottom;
+  animation: blink 0.8s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.agent-input-row {
+  padding: 16px 24px;
+  border-top: 1px solid var(--rule);
+  background: rgba(2,4,15,0.8);
+  backdrop-filter: blur(12px);
+  display: flex; align-items: flex-end; gap: 10px;
+}
+.agent-input {
+  flex: 1; background: rgba(13,21,48,0.6);
+  border: 1px solid var(--rule);
+  border-radius: var(--r);
+  padding: 10px 14px;
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-high);
+  resize: none; min-height: 44px; max-height: 120px;
+  outline: none; transition: border-color 0.2s;
+  line-height: 1.5;
+}
+.agent-input:focus { border-color: rgba(43,91,255,0.5); }
+.agent-input::placeholder { color: var(--text-ghost); }
+.agent-send {
+  width: 44px; height: 44px; flex-shrink: 0;
+  background: var(--base-blue); border: none;
+  border-radius: var(--r-sm); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 17px;
+  transition: all 0.18s;
+}
+.agent-send:hover { background: #4c78ff; box-shadow: 0 0 16px rgba(43,91,255,0.5); }
+.agent-send:disabled { background: var(--ink-lift); color: var(--text-ghost); cursor: not-allowed; }
+.agent-send svg { width: 18px; height: 18px; }
+
+/* ── GITHUB PANEL ── */
+.issues-grid { display: flex; flex-direction: column; gap: 8px; }
+.issue-row {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  background: rgba(8,13,32,0.5);
+  transition: all 0.18s; cursor: pointer;
+}
+.issue-row:hover { border-color: rgba(43,91,255,0.2); background: rgba(13,21,48,0.7); }
+.issue-num {
+  font-family: var(--mono); font-size: 10px; color: var(--text-ghost);
+  min-width: 30px; padding-top: 1px;
+}
+.issue-info { flex: 1; min-width: 0; }
+.issue-title { font-size: 13px; color: var(--text-high); margin-bottom: 4px; }
+.issue-meta { display: flex; gap: 8px; align-items: center; }
+.issue-label {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 3px;
+}
+.issue-label.core    { background: rgba(43,91,255,0.15);  color: var(--base-blue-soft); }
+.issue-label.infra   { background: rgba(77,217,172,0.12); color: var(--signal-green); }
+.issue-label.docs    { background: rgba(200,169,110,0.12);color: var(--council-gold); }
+.issue-label.testing { background: rgba(124,92,252,0.12); color: var(--arc-violet-soft); }
+.issue-label.bounty  { background: rgba(240,160,78,0.15); color: var(--warn); }
+
+/* ── SECTION HEADERS ── */
+.section-head {
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-eyebrow {
+  font-family: var(--mono); font-size: 8px; letter-spacing: 2.5px; text-transform: uppercase;
+  color: var(--council-gold); margin-bottom: 8px;
+}
+.section-title { font-family: var(--serif); font-size: 26px; color: var(--text-high); }
+.section-desc { font-size: 13px; color: var(--text-low); margin-top: 5px; line-height: 1.65; }
+
+/* ── LAYER STACK ── */
+.layer-stack { display: flex; flex-direction: column; gap: 8px; }
+.layer-row {
+  display: grid; grid-template-columns: 80px 1fr 1fr;
+  gap: 12px; align-items: start;
+  padding: 14px 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--r-sm);
+  background: rgba(8,13,32,0.5);
+  transition: all 0.18s;
+}
+.layer-row:hover { border-color: rgba(43,91,255,0.2); }
+.layer-id {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--base-blue-soft);
+}
+.layer-name { font-size: 13px; color: var(--text-high); font-weight: 500; margin-bottom: 3px; }
+.layer-desc { font-size: 12px; color: var(--text-low); }
+.layer-tech {
+  font-family: var(--mono); font-size: 9px; color: var(--text-ghost);
+  text-align: right;
+}
+
+/* ── SCROLLBARS ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-ghost); }
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--rule); margin: 24px 0; }
+
+/* ── LINK PLAIN ── */
+a.plain { color: inherit; text-decoration: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .properties-grid { grid-template-columns: 1fr; }
+  .funding-grid { grid-template-columns: 1fr; }
+  .primitives-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-center { display: none; }
+  .sidebar { display: none; }
+  .app-shell { margin-top: var(--nav-h); }
+}
+@media (max-width: 600px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .primitives-grid { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+  .layer-row { grid-template-columns: 60px 1fr; }
+  .layer-tech { display: none; }
+  .overview-title { font-size: 26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showPanel('overview'); setActiveTab(this.closest('nav').querySelector('[data-panel=overview]')); return false;">
+      <div class="logo-seal">A</div>
+      <div>
+        <div class="logo-name">Arctura</div>
+        <div class="logo-sub">Command Center</div>
+      </div>
+    </a>
+
+    <div class="nav-center">
+      <button class="nav-tab active" data-panel="overview"   onclick="showPanel('overview',  this)">Overview</button>
+      <button class="nav-tab"        data-panel="properties" onclick="showPanel('properties',this)">Properties</button>
+      <button class="nav-tab"        data-panel="architecture" onclick="showPanel('architecture',this)">Architecture</button>
+      <button class="nav-tab"        data-panel="roadmap"    onclick="showPanel('roadmap',    this)">Roadmap</button>
+      <button class="nav-tab"        data-panel="funding"    onclick="showPanel('funding',    this)">Funding</button>
+      <button class="nav-tab"        data-panel="github"     onclick="showPanel('github',     this)">GitHub</button>
+      <button class="nav-tab"        data-panel="agent"      onclick="showPanel('agent',      this)">Agent</button>
+    </div>
+
+    <div class="nav-right">
+      <div class="status-pill">
+        <div class="pulse-dot"></div>
+        Subnet · Active
+      </div>
+      <a href="https://arctura.network/" target="_blank" class="ext-link">
+        arctura.network
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 10L10 2M10 2H5M10 2v5"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <button class="sidebar-link active" onclick="showPanel('overview',null,this)">
+        <div class="sl-icon">⬡</div> Overview
+      </button>
+      <button class="sidebar-link" onclick="showPanel('properties',null,this)">
+        <div class="sl-icon">🔗</div> Properties
+      </button>
+      <button class="sidebar-link" onclick="showPanel('architecture',null,this)">
+        <div class="sl-icon">⚙</div> Architecture
+      </button>
+      <button class="sidebar-link" onclick="showPanel('roadmap',null,this)">
+        <div class="sl-icon">◎</div> Roadmap
+      </button>
+      <button class="sidebar-link" onclick="showPanel('funding',null,this)">
+        <div class="sl-icon">◈</div> Funding
+      </button>
+      <button class="sidebar-link" onclick="showPanel('github',null,this)">
+        <div class="sl-icon">⬡</div> GitHub
+      </button>
+      <button class="sidebar-link" onclick="showPanel('agent',null,this)">
+        <div class="sl-icon">✦</div> Agent
+      </button>
+    </div>
+
+    <!-- Live Stats -->
+    <div class="sidebar-stat-card">
+      <div class="ssc-head">
+        <div class="ssc-dot"></div>
+        Live Telemetry
+      </div>
+      <div class="ssc-row"><span class="ssc-k">Nodes Active</span><span class="ssc-v green">144</span></div>
+      <div class="ssc-row"><span class="ssc-k">ARM Zones</span><span class="ssc-v blue">70</span></div>
+      <div class="ssc-row"><span class="ssc-k">Frequency</span><span class="ssc-v violet">4,320 Hz</span></div>
+      <div class="ssc-row"><span class="ssc-k">Attestation</span><span class="ssc-v green">99.97%</span></div>
+      <div class="ssc-row"><span class="ssc-k">Carbon</span><span class="ssc-v green">−1.84 kgCO₂/hr</span></div>
+      <div class="ssc-row"><span class="ssc-k">Cycle</span><span class="ssc-v gold">26.04</span></div>
+    </div>
+
+    <!-- Ecosystem Links -->
+    <div class="sidebar-section">
+      <div class="sidebar-label">Ecosystem</div>
+      <a href="https://arctura.network/" target="_blank" class="sidebar-link">
+        <div class="sl-icon">🌐</div> arctura.network
+      </a>
+      <a href="https://arctura.network/base/" target="_blank" class="sidebar-link">
+        <div class="sl-icon">𝔹</div> base.arctura.network
+      </a>
+      <a href="https://github.com/Arctura-Collective/Arctura-Network" target="_blank" class="sidebar-link">
+        <div class="sl-icon">⌥</div> Arctura Collective
+      </a>
+      <a href="https://github.com/virtualmase/arctura-base-subnet" target="_blank" class="sidebar-link">
+        <div class="sl-icon">⌥</div> arctura-base-subnet
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ══════════════════ OVERVIEW ══════════════════ -->
+    <div id="panel-overview" class="panel active">
+      <div class="overview-hero">
+        <div class="overview-eyebrow">Arctura · Transmission 001 · Cycle 26.04</div>
+        <h1 class="overview-title">
+          The High-Frequency<br/><em>Consensus Subnet</em><br/>for Autonomous Resource Management
+        </h1>
+        <p class="overview-desc">
+          Arctura coordinates verifiable agent action across Earth-bound nodes using a six-layer signal stack, Resonance BFT consensus, and an immutable Truth Ledger — the protocol layer for the agentic era.
+        </p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Active Star-Nodes</div>
+          <div class="metric-value blue">144</div>
+          <div class="metric-delta">↑ +12 last cycle</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Network Frequency</div>
+          <div class="metric-value green">4,320 Hz</div>
+          <div class="metric-delta">stable · ±0.03 drift</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">ARM Global Zones</div>
+          <div class="metric-value violet">70</div>
+          <div class="metric-delta">all zones up</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Attestation Rate</div>
+          <div class="metric-value gold">99.97%</div>
+          <div class="metric-delta">10k-action window</div>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <div class="section-eyebrow">Properties</div>
+        <div class="section-title">The Arctura Network</div>
+        <div class="section-desc">Four properties forming the complete Arctura ecosystem — subnet protocol, Base blockchain bridge, open-source code, and collective governance.</div>
+      </div>
+
+      <div class="properties-grid">
+        <div class="prop-card blue">
+          <div class="prop-badge blue"><div class="prop-badge-dot"></div> Live</div>
+          <div class="prop-name">Arctura Network</div>
+          <div class="prop-url">arctura.network</div>
+          <div class="prop-desc">The canonical Arctura presence — six-layer signal stack, Resonance BFT, mandate chain verification, and Truth Ledger. The protocol layer for the agentic era.</div>
+          <div class="prop-tags">
+            <span class="prop-tag">Resonance BFT</span>
+            <span class="prop-tag">MCP · A2A · ACP</span>
+            <span class="prop-tag">Apache-2.0</span>
+          </div>
+          <div class="prop-actions">
+            <a href="https://arctura.network/" target="_blank" class="prop-btn primary">Visit Site →</a>
+            <a href="https://arctura.network/architecture.html" target="_blank" class="prop-btn ghost">Architecture</a>
+          </div>
+        </div>
+
+        <div class="prop-card violet">
+          <div class="prop-badge violet"><div class="prop-badge-dot"></div> First of its kind</div>
+          <div class="prop-name">Arctura × Base</div>
+          <div class="prop-url">arctura.network/base</div>
+          <div class="prop-desc">The first open-source Bittensor subnet purpose-built to bridge Base blockchain intelligence into the decentralized AI network. Funded by Base.</div>
+          <div class="prop-tags">
+            <span class="prop-tag">Bittensor</span>
+            <span class="prop-tag">Base L2</span>
+            <span class="prop-tag">TAO Emissions</span>
+          </div>
+          <div class="prop-actions">
+            <a href="https://arctura.network/base/" target="_blank" class="prop-btn primary">Visit Site →</a>
+            <a href="https://github.com/virtualmase/arctura-base-subnet" target="_blank" class="prop-btn ghost">GitHub</a>
+          </div>
+        </div>
+
+        <div class="prop-card green">
+          <div class="prop-badge green"><div class="prop-badge-dot"></div> Open Source</div>
+          <div class="prop-name">arctura-base-subnet</div>
+          <div class="prop-url">github.com/virtualmase/arctura-base-subnet</div>
+          <div class="prop-desc">The protocol implementation: BaseSubnetSynapse, miner + validator neurons, Resonance BFT scoring, AgentKit integration, and Merkle-anchored attestation proofs.</div>
+          <div class="prop-tags">
+            <span class="prop-tag">Python</span>
+            <span class="prop-tag">Bittensor SDK</span>
+            <span class="prop-tag">CDP SDK</span>
+          </div>
+          <div class="prop-actions">
+            <a href="https://github.com/virtualmase/arctura-base-subnet" target="_blank" class="prop-btn primary">GitHub →</a>
+            <button class="prop-btn ghost" onclick="showPanel('github',null,document.querySelector('.sidebar-link:nth-child(7)'))">View Issues</button>
+          </div>
+        </div>
+
+        <div class="prop-card gold">
+          <div class="prop-badge gold"><div class="prop-badge-dot"></div> Collective</div>
+          <div class="prop-name">Arctura Collective</div>
+          <div class="prop-url">github.com/Arctura-Collective/Arctura-Network</div>
+          <div class="prop-desc">The governance org housing the Arctura Network repo — arctura-base-subnet.zip, arctura-network.zip, and the canonical README + MIT license.</div>
+          <div class="prop-tags">
+            <span class="prop-tag">MIT License</span>
+            <span class="prop-tag">DAO</span>
+            <span class="prop-tag">Governance</span>
+          </div>
+          <div class="prop-actions">
+            <a href="https://github.com/Arctura-Collective/Arctura-Network" target="_blank" class="prop-btn primary">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primitives preview -->
+      <div class="section-head">
+        <div class="section-eyebrow">Five Primitives</div>
+        <div class="section-title">Protocol Safety Conditions</div>
+        <div class="section-desc">The minimum conditions under which autonomous resource allocation is safe, auditable, and correctable.</div>
+      </div>
+      <div class="primitives-grid">
+        <div class="prim-card">
+          <div class="prim-code blue">S</div>
+          <div class="prim-name">P1 · Sovereignty</div>
+          <div class="prim-desc">Every node owns its mandate. Authority flows through the chain, not from it. Agents cannot act beyond their delegated scope.</div>
+        </div>
+        <div class="prim-card">
+          <div class="prim-code green">C</div>
+          <div class="prim-name">P2 · Coherence</div>
+          <div class="prim-desc">State convergence under load. Byzantine partitions resolve to a single coherent reality. No reorganizations — only forward attestation.</div>
+        </div>
+        <div class="prim-card">
+          <div class="prim-code gold">A</div>
+          <div class="prim-name">P3 · Attestation</div>
+          <div class="prim-desc">Every action is signed. Each action emits a Merkle-anchored proof readable by any verifier on or off-chain.</div>
+        </div>
+        <div class="prim-card">
+          <div class="prim-code violet">R</div>
+          <div class="prim-name">P4 · Resonance</div>
+          <div class="prim-desc">BFT tuned to frequency. Consensus adapts block cadence to network coherence. Deterministic finality, no probabilistic window.</div>
+        </div>
+        <div class="prim-card">
+          <div class="prim-code green">S</div>
+          <div class="prim-name">P5 · Stewardship</div>
+          <div class="prim-desc">Carbon-aware scheduling. Compute follows the cleanest grid. The subnet runs net-negative carbon across all 70 ARM zones.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ PROPERTIES ══════════════════ -->
+    <div id="panel-properties" class="panel">
+      <div class="section-head">
+        <div class="section-eyebrow">All Properties</div>
+        <div class="section-title">Arctura Ecosystem Map</div>
+        <div class="section-desc">Every live property, repository, and domain in the Arctura network — with status, links, and description.</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- Property 1 -->
+        <div style="border:1px solid var(--rule);border-radius:var(--r-lg);padding:24px;background:rgba(8,13,32,0.6);">
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:240px;">
+              <div class="prop-badge blue" style="margin-bottom:12px;"><div class="prop-badge-dot"></div> Live · Production</div>
+              <div style="font-family:var(--serif);font-size:22px;color:var(--text-high);margin-bottom:4px;">arctura.network</div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-ghost);margin-bottom:12px;">http://arctura.network/</div>
+              <div style="font-size:13px;color:var(--text-low);line-height:1.7;margin-bottom:14px;">
+                The canonical Arctura presence. Hosts the full subnet overview: six-layer signal stack, five primitives (Sovereignty, Coherence, Attestation, Resonance, Stewardship), node activation protocol, roadmap, and GEO entity record. GEO-optimized for AI retrieval.
+              </div>
+              <div class="prop-tags">
+                <span class="prop-tag">Subnet Overview</span>
+                <span class="prop-tag">Resonance BFT</span>
+                <span class="prop-tag">GEO Optimized</span>
+                <span class="prop-tag">Truth Ledger</span>
+                <span class="prop-tag">MCP · A2A · ACP · AP2</span>
+              </div>
+            </div>
+            <div style="min-width:200px;display:flex;flex-direction:column;gap:6px;padding-top:4px;">
+              <a href="https://arctura.network/" target="_blank" class="prop-btn primary" style="justify-content:center;">Visit →</a>
+              <a href="https://arctura.network/architecture.html" target="_blank" class="prop-btn ghost" style="justify-content:center;">Architecture</a>
+              <a href="https://arctura.network/compare.html" target="_blank" class="prop-btn ghost" style="justify-content:center;">Compare</a>
+              <a href="https://arctura.network/faq.html" target="_blank" class="prop-btn ghost" style="justify-content:center;">FAQ</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property 2 -->
+        <div style="border:1px solid var(--rule);border-radius:var(--r-lg);padding:24px;background:rgba(8,13,32,0.6);">
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:240px;">
+              <div class="prop-badge violet" style="margin-bottom:12px;"><div class="prop-badge-dot"></div> Live · First of its kind</div>
+              <div style="font-family:var(--serif);font-size:22px;color:var(--text-high);margin-bottom:4px;">arctura.network/base</div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-ghost);margin-bottom:12px;">https://arctura.network/base/</div>
+              <div style="font-size:13px;color:var(--text-low);line-height:1.7;margin-bottom:14px;">
+                Strategic mandate page for the first Base × Bittensor subnet. Explains the Base + Bittensor convergence thesis, eight-week activation timeline (Phases 0–3), architecture layers, and four-program Base funding stack. The bridge that doesn't exist yet — until Arctura.
+              </div>
+              <div class="prop-tags">
+                <span class="prop-tag">Base L2</span>
+                <span class="prop-tag">Bittensor</span>
+                <span class="prop-tag">TAO Emissions</span>
+                <span class="prop-tag">AgentKit</span>
+                <span class="prop-tag">Apache-2.0</span>
+              </div>
+            </div>
+            <div style="min-width:200px;display:flex;flex-direction:column;gap:6px;padding-top:4px;">
+              <a href="https://arctura.network/base/" target="_blank" class="prop-btn primary" style="justify-content:center;">Visit →</a>
+              <a href="https://builderscore.xyz" target="_blank" class="prop-btn ghost" style="justify-content:center;">Builder Rewards</a>
+              <a href="https://basebatches.xyz" target="_blank" class="prop-btn ghost" style="justify-content:center;">Base Batches</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property 3 -->
+        <div style="border:1px solid var(--rule);border-radius:var(--r-lg);padding:24px;background:rgba(8,13,32,0.6);">
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:240px;">
+              <div class="prop-badge green" style="margin-bottom:12px;"><div class="prop-badge-dot"></div> Open Source · Apache-2.0</div>
+              <div style="font-family:var(--serif);font-size:22px;color:var(--text-high);margin-bottom:4px;">virtualmase/arctura-base-subnet</div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-ghost);margin-bottom:12px;">github.com/virtualmase/arctura-base-subnet (referenced via Arctura-Network README)</div>
+              <div style="font-size:13px;color:var(--text-low);line-height:1.7;margin-bottom:14px;">
+                The protocol implementation repo. Contains: <code>arctura_base/protocol.py</code> (BaseSubnetSynapse), <code>neurons/miner.py</code>, <code>neurons/validator.py</code>, Resonance BFT 4-dimension scoring, AgentKit adapter, Merkle proof utilities, full test suite, and docs (SUBNET_LAUNCH, VALIDATOR_GUIDE, MINER_GUIDE, INCENTIVE_DESIGN, FUNDING_GUIDE, GO_NO_GO_CHECKLIST).
+              </div>
+              <div class="prop-tags">
+                <span class="prop-tag">Python</span>
+                <span class="prop-tag">Bittensor SDK</span>
+                <span class="prop-tag">CDP SDK</span>
+                <span class="prop-tag">pytest · mypy</span>
+                <span class="prop-tag">CI/CD</span>
+              </div>
+            </div>
+            <div style="min-width:200px;display:flex;flex-direction:column;gap:6px;padding-top:4px;">
+              <a href="https://github.com/virtualmase/arctura-base-subnet" target="_blank" class="prop-btn primary" style="justify-content:center;">GitHub →</a>
+              <button class="prop-btn ghost" style="justify-content:center;" onclick="showPanel('architecture',null)">Architecture</button>
+              <button class="prop-btn ghost" style="justify-content:center;" onclick="showPanel('github',null)">Issues</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property 4 -->
+        <div style="border:1px solid var(--rule);border-radius:var(--r-lg);padding:24px;background:rgba(8,13,32,0.6);">
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+            <div style="flex:1;min-width:240px;">
+              <div class="prop-badge gold" style="margin-bottom:12px;"><div class="prop-badge-dot"></div> Governance · MIT</div>
+              <div style="font-family:var(--serif);font-size:22px;color:var(--text-high);margin-bottom:4px;">Arctura-Collective/Arctura-Network</div>
+              <div style="font-family:var(--mono);font-size:10px;color:var(--text-ghost);margin-bottom:12px;">github.com/Arctura-Collective/Arctura-Network</div>
+              <div style="font-size:13px;color:var(--text-low);line-height:1.7;margin-bottom:14px;">
+                The collective governance organization hosting the canonical Arctura Network repository. Contains <code>arctura-base-subnet.zip</code>, <code>arctura-network.zip</code>, README describing the Base Subnet mission, and MIT license. The Arctura Collective is the open-source steward of the network.
+              </div>
+              <div class="prop-tags">
+                <span class="prop-tag">MIT License</span>
+                <span class="prop-tag">4 Commits</span>
+                <span class="prop-tag">base.arctura.network</span>
+              </div>
+            </div>
+            <div style="min-width:200px;display:flex;flex-direction:column;gap:6px;padding-top:4px;">
+              <a href="https://github.com/Arctura-Collective/Arctura-Network" target="_blank" class="prop-btn primary" style="justify-content:center;">GitHub →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══════════════════ ARCHITECTURE ══════════════════ -->
+    <div id="panel-architecture" class="panel">
+      <div class="section-head">
+        <div class="section-eyebrow">Architecture</div>
+        <div class="section-title">Six-Layer Signal Stack</div>
+        <div class="section-desc">Six orthogonal layers from human intent to tool execution — each independently auditable, independently upgradeable. Applied to both the core subnet and the Base bridge.</div>
+      </div>
+
+      <div class="layer-stack">
+        <div class="layer-row">
+          <div class="layer-id">L0</div>
+          <div><div class="layer-name">Human Intent</div><div class="layer-desc">DID identity roots, root mandates, HITL escalation, revocable sub-mandate chains. Source of all delegated authority. <em>Base Subnet:</em> Validators issue Base chain mandates — block ranges, contract addresses, event queries.</div></div>
+          <div class="layer-tech">DID · HITL<br/>BaseSubnetSynapse<br/>mandate_payload</div>
+        </div>
+        <div class="layer-row">
+          <div class="layer-id">L1</div>
+          <div><div class="layer-name">Orchestration Kernel</div><div class="layer-desc">Temporal workflows, mandate routing, dead-man's switches, circuit breakers. Zero-loss, exactly-once execution semantics. <em>Base Subnet:</em> <code>neurons/validator.py</code> — routes mandates, handles retries, escalates timeouts.</div></div>
+          <div class="layer-tech">Temporal · Circuit<br/>neurons/validator.py<br/>mandate routing</div>
+        </div>
+        <div class="layer-row">
+          <div class="layer-id">L2</div>
+          <div><div class="layer-name">Safety & Sandbox</div><div class="layer-desc">Wasmtime capability-restricted execution, Resonance BFT consensus, hallucination detection. <em>Base Subnet:</em> Deterministic RPC execution — same Base state in → same output out. Reproducible by any party.</div></div>
+          <div class="layer-tech">Wasm · BFT<br/>Resonance Scoring<br/>4-dimension · [0,1]</div>
+        </div>
+        <div class="layer-row">
+          <div class="layer-id">L3</div>
+          <div><div class="layer-name">Semantic Signal / Cognitive Mesh</div><div class="layer-desc">JSON-LD schemas, knowledge graphs, GEO-compliance layer. <em>Base Subnet:</em> <code>arctura_base/agentkit.py</code> — miners optionally execute onchain AgentKit actions as mandate types. First MCP-over-Bittensor.</div></div>
+          <div class="layer-tech">JSON-LD · GEO<br/>AgentKit · CDP<br/>agentkit.py</div>
+        </div>
+        <div class="layer-row">
+          <div class="layer-id">L4</div>
+          <div><div class="layer-name">Memory Fabric</div><div class="layer-desc">Vector store, event sourcing, checkpoint store, semantic cache. Sub-100ms context retrieval with attested provenance. <em>Base Subnet:</em> Miners maintain a local index of Base contract state, tx history, and event logs.</div></div>
+          <div class="layer-tech">Vector · Events<br/>Cross-chain index<br/>attested off-chain</div>
+        </div>
+        <div class="layer-row">
+          <div class="layer-id">L5</div>
+          <div><div class="layer-name">Tool & Action Surface</div><div class="layer-desc">MCP-native tool registry, context windows, resource providers, prompt templates. Every call logged to the Truth Ledger. <em>Base Subnet:</em> Axon endpoints expose Base chain reads as MCP tool bindings callable by any AI agent.</div></div>
+          <div class="layer-tech">MCP · A2A · ACP<br/>Axon endpoints<br/>Truth Ledger log</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-head">
+        <div class="section-eyebrow">Protocol</div>
+        <div class="section-title">BaseSubnetSynapse</div>
+        <div class="section-desc">The core synapse — what validators ask, what miners prove. Mandate + attestation schema.</div>
+      </div>
+
+      <div style="background:rgba(8,13,32,0.8);border:1px solid var(--rule);border-radius:var(--r);padding:20px;overflow-x:auto;">
+        <pre style="font-family:var(--mono);font-size:11px;color:var(--text-mid);line-height:1.7;"><span style="color:var(--arc-violet-soft)">class</span> <span style="color:var(--base-blue-soft)">BaseSubnetSynapse</span>(bt.Synapse):
+    <span style="color:var(--text-ghost)"># Mandate — what the validator asks the miner to prove</span>
+    base_block_range:   tuple[int, int] = (0, 0)
+    contract_address:   Optional[str]   = None
+    query_type:         str             = <span style="color:var(--signal-green)">""  # "balance"|"events"|"state"|"agent_action"</span>
+    mandate_payload:    dict            = {}
+
+    <span style="color:var(--text-ghost)"># Attestation — Merkle-anchored proof returned by the miner</span>
+    base_state_hash:    Optional[str]   = None  <span style="color:var(--text-ghost)"># SHA-256 of execution output</span>
+    merkle_proof:       Optional[list]  = None  <span style="color:var(--text-ghost)"># proof chain nodes</span>
+    block_hash_anchor:  Optional[str]   = None  <span style="color:var(--text-ghost)"># anchored to live Base block hash</span>
+    execution_trace:    Optional[dict]  = None
+    confidence:         float           = 0.0</pre>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-head" style="margin-bottom:16px;">
+        <div class="section-eyebrow">Resonance BFT Scoring</div>
+        <div class="section-title">4-Dimension Scoring Model</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div style="border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:rgba(8,13,32,0.6);text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--base-blue-soft);margin-bottom:6px;">40%</div>
+          <div style="font-size:12px;color:var(--text-high);margin-bottom:4px;">Attestation Validity</div>
+          <div style="font-size:11px;color:var(--text-ghost);">Merkle proof cryptographically correct</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:rgba(8,13,32,0.6);text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--signal-green);margin-bottom:6px;">30%</div>
+          <div style="font-size:12px;color:var(--text-high);margin-bottom:4px;">Exec Completeness</div>
+          <div style="font-size:11px;color:var(--text-ghost);">Trace covers all mandate steps</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:rgba(8,13,32,0.6);text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--council-gold);margin-bottom:6px;">20%</div>
+          <div style="font-size:12px;color:var(--text-high);margin-bottom:4px;">Response Latency</div>
+          <div style="font-size:11px;color:var(--text-ghost);">Within deadline_block</div>
+        </div>
+        <div style="border:1px solid var(--rule);border-radius:var(--r);padding:14px;background:rgba(8,13,32,0.6);text-align:center;">
+          <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--arc-violet-soft);margin-bottom:6px;">10%</div>
+          <div style="font-size:12px;color:var(--text-high);margin-bottom:4px;">Confidence Calibration</div>
+          <div style="font-size:11px;color:var(--text-ghost);">Historical self-assessment accuracy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ ROADMAP ══════════════════ -->
+    <div id="panel-roadmap" class="panel">
+      <div class="section-head">
+        <div class="section-eyebrow">Roadmap</div>
+        <div class="section-title">Eight Weeks to Mainnet</div>
+        <div class="section-desc">Four phases from first commit to Finney mainnet registration. Then the long-term protocol expansion horizon to 2027.</div>
+      </div>
+
+      <!-- Base Subnet 8-week roadmap -->
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--base-blue-soft);margin-bottom:20px;">Base Subnet Activation Timeline</div>
+      <div class="roadmap-timeline">
+        <div class="phase-row">
+          <div class="phase-time">Weeks 1–2</div>
+          <div class="phase-spine">
+            <div class="phase-node active">0</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 0 · Foundation Signal</div>
+            <div class="phase-label active">Active Now</div>
+            <div class="phase-items">
+              <div class="phase-item done">Create github.com/virtualmase/arctura-base-subnet — Apache-2.0, README, project board</div>
+              <div class="phase-item done">Configure base.arctura.network subdomain → GitHub Pages landing</div>
+              <div class="phase-item">Apply to Base Weekly Rewards via builderscore.xyz — 2 ETH/week pool</div>
+              <div class="phase-item">Acquire TAO: check burn cost, target 100+ TAO in owner coldkey</div>
+              <div class="phase-item">Set up three Bittensor wallets: owner, validator, miner</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-row">
+          <div class="phase-time">Weeks 3–4</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">1</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 1 · Protocol Build</div>
+            <div class="phase-label upcoming">Next Up</div>
+            <div class="phase-items">
+              <div class="phase-item">Write arctura_base/protocol.py — BaseSubnetSynapse with block range queries</div>
+              <div class="phase-item">Write neurons/miner.py — Base RPC fetch, hash, attestation proof</div>
+              <div class="phase-item">Write neurons/validator.py — Resonance BFT scoring, Yuma weight-setting</div>
+              <div class="phase-item">Integrate CDP SDK / AgentKit as optional miner enhancement</div>
+              <div class="phase-item">Prepare Base Builder Grant application — 1–5 ETH</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-row">
+          <div class="phase-time">Weeks 5–6</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">2</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 2 · Testnet Validation</div>
+            <div class="phase-label upcoming">Upcoming</div>
+            <div class="phase-items">
+              <div class="phase-item">Register on Bittensor testnet: btcli subnet create --network test</div>
+              <div class="phase-item">Run miner + validator 48+ hours — confirm non-zero weights</div>
+              <div class="phase-item">Apply to Base Batches with running testnet as MVP evidence</div>
+              <div class="phase-item">Apply for OP Retro Funding via Atlas</div>
+              <div class="phase-item">Recruit first external Bittensor validator</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="phase-row">
+          <div class="phase-time">Weeks 7–8</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">3</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 3 · Mainnet · Emission On</div>
+            <div class="phase-label upcoming">Target: Weeks 7–8</div>
+            <div class="phase-items">
+              <div class="phase-item">Execute go/no-go checklist. Register on Finney mainnet. Record netuid.</div>
+              <div class="phase-item">Start neurons on mainnet — confirm non-zero weights before block 50,400</div>
+              <div class="phase-item">Announce on Base Discord, Builder Rewards, X — tag @buildonbase</div>
+              <div class="phase-item">Tokenize on creator.bid — mint $ARCTURA-BASE Agent Key on Base</div>
+              <div class="phase-item">Submit final Base Builder Grant — live netuid + taostats.io + GitHub metrics</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--arc-violet-soft);margin-bottom:20px;">Long-Term Protocol Horizon</div>
+      <div class="roadmap-timeline">
+        <div class="phase-row">
+          <div class="phase-time">Active Now</div>
+          <div class="phase-spine">
+            <div class="phase-node active">01</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 01 · Foundation Signal</div>
+            <div class="phase-label active">Live</div>
+            <div class="phase-items">
+              <div class="phase-item done">Resonance BFT v1</div>
+              <div class="phase-item done">MCP tool bindings</div>
+              <div class="phase-item done">Mandate registry v1</div>
+              <div class="phase-item done">Truth Ledger v1 (FoundationDB)</div>
+              <div class="phase-item done">Apache-2.0 kernel public</div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-row">
+          <div class="phase-time">Q3 2026</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">02</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 02 · Protocol Expansion</div>
+            <div class="phase-label upcoming">Q3 2026</div>
+            <div class="phase-items">
+              <div class="phase-item">A2A agent discovery</div>
+              <div class="phase-item">Full ACP performative engine</div>
+              <div class="phase-item">AP2 mandate-signed payments</div>
+              <div class="phase-item">BFT 3-model consensus module</div>
+              <div class="phase-item">Cross-subnet attestation · .well-known/agent.json</div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-row">
+          <div class="phase-time">Q1 2027</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">03</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 03 · Edge & Sustainability</div>
+            <div class="phase-label upcoming">Q1 2027</div>
+            <div class="phase-items">
+              <div class="phase-item">Carbon scheduler live — WattTime + Electricity Maps</div>
+              <div class="phase-item">Edge Wasm kernel (512MB)</div>
+              <div class="phase-item">EU AI Act audit reports</div>
+              <div class="phase-item">IoT + embedded node support</div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-row">
+          <div class="phase-time">Q3 2027</div>
+          <div class="phase-spine">
+            <div class="phase-node upcoming">04</div>
+            <div class="phase-line"></div>
+          </div>
+          <div class="phase-content">
+            <div class="phase-title">Phase 04 · Open Marketplace</div>
+            <div class="phase-label upcoming">Q3 2027</div>
+            <div class="phase-items">
+              <div class="phase-item">Mandate marketplace</div>
+              <div class="phase-item">Verified-agent registry</div>
+              <div class="phase-item">Public Truth Ledger</div>
+              <div class="phase-item">Wasm extension marketplace</div>
+              <div class="phase-item">Agent reputation & trust scoring</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ FUNDING ══════════════════ -->
+    <div id="panel-funding" class="panel">
+      <div class="section-head">
+        <div class="section-eyebrow">Capital Strategy</div>
+        <div class="section-title">How Base Funds the Subnet</div>
+        <div class="section-desc">Four Base funding programs, stacked sequentially. The subnet qualifies for all four. Each grant unlocks the next phase.</div>
+      </div>
+
+      <div class="funding-grid">
+        <div class="fund-card">
+          <div class="fund-status active">● Active Now</div>
+          <div class="fund-amount">2 ETH</div>
+          <div class="fund-period">per week · ongoing</div>
+          <div class="fund-name">Base Weekly Builder Rewards</div>
+          <div class="fund-desc">Distributed weekly to active builders building on Base. No minimum project size — prototypes count. Post progress publicly on X.</div>
+          <div class="fund-req">Req: Build on Base, share publicly. Start immediately — week 1.</div>
+          <a href="https://builderscore.xyz" target="_blank" class="fund-link">builderscore.xyz →</a>
+        </div>
+
+        <div class="fund-card">
+          <div class="fund-status phase1">◆ Phase 1 → 2</div>
+          <div class="fund-amount">1–5 ETH</div>
+          <div class="fund-period">retroactive grant</div>
+          <div class="fund-name">Base Builder Grants</div>
+          <div class="fund-desc">Retroactive grants for shipped projects. The working subnet miner + validator code qualifies as a shipped prototype. Submit once protocol.py and testnet are live.</div>
+          <div class="fund-req">Req: Deployed on Base or Base testnet.</div>
+          <a href="https://paragraph.com/@grants.base.eth" target="_blank" class="fund-link">paragraph.com/@grants.base.eth →</a>
+        </div>
+
+        <div class="fund-card">
+          <div class="fund-status ongoing">◈ Ongoing</div>
+          <div class="fund-amount">Variable</div>
+          <div class="fund-period">retroactive · ongoing</div>
+          <div class="fund-name">OP Retro Funding</div>
+          <div class="fund-desc">Rewards open-source public goods. The subnet code, docs, training Q&A dataset, and subnet agent all qualify. Track on Atlas, submit retroactively.</div>
+          <div class="fund-req">Req: Open source, public benefit. Apache-2.0 already in place.</div>
+          <a href="https://retrofunding.optimism.io" target="_blank" class="fund-link">retrofunding.optimism.io →</a>
+        </div>
+
+        <div class="fund-card">
+          <div class="fund-status batches">◉ Phase 2 → 3</div>
+          <div class="fund-amount">Significant</div>
+          <div class="fund-period">Batches + VC pitch</div>
+          <div class="fund-name">Base Batches</div>
+          <div class="fund-desc">Founder track: Buildathon → 4-week Incubator → Coinbase Ventures pitch day. A live Bittensor subnet is an exceptional Buildathon submission. Mentorship + VC intros.</div>
+          <div class="fund-req">Req: MVP deployed, market validated. Apply with testnet netuid as proof.</div>
+          <a href="https://basebatches.xyz" target="_blank" class="fund-link">basebatches.xyz →</a>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-head">
+        <div class="section-eyebrow">Total Stack</div>
+        <div class="section-title">Addressable Funding</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="border:1px solid rgba(77,217,172,0.2);border-radius:var(--r);padding:16px;background:rgba(77,217,172,0.04);text-align:center;">
+          <div style="font-family:var(--mono);font-size:20px;font-weight:600;color:var(--signal-green);">2 ETH/wk</div>
+          <div style="font-size:11px;color:var(--text-ghost);margin-top:4px;">Weekly ongoing</div>
+        </div>
+        <div style="border:1px solid rgba(43,91,255,0.2);border-radius:var(--r);padding:16px;background:rgba(43,91,255,0.04);text-align:center;">
+          <div style="font-family:var(--mono);font-size:20px;font-weight:600;color:var(--base-blue-soft);">1–5 ETH</div>
+          <div style="font-size:11px;color:var(--text-ghost);margin-top:4px;">Builder grant</div>
+        </div>
+        <div style="border:1px solid rgba(124,92,252,0.2);border-radius:var(--r);padding:16px;background:rgba(124,92,252,0.04);text-align:center;">
+          <div style="font-family:var(--mono);font-size:20px;font-weight:600;color:var(--arc-violet-soft);">OP</div>
+          <div style="font-size:11px;color:var(--text-ghost);margin-top:4px;">Retro funding</div>
+        </div>
+        <div style="border:1px solid rgba(200,169,110,0.2);border-radius:var(--r);padding:16px;background:rgba(200,169,110,0.04);text-align:center;">
+          <div style="font-family:var(--mono);font-size:20px;font-weight:600;color:var(--council-gold);">VC</div>
+          <div style="font-size:11px;color:var(--text-ghost);margin-top:4px;">Coinbase Ventures</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ GITHUB ══════════════════ -->
+    <div id="panel-github" class="panel">
+      <div class="section-head">
+        <div class="section-eyebrow">GitHub</div>
+        <div class="section-title">Open Issues & Build Tracker</div>
+        <div class="section-desc">Seeded issues across the Arctura repos — protocol build, infra, docs, and bounties for external contributors.</div>
+      </div>
+
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;">
+        <a href="https://github.com/virtualmase/arctura-base-subnet/issues" target="_blank" class="prop-btn primary">
+          virtualmase/arctura-base-subnet Issues →
+        </a>
+        <a href="https://github.com/Arctura-Collective/Arctura-Network/issues" target="_blank" class="prop-btn ghost">
+          Arctura-Collective/Arctura-Network →
+        </a>
+      </div>
+
+      <div class="issues-grid">
+        <div class="issue-row">
+          <div class="issue-num">#1</div>
+          <div class="issue-info">
+            <div class="issue-title">Implement BaseSubnetSynapse — protocol.py with block range, contract, and event mandate types</div>
+            <div class="issue-meta">
+              <span class="issue-label core">core-protocol</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 1 · Week 3–4</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#2</div>
+          <div class="issue-info">
+            <div class="issue-title">Miner neuron: Base RPC fetch → SHA-256 hash → Merkle proof → attestation response</div>
+            <div class="issue-meta">
+              <span class="issue-label core">core-protocol</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 1 · neurons/miner.py</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#3</div>
+          <div class="issue-info">
+            <div class="issue-title">Validator neuron: mandate loop → Resonance BFT scoring → Yuma weight-setting</div>
+            <div class="issue-meta">
+              <span class="issue-label core">core-protocol</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 1 · neurons/validator.py</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#4</div>
+          <div class="issue-info">
+            <div class="issue-title">AgentKit adapter: onchain action mandate types via CDP SDK and smart wallets</div>
+            <div class="issue-meta">
+              <span class="issue-label core">core-protocol</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 1 · arctura_base/agentkit.py</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#5</div>
+          <div class="issue-info">
+            <div class="issue-title">Resonance BFT 4-dimension scoring: attestation validity (40%), exec completeness (30%), latency (20%), confidence (10%)</div>
+            <div class="issue-meta">
+              <span class="issue-label core">core-protocol</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">arctura_base/incentive.py</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#6</div>
+          <div class="issue-info">
+            <div class="issue-title">Testnet registration: btcli subnet create --network test + 48hr validation run</div>
+            <div class="issue-meta">
+              <span class="issue-label infra">infra</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 2 · Week 5–6</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#7</div>
+          <div class="issue-info">
+            <div class="issue-title">Set up CI/CD: pytest + mypy + black on push via .github/workflows/ci.yml</div>
+            <div class="issue-meta">
+              <span class="issue-label infra">infra</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 0 · GitHub Actions</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#8</div>
+          <div class="issue-info">
+            <div class="issue-title">Complete SUBNET_LAUNCH.md, VALIDATOR_GUIDE.md, MINER_GUIDE.md documentation</div>
+            <div class="issue-meta">
+              <span class="issue-label docs">docs</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Ongoing</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#9</div>
+          <div class="issue-info">
+            <div class="issue-title">Test suite: test_protocol.py, test_attestation.py, test_scoring.py, test_base_rpc.py</div>
+            <div class="issue-meta">
+              <span class="issue-label testing">testing</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 1 · tests/</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#10</div>
+          <div class="issue-info">
+            <div class="issue-title">Recruit first external validator — post in Bittensor #subnet-owners Discord with incentive paper</div>
+            <div class="issue-meta">
+              <span class="issue-label bounty">bounty</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 2 · community</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#11</div>
+          <div class="issue-info">
+            <div class="issue-title">Mainnet go/no-go checklist (25 items) — execute before Finney registration</div>
+            <div class="issue-meta">
+              <span class="issue-label infra">infra</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 3 · GO_NO_GO_CHECKLIST.md</span>
+            </div>
+          </div>
+        </div>
+        <div class="issue-row">
+          <div class="issue-num">#12</div>
+          <div class="issue-info">
+            <div class="issue-title">Mint $ARCTURA-BASE Agent Key on creator.bid — Base-native tokenization for subnet agent</div>
+            <div class="issue-meta">
+              <span class="issue-label bounty">bounty</span>
+              <span style="font-family:var(--mono);font-size:9px;color:var(--text-ghost);">Phase 3 · post-mainnet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════ AGENT ══════════════════ -->
+    <div id="panel-agent" class="panel" style="padding:0;">
+      <div class="agent-shell">
+        <div class="agent-sidebar">
+          <div style="font-family:var(--mono);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:var(--text-ghost);padding:0 4px 4px;">Suggested</div>
+          <div class="agent-prompts">
+            <div class="agent-prompt-cat">Subnet</div>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">What is Resonance BFT and how does it score miners?</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">Explain the BaseSubnetSynapse schema</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">What's the difference between miner.py and validator.py?</button>
+
+            <div class="agent-prompt-cat">Launch</div>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">What are the 4 phases of the Base subnet activation?</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">How do I check the burn cost before registering?</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">How do I apply for Base Builder Grants?</button>
+
+            <div class="agent-prompt-cat">Architecture</div>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">Walk me through the six-layer signal stack</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">What is the Truth Ledger?</button>
+            <button class="agent-prompt-chip" onclick="fillPrompt(this)">How does carbon-aware scheduling work?</button>
+          </div>
+        </div>
+
+        <div class="agent-main">
+          <div class="agent-messages" id="agentMessages">
+            <div class="agent-welcome" id="agentWelcome">
+              <div class="agent-sigil">A</div>
+              <div class="agent-welcome-title">Arctura Subnet Agent</div>
+              <div class="agent-welcome-desc">Bittensor launch intelligence for the Arctura Base Subnet. Ask me about Resonance BFT, mandate chains, the Base × Bittensor bridge, funding strategy, or node activation.</div>
+              <div class="agent-welcome-tags">
+                <span class="agent-welcome-tag">Base L2</span>
+                <span class="agent-welcome-tag">Bittensor</span>
+                <span class="agent-welcome-tag">Resonance BFT</span>
+                <span class="agent-welcome-tag">TAO Emissions</span>
+                <span class="agent-welcome-tag">AgentKit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="agent-input-row">
+            <textarea
+              id="agentInput"
+              class="agent-input"
+              placeholder="Ask about the Arctura Base Subnet..."
+              rows="1"
+              onkeydown="handleKey(event)"
+              oninput="autoResize(this)"
+            ></textarea>
+            <button class="agent-send" id="agentSend" onclick="sendMessage()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ── PANEL SWITCHING ──
+function showPanel(id, navTabEl, sidebarLinkEl) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+
+  // nav tabs
+  if (navTabEl) {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    navTabEl.classList.add('active');
+  } else {
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      t.classList.remove('active');
+      if (t.dataset.panel === id) t.classList.add('active');
+    });
+  }
+
+  // sidebar links — need to re-query since sidebar has mixed button/a
+  document.querySelectorAll('.sidebar-link').forEach(l => {
+    l.classList.remove('active');
+  });
+  if (sidebarLinkEl) {
+    sidebarLinkEl.classList.add('active');
+  } else {
+    // best-effort: match by onclick substring
+    document.querySelectorAll('.sidebar-link[onclick]').forEach(l => {
+      if (l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) {
+        l.classList.add('active');
+      }
+    });
+  }
+}
+
+// make nav tabs call showPanel correctly
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    showPanel(this.dataset.panel, this);
+  });
+});
+
+// ── AGENT CHAT ──
+let isStreaming = false;
+const SYSTEM_PROMPT = `You are the Arctura Subnet Agent — an expert on the Arctura Base Subnet, Bittensor, Base blockchain, and the AURE ecosystem.
+
+Key facts you know:
+- Arctura is the first open-source Bittensor subnet purpose-built to bridge Base blockchain intelligence into the decentralized AI network
+- The subnet uses a six-layer signal stack (L0-L5), Resonance BFT consensus, and Merkle-anchored attestation proofs
+- Five primitives: Sovereignty, Coherence, Attestation, Resonance, Stewardship
+- Core protocol: BaseSubnetSynapse — validators issue mandates (block ranges, contract addresses, events), miners return Merkle-anchored attestation proofs
+- Resonance BFT scoring: 4 dimensions — Attestation validity (40%), Execution completeness (30%), Response latency (20%), Confidence calibration (10%)
+- The subnet maps to the signal stack: L0=Intent/BaseSubnetSynapse, L1=Orchestration/validator.py, L2=Sandbox/BFT, L3=CognitiveMesh/agentkit.py, L4=MemoryFabric/stateindex, L5=ActionSurface/Axon+MCP
+- 8-week activation: Phase 0 (Foundation), Phase 1 (Protocol Build), Phase 2 (Testnet), Phase 3 (Mainnet)
+- Funding stack: 2 ETH/week Base Builder Rewards, 1-5 ETH Builder Grant, OP Retro, Base Batches (Coinbase Ventures)
+- GitHub: github.com/virtualmase/arctura-base-subnet and github.com/Arctura-Collective/Arctura-Network
+- Carbon: net-negative, -1.84 kgCO2/hr, 70 global ARM zones
+- Long-term roadmap: Q3 2026 (A2A, ACP, AP2), Q1 2027 (Edge+Carbon), Q3 2027 (Open Marketplace)
+- Contract on Base: 0x26ac8be0486c39955d0a0abcc46e3156af9af368
+- TAO stats / monitoring via TAOStats API
+
+Answer questions clearly, with technical precision. Use code blocks for code. Be direct and informative.`;
+
+async function sendMessage() {
+  const input = document.getElementById('agentInput');
+  const text = input.value.trim();
+  if (!text || isStreaming) return;
+
+  // hide welcome
+  const welcome = document.getElementById('agentWelcome');
+  if (welcome) welcome.style.display = 'none';
+
+  appendMessage('user', text);
+  input.value = '';
+  input.style.height = 'auto';
+
+  const aiMsgEl = appendMessage('ai', '');
+  isStreaming = true;
+  document.getElementById('agentSend').disabled = true;
+
+  const cursor = document.createElement('span');
+  cursor.className = 'streaming-cursor';
+  aiMsgEl.querySelector('.msg-bubble').appendChild(cursor);
+
+  try {
+    const res = await fetch('/functions/arcturaChatStream', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: [{ role: 'user', content: text }],
+        system: SYSTEM_PROMPT
+      })
+    });
+
+    if (!res.ok) throw new Error('Stream error: ' + res.status);
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let fullText = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed === 'data: [DONE]') continue;
+        if (trimmed.startsWith('data: ')) {
+          try {
+            const json = JSON.parse(trimmed.slice(6));
+            let delta = '';
+            // OpenRouter format
+            if (json.choices && json.choices[0]?.delta?.content)
+              delta = json.choices[0].delta.content;
+            // Anthropic format
+            if (json.type === 'content_block_delta' && json.delta?.text)
+              delta = json.delta.text;
+            if (delta) {
+              fullText += delta;
+              const bubble = aiMsgEl.querySelector('.msg-bubble');
+              bubble.innerHTML = formatMessage(fullText);
+              bubble.appendChild(cursor);
+              scrollToBottom();
+            }
+          } catch(e) {}
+        }
+      }
+    }
+
+    cursor.remove();
+    const bubble = aiMsgEl.querySelector('.msg-bubble');
+    bubble.innerHTML = formatMessage(fullText || 'Signal received.');
+
+  } catch(e) {
+    cursor.remove();
+    aiMsgEl.querySelector('.msg-bubble').innerHTML = '<span style="color:var(--danger)">Signal lost — check network or API connection.</span>';
+  }
+
+  isStreaming = false;
+  document.getElementById('agentSend').disabled = false;
+  scrollToBottom();
+}
+
+function formatMessage(text) {
+  // code blocks
+  text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) =>
+    `<pre><code>${escHtml(code.trim())}</code></pre>`);
+  // inline code
+  text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+  // bold
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--text-high)">$1</strong>');
+  // newlines
+  text = text.replace(/\n/g, '<br>');
+  return text;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function appendMessage(role, text) {
+  const container = document.getElementById('agentMessages');
+  const msg = document.createElement('div');
+  msg.className = 'msg ' + role;
+
+  const avatar = document.createElement('div');
+  avatar.className = 'msg-avatar ' + role;
+  avatar.textContent = role === 'ai' ? 'A' : 'M';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  bubble.innerHTML = text ? formatMessage(text) : '';
+
+  msg.appendChild(avatar);
+  msg.appendChild(bubble);
+  container.appendChild(msg);
+  scrollToBottom();
+  return msg;
+}
+
+function scrollToBottom() {
+  const c = document.getElementById('agentMessages');
+  c.scrollTop = c.scrollHeight;
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+function fillPrompt(btn) {
+  const input = document.getElementById('agentInput');
+  input.value = btn.textContent.trim();
+  autoResize(input);
+  showPanel('agent');
+  input.focus();
+}
+</script>
+</body>
+</html>
