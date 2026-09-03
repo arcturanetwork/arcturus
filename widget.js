@@ -16,67 +16,67 @@
     },
     {
       id: "what",
-      match: /\b(what are you|what is arcturus|who are you|about arcturus)\b/i,
+      match: /\b(what are you|what is arcturus|who are you|about arcturus)/i,
       reply: "Not a chatbot. An operator. Arcturus is Arctura Network's agentic AI operator, trained on the full NVIDIA NCP-AAI stack across all 10 certification domains — reasoning, tool use, memory, retrieval, deployment, safety, and human oversight."
     },
     {
       id: "domains",
-      match: /\b(domain|competenc|10 domain|ten domain|blueprint)\b/i,
+      match: /\b(domains?|competenc\w*|10 domains?|ten domains?|blueprint\w*)\b/i,
       reply: "10 domains, full blueprint coverage:\n1. Reasoning Frameworks (15%)\n2. Agent Development & Tools (15%)\n3. Evaluation and Tuning (13%)\n4. Deployment and Scaling (13%)\n5. Cognition, Planning, Memory (10%)\n6. Knowledge Integration — Graphs & RAG (10%)\n7. NVIDIA Platform Implementation (7%)\n8. Run, Monitor, Maintain (5%)\n9. Safety, Ethics, Governance (5%)\n10. Human-AI Interaction (5%)\n\nSee the full breakdown below on this page."
     },
     {
       id: "react",
-      match: /\b(react|reflexion|rewoo|reasoning framework)\b/i,
+      match: /\b(react|reflexion|rewoo|reasoning framework\w*)\b/i,
       reply: "Three reasoning patterns: ReAct (Thought → Action → Observation loop, the default), Reflexion (verbal self-reflection stored in episodic memory across attempts), and ReWOO (plan all tool calls upfront — ~5× token efficiency over ReAct). Domain 1 covers all three in depth."
     },
     {
       id: "memory",
-      match: /\b(memory|episodic|semantic|context window)\b/i,
+      match: /\b(memor\w*|episodic|semantic|context window)/i,
       reply: "Arcturus runs a memory stack, not a single context window: short-term (working), episodic (past interactions), semantic (general knowledge), and procedural (how-to sequences). Detailed in Domain 5."
     },
     {
       id: "rag",
-      match: /\b(rag|retrieval|graphrag|knowledge graph|vector)\b/i,
+      match: /\b(rag|retriev\w*|graphrag|knowledge graph\w*|vector)\w*/i,
       reply: "Vector RAG handles local factual lookups. Knowledge graphs handle multi-hop reasoning. GraphRAG pre-computes community summaries for global, thematic questions. All three are evaluated against the RAG triad: context relevance, groundedness, answer relevance. Domain 6."
     },
     {
       id: "nvidia",
-      match: /\b(nvidia|nim|nemo|guardrail|tensorrt|colang)\b/i,
+      match: /\b(nvidia|nim|nemo|guardrail\w*|tensorrt|colang)\w*/i,
       reply: "The platform layer: NeMo Agent Toolkit for orchestration, NIM microservices (TensorRT-LLM optimized) for inference, and NeMo Guardrails (Colang 2.0) for input/output safety rails. Domain 7."
     },
     {
       id: "deploy",
-      match: /\b(deploy|scal|production|architecture|kubernetes|k8s)\b/i,
+      match: /\b(deploy\w*|scal\w*|production|architecture|kubernetes|k8s)/i,
       reply: "Stateless orchestrator pattern: API Gateway → Orchestrator → NIM / Tool Services / Memory Store → Guardrails. Horizontally scalable, restartable, state lives externally. Domain 4 — and the full k8s manifests live in the training lab."
     },
     {
       id: "safety",
-      match: /\b(safety|ethic|governance|five checks|bias)\b/i,
+      match: /\b(safety|ethic\w*|governance|five checks|bias)/i,
       reply: "Every action passes the Five Checks: Need, Clarity, Usefulness, Durability, Reversal — inherited from Arctura Network's Work Standard. Three-layer guardrail stack screens input, dialog, and output. Domain 9."
     },
     {
       id: "human",
-      match: /\b(human|oversight|handoff|escalat|approval)\b/i,
+      match: /\b(human\w*|oversight|handoff|escalat\w*|approval\w*)/i,
       reply: "Arcturus knows when it doesn't know. Uncertain results, disputed evaluations, or exceptions to the Five Checks escalate to a human reviewer with full context — reasoning trace and all. Domain 10."
     },
     {
       id: "lab",
-      match: /\b(lab|training|certif|ncp-aai|study|curriculum|capstone)\b/i,
+      match: /\b(lab\w*|training|certif\w*|ncp-aai|study|studies|curriculum|capstone)/i,
       reply: "The training lab is public — six certification tracks (NCP-AAI primary, AWS SAP, CKA, NCP-GENL, CCSP, Google PMLE), a working capstone agent with typed tools and bounded orchestration, and a 50-case policy evaluation suite. Browse it in the repo linked at the bottom of this page."
     },
     {
       id: "contact",
-      match: /\b(contact|talk to|human overseer|reach|email|support|help me|real person)\b/i,
+      match: /\b(contact\w*|talk to|human overseer|reach|email|support|help me|real person)/i,
       reply: "For anything beyond this page's scope, escalations route to the Arctura Network overseer. Open an issue on the GitHub repo (linked in the footer) and it will be routed to a person."
     },
     {
       id: "price",
-      match: /\b(price|cost|hire|buy|lead|pricing|quote)\b/i,
+      match: /\b(price\w*|cost\w*|hire|buy|leads?|pricing|quote\w*)/i,
       reply: "Arcturus doesn't handle commercial transactions directly through this widget. For lead qualification or business inquiries, use the intake channels listed on the Arctura Network site."
     },
     {
       id: "source",
-      match: /\b(source|evidence|prove|trust|verify|check)\b/i,
+      match: /\b(sources?|evidence|prove|trust\w*|verify|check)/i,
       reply: "Nothing here asks to be trusted on its word. Full technical reference, work standard, and authority record are all linked at the bottom of this page — check it yourself."
     }
   ];
