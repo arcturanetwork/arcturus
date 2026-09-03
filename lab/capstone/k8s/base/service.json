@@ -1,0 +1,2 @@
+{"apiVersion":"v1","kind":"Service","metadata":{"name":"trustgraph","namespace":"trustgraph"},"spec":{"type":"ClusterIP","selector":{"app":"trustgraph"},"ports":[{"name":"http","port":80,"targetPort":"http"}]}}
+

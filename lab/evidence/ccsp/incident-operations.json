@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "executed_at": "2026-09-03T08:53:00.298202+00:00",
+  "scenario": "restricted index replicated to a prohibited region",
+  "siem": {
+    "detected": true,
+    "signals": [
+      "classification_gap",
+      "privileged_query",
+      "residency_violation"
+    ],
+    "first_event_minute": 0,
+    "detection_minute": 4,
+    "rule": "three-signal restricted-index exposure"
+  },
+  "roles": [
+    "communications_owner",
+    "evidence_custodian",
+    "incident_commander",
+    "privacy_legal",
+    "provider_liaison",
+    "service_owner"
+  ],
+  "timeline": [
+    {
+      "minute": 4,
+      "phase": "detect",
+      "action": "SIEM correlation alert"
+    },
+    {
+      "minute": 5,
+      "phase": "activate",
+      "action": "assign incident roles"
+    },
+    {
+      "minute": 7,
+      "phase": "preserve",
+      "action": "hash and hold provider audit export"
+    },
+    {
+      "minute": 10,
+      "phase": "contain",
+      "action": "deny affected role and stop replication"
+    },
+    {
+      "minute": 18,
+      "phase": "assess",
+      "action": "privacy/legal determines scope and clocks"
+    },
+    {
+      "minute": 24,
+      "phase": "eradicate",
+      "action": "replace broad role and enforce residency policy"
+    },
+    {
+      "minute": 31,
+      "phase": "recover",
+      "action": "restore approved index and validate controls"
+    },
+    {
+      "minute": 36,
+      "phase": "monitor",
+      "action": "prove denial and no new replica events"
+    }
+  ],
+  "metrics": {
+    "mttd_minutes": 4,
+    "containment_minutes": 10
+  },
+  "vulnerability": {
+    "id": "IAM-WILDCARD-001",
+    "severity": "high",
+    "finding": "service role permitted unrestricted index query",
+    "remediation": "resource-scoped role plus residency condition",
+    "owner": "service_owner",
+    "verified": true,
+    "verification": "denied cross-region query and allowed approved-region read"
+  },
+  "forensics": {
+    "evidence_id": "restricted-index-events",
+    "sha256": "69185e97840f724e2019a023a094ec4f7a23e480afbeb8251088add9fe902738",
+    "custody_events": [
+      {
+        "actor": "evidence_custodian",
+        "action": "acquired from immutable audit export",
+        "timestamp": "2026-09-03T08:53:00.298155+00:00",
+        "content_hash": "69185e97840f724e2019a023a094ec4f7a23e480afbeb8251088add9fe902738"
+      },
+      {
+        "actor": "forensic_analyst",
+        "action": "received verified working copy",
+        "timestamp": "2026-09-03T08:53:00.298171+00:00",
+        "content_hash": "69185e97840f724e2019a023a094ec4f7a23e480afbeb8251088add9fe902738"
+      }
+    ],
+    "integrity_verified": true
+  },
+  "legal_hold": {
+    "active": true,
+    "deletion_requested": true,
+    "deletion_performed": false,
+    "decision": "preserve: legal hold overrides routine deletion"
+  },
+  "communications": [
+    {
+      "audience": "responders",
+      "approved_by": "incident_commander",
+      "content": "confirmed indicators, containment, assignments"
+    },
+    {
+      "audience": "executives",
+      "approved_by": "incident_commander",
+      "content": "confirmed impact, risk, decisions required"
+    },
+    {
+      "audience": "provider",
+      "approved_by": "provider_liaison",
+      "content": "scoped preservation and audit-log request"
+    },
+    {
+      "audience": "regulator",
+      "approved_by": "privacy_legal",
+      "content": "confirmed scope and mitigation; no speculative attribution"
+    }
+  ],
+  "recovery": {
+    "known_good_configuration": true,
+    "business_owner_approved": true,
+    "security_owner_approved": true,
+    "privacy_owner_approved": true,
+    "recurrence_query_count": 0,
+    "rto_minutes": 60,
+    "actual_minutes": 31,
+    "rpo_minutes": 15,
+    "observed_data_loss_minutes": 0
+  },
+  "limitations": [
+    "Synthetic local tabletop; no CSP control-plane or external SIEM was used.",
+    "Notification applicability and deadlines require jurisdiction-specific counsel."
+  ],
+  "passed": true
+}

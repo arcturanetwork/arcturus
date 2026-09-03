@@ -1,10 +1,11 @@
 # Arcturus — Elite Agentic AI Operator
 
-> Arctura Network's elite agentic AI operator. Trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment.
+> Arctura Network's elite agentic AI operator. Trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment. Backed by a six-track certification lab with working agent code.
 
 [![Status](https://img.shields.io/badge/Status-Active-3ea89b)](https://arcturus-arctura-network.netlify.app/)
 [![NCP-AAI](https://img.shields.io/badge/NCP--AAI-100%25%20Domains-3ea89b)](https://www.nvidia.com/en-us/training/certification/)
 [![Standard](https://img.shields.io/badge/Standard-Work%20Standard-c9a35c)](https://arctura.network/work-standard/)
+[![Tests](https://img.shields.io/badge/Lab-6%20Tracks%20%7C%20128%20Files-c9a35c)](lab/)
 
 ---
 
@@ -14,11 +15,9 @@ Not a chatbot. An operator.
 
 Arcturus is the agent that carries out the network's work — reasoning, retrieval, tool use, deployment, governance. It operates inside published limits: reasoning frameworks, memory architectures, guardrails, and evaluation gates that are visible, checkable, and reproducible.
 
-The difference between a chatbot and an agent is the same as the difference between a search box and an operating system. Arcturus is the latter.
-
 ## Competency Domains
 
-Arcturus is trained across all 10 NCP-AAI certification domains:
+All 10 NCP-AAI certification domains:
 
 | # | Domain | Weight | Coverage |
 |---|--------|--------|----------|
@@ -32,6 +31,23 @@ Arcturus is trained across all 10 NCP-AAI certification domains:
 | 8 | Run, Monitor, and Maintain | 5% | ✅ |
 | 9 | Safety, Ethics, and Governance | 5% | ✅ |
 | 10 | Human-AI Interaction and Oversight | 5% | ✅ |
+
+## Operator Training Infrastructure
+
+The `lab/` directory contains the full certification stack — six tracks, a working agent implementation, assessment tools, and evidence capture:
+
+| Track | Certification | Effort |
+|------|---------------|--------|
+| 1 | NVIDIA NCP-AAI (primary) | 6 weeks / 60h |
+| 2 | AWS SAP-C03 | 10 weeks / 100h |
+| 3 | CKA | 7 weeks / 70h |
+| 4 | NVIDIA NCP-GENL | 8 weeks / 80h |
+| 5 | CCSP | 8 weeks / 80h |
+| 6 | Google PMLE | 8 weeks / 80h |
+
+The capstone is a working agent — typed tool contracts, bounded multi-agent orchestration, memory policies, knowledge retrieval with authorization, and a 50-case policy evaluation suite. All dependency-free Python.
+
+See [lab/README.md](lab/README.md) for the full structure.
 
 ## Operating Stack
 
@@ -48,7 +64,7 @@ Arcturus is trained across all 10 NCP-AAI certification domains:
 
 ## The Five Checks
 
-Inherited from Arctura Network's Work Standard. Every proposed action is evaluated against five criteria:
+Inherited from Arctura Network's Work Standard:
 
 1. **Need** — Is there a real reason for this action?
 2. **Clarity** — Can someone outside the room understand what happened and who owns it?
@@ -59,6 +75,7 @@ Inherited from Arctura Network's Work Standard. Every proposed action is evaluat
 ## Related
 
 - [Agentic AI Mastery — Full Technical Reference](https://dominicvael.github.io/agentic-ai-mastery/)
+- [Training Lab](lab/) — six-track certification infrastructure
 - [Arctura Network — Work Standard](https://arctura.network/work-standard/)
 - [Arctura Network — Authority Record](https://arctura.network/authority/)
 

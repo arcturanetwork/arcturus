@@ -1,0 +1,12 @@
+{
+  "method":"qualitative likelihood x impact with named treatment and owner",
+  "risks":[
+    {"id":"R1","threat":"retrieved prompt injection triggers unauthorized action","asset":"action gateway","likelihood":4,"impact":5,"inherent":20,"treatment":"mitigate","controls":["content-data separation","tool allowlist","human approval","idempotency","audit"],"owner":"agent-platform","residual":6},
+    {"id":"R2","threat":"restricted data replicated to prohibited jurisdiction","asset":"document corpus","likelihood":3,"impact":5,"inherent":15,"treatment":"mitigate","controls":["region policy","preventive deployment policy","catalog location","alert"],"owner":"data-owner","residual":4},
+    {"id":"R3","threat":"cloud provider outage exceeds interactive RTO","asset":"query service","likelihood":2,"impact":4,"inherent":8,"treatment":"mitigate","controls":["tested regional recovery","durable source","quota readiness","runbook"],"owner":"service-owner","residual":4},
+    {"id":"R4","threat":"third-party model terms prohibit intended data use","asset":"model and customer data","likelihood":3,"impact":4,"inherent":12,"treatment":"avoid","controls":["license and DPA gate","approved model registry"],"owner":"legal","residual":3},
+    {"id":"R5","threat":"novel model behavior evades existing guardrails","asset":"users and trust","likelihood":4,"impact":4,"inherent":16,"treatment":"mitigate-and-accept-residual","controls":["layered filters","bounded tools","red team","monitoring","human escalation"],"owner":"risk-committee","residual":8},
+    {"id":"R6","threat":"specialized GPU capacity cost exceeds budget","asset":"program budget","likelihood":4,"impact":3,"inherent":12,"treatment":"mitigate-transfer","controls":["quotas","budgets","scale policy","reserved commitment after measurement"],"owner":"finops","residual":5}
+  ]
+}
+

@@ -1,0 +1,28 @@
+{
+  "apiVersion": "apps/v1",
+  "kind": "Deployment",
+  "metadata": {"name": "trustgraph", "namespace": "trustgraph", "labels": {"app": "trustgraph"}},
+  "spec": {
+    "replicas": 3,
+    "strategy": {"type": "RollingUpdate", "rollingUpdate": {"maxUnavailable": 1, "maxSurge": 1}},
+    "selector": {"matchLabels": {"app": "trustgraph"}},
+    "template": {
+      "metadata": {"labels": {"app": "trustgraph"}},
+      "spec": {
+        "serviceAccountName": "trustgraph",
+        "securityContext": {"runAsNonRoot": true, "seccompProfile": {"type": "RuntimeDefault"}},
+        "topologySpreadConstraints": [{"maxSkew": 1, "topologyKey": "kubernetes.io/hostname", "whenUnsatisfiable": "ScheduleAnyway", "labelSelector": {"matchLabels": {"app": "trustgraph"}}}],
+        "containers": [{
+          "name": "api", "image": "example.invalid/trustgraph:v1", "imagePullPolicy": "IfNotPresent",
+          "ports": [{"name": "http", "containerPort": 8080}],
+          "envFrom": [{"configMapRef": {"name": "trustgraph-config"}}, {"secretRef": {"name": "trustgraph-runtime"}}],
+          "resources": {"requests": {"cpu": "100m", "memory": "128Mi"}, "limits": {"cpu": "500m", "memory": "512Mi"}},
+          "readinessProbe": {"httpGet": {"path": "/ready", "port": "http"}, "initialDelaySeconds": 3, "periodSeconds": 5},
+          "livenessProbe": {"httpGet": {"path": "/health", "port": "http"}, "initialDelaySeconds": 10, "periodSeconds": 10},
+          "securityContext": {"allowPrivilegeEscalation": false, "readOnlyRootFilesystem": true, "capabilities": {"drop": ["ALL"]}}
+        }]
+      }
+    }
+  }
+}
+

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "rule": "verified requires one or more existing proof paths containing runtime output; design and local simulation do not satisfy platform execution",
+  "tracks": {
+    "ncp-aai": [
+      {"id":"model-agent","requirement":"Model-backed ReAct/tool/prompt evaluation on a held-out and adversarial set","status":"pending","proof":[]},
+      {"id":"nvidia-stack","requirement":"NeMo Guardrails, NIM, Agent Toolkit and optimized inference lab evidence","status":"pending","proof":[]},
+      {"id":"production","requirement":"Container deployment, load/failure profile, telemetry and rollback evidence","status":"pending","proof":["evidence/ncp-aai/http-load-profile.json","evidence/ncp-aai/http-concurrency-sweep.json"]},
+      {"id":"oversight","requirement":"Usable human approval/intervention workflow with immutable audit linkage","status":"pending","proof":[]}
+    ],
+    "aws-sap": [
+      {"id":"organization","requirement":"Disposable multi-account governance and delegated-security evidence","status":"pending","proof":[]},
+      {"id":"network-data","requirement":"Hybrid/network, private service access, data and key-control lab evidence","status":"pending","proof":[]},
+      {"id":"resilience","requirement":"Measured failover and restore exercise against numeric RTO/RPO","status":"pending","proof":[]},
+      {"id":"operations-cost","requirement":"Telemetry, deployment rollback, quota and cost-allocation evidence","status":"pending","proof":[]},
+      {"id":"c03-delta","requirement":"Published SAP-C03 guide diff and replacement of provisional C02-only coverage","status":"pending","proof":[]}
+    ],
+    "cka": [
+      {"id":"cluster-lifecycle","requirement":"Live kubeadm create/join/upgrade and control-plane troubleshooting evidence","status":"pending","proof":[]},
+      {"id":"workloads","requirement":"Live scheduling, rollout, probes, configuration and autoscaling evidence","status":"pending","proof":[]},
+      {"id":"networking","requirement":"Live Service, DNS, CNI NetworkPolicy, Gateway and Ingress evidence","status":"pending","proof":[]},
+      {"id":"storage","requirement":"Live CSI, StorageClass, PV/PVC, topology and reclaim evidence","status":"pending","proof":[]},
+      {"id":"timed-faults","requirement":"Varied unseen fault drills under the two-hour performance constraint","status":"pending","proof":[]}
+    ],
+    "ncp-genl": [
+      {"id":"model-baselines","requirement":"Baseline, prompting and RAG comparison on held-out model evaluation","status":"pending","proof":[]},
+      {"id":"training","requirement":"SFT/PEFT and preference-method model training with checkpoints and regressions","status":"pending","proof":[]},
+      {"id":"gpu-distributed","requirement":"GPU profiler plus mixed-precision and distributed/parallelism experiment","status":"pending","proof":[]},
+      {"id":"optimization-serving","requirement":"Quantization/optimization and NIM/Triton serving load evidence","status":"pending","proof":[]},
+      {"id":"evaluation-safety","requirement":"Human/calibrated judge, fairness, guardrail and monitoring evidence","status":"pending","proof":[]}
+    ],
+    "ccsp": [
+      {"id":"provider-assurance","requirement":"Scoped provider assurance and cryptographic validation report review","status":"pending","proof":[]},
+      {"id":"identity-irm","requirement":"Federation, MFA, secrets/keys/certificates and IRM lifecycle lab","status":"verified","proof":["evidence/ccsp/identity-irm.json"]},
+      {"id":"app-assurance","requirement":"SAST/DAST/SCA, SBOM, signing and supply-chain verification evidence","status":"verified","proof":["evidence/ccsp/app-assurance.json"]},
+      {"id":"operations","requirement":"SIEM/incident/vulnerability/forensic exercise with communications evidence","status":"verified","proof":["evidence/ccsp/incident-operations.json"]},
+      {"id":"eligibility","requirement":"Candidate-specific ISC2 experience or Associate pathway verification","status":"pending","proof":[]}
+    ],
+    "google-pmle": [
+      {"id":"low-code","requirement":"BigQuery ML and managed API/AutoML baseline evidence","status":"pending","proof":[]},
+      {"id":"custom-training","requirement":"Vertex AI custom training/tuning, lineage and hardware-selection evidence","status":"pending","proof":[]},
+      {"id":"pipeline","requirement":"Parameterized Vertex/Kubeflow pipeline with validation, approval and conditional deployment","status":"pending","proof":[]},
+      {"id":"serving","requirement":"Batch and online endpoint, load, canary and rollback evidence","status":"pending","proof":[]},
+      {"id":"monitoring-safety","requirement":"Skew/drift/quality/fairness and generative-security monitoring evidence","status":"pending","proof":[]}
+    ]
+  }
+}

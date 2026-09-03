@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "executed_at": "2026-09-03T08:51:16.797697+00:00",
+  "scope": "local TrustGraph Python capstone",
+  "sast_sca": {
+    "files_scanned": 15,
+    "sast_findings": [],
+    "imports": [
+      "__future__",
+      "ast",
+      "capstone",
+      "collections",
+      "concurrent",
+      "dataclasses",
+      "datetime",
+      "enum",
+      "hashlib",
+      "hmac",
+      "http",
+      "json",
+      "math",
+      "pathlib",
+      "random",
+      "re",
+      "statistics",
+      "threading",
+      "time",
+      "typing",
+      "urllib",
+      "uuid"
+    ],
+    "external_runtime_dependencies": []
+  },
+  "sbom": {
+    "bomFormat": "CycloneDX-inspired",
+    "specVersion": "1.5-lab",
+    "components": [
+      {
+        "type": "file",
+        "name": "capstone/agent/evaluate.py",
+        "sha256": "36f08386dc81c51ee739690e1097fd398652d336d0373806e9b1cd02decd6f04"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/knowledge.py",
+        "sha256": "f1a9653d4e44bf1e85c2e592c930e8172e25dab75e610022043995aa58f2bde9"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/load_profile.py",
+        "sha256": "d58afa5e2744d80fc6fa48e4ef551e4229c500ce1cf620e9003923ab5a938fb2"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/load_sweep.py",
+        "sha256": "a6dcf74f01df844701141ac72c84dff6a3292933ef99967c1464da340e9e9a9b"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/memory.py",
+        "sha256": "577fd14df33afb52af0e5a12ae4abfba1d976ea501bda9ea2e3ef5bf87c6c210"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/orchestration.py",
+        "sha256": "8b1cc2bd7acb4ae4c03b2a78834d72ef2ab9265c8d92172f79766c7dfa167c57"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/planning.py",
+        "sha256": "f334643a13c9a0f7d6451bf8c120719873ea04654a31f1438b6cff337a1210c7"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/server.py",
+        "sha256": "d1e8fb5860ab57011c3cec5dc9f30e08eee20a48b9690aacb8c4f3a7cddc5bb8"
+      },
+      {
+        "type": "file",
+        "name": "capstone/agent/trust_agent.py",
+        "sha256": "a04a31c020910f51da996704dc0502d3b65ff85c7a973ac85937912a0ddb92a9"
+      },
+      {
+        "type": "file",
+        "name": "capstone/llm/lab.py",
+        "sha256": "3a4203867093d3de43f0fd7718cb70a04c321a3ee7d278d6591001b66a75b6c9"
+      },
+      {
+        "type": "file",
+        "name": "capstone/llm/training.py",
+        "sha256": "ac6666bfa2489c42393e81b242053da67280f8a3cc6f97b311ef30feca0ec24a"
+      },
+      {
+        "type": "file",
+        "name": "capstone/ml/pipeline.py",
+        "sha256": "4cb808bb96c74937a4446d6cc3e4cc50d3ef47cc904acaf1083ab40a9005cf01"
+      },
+      {
+        "type": "file",
+        "name": "capstone/security/app_assurance.py",
+        "sha256": "ceca8ef8c1b7277b236bdf2c1f56af1d9a4c9afa3ea3cfb240b228cbdab04c19"
+      },
+      {
+        "type": "file",
+        "name": "capstone/security/evidence.py",
+        "sha256": "b8b59379a4f74f1aa17da6e6bb20361949e089c83e8d1aa6221eb1cfb194421a"
+      },
+      {
+        "type": "file",
+        "name": "capstone/security/governance.py",
+        "sha256": "bd14d920addf1fab0b8cce832bf7ae9c8d4970f98f25c71ce6a75a40dbb670ef"
+      }
+    ],
+    "limitations": "Minimal training SBOM; not schema-validated CycloneDX."
+  },
+  "dast": {
+    "cases": [
+      {
+        "case": "security-headers",
+        "status": 200,
+        "passed": true,
+        "observed": {
+          "cache-control": "no-store",
+          "x-content-type-options": "nosniff",
+          "content-security-policy": "default-src 'none'; frame-ancestors 'none'"
+        }
+      },
+      {
+        "case": "malformed-contract",
+        "status": 400,
+        "passed": true
+      },
+      {
+        "case": "unauthorized-write",
+        "status": 403,
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "artifact_integrity": {
+    "algorithm": "HMAC-SHA256",
+    "signature": "69dcedc8ef5dc80b40553494f8643259c6df05f0a3e3c513821a4522f99c7622",
+    "valid_verified": true,
+    "tamper_rejected": true,
+    "limitation": "Shared-key integrity demonstration; not publisher identity or non-repudiation."
+  },
+  "limitations": [
+    "No external vulnerability advisory database was queried because there are no third-party runtime dependencies.",
+    "Local HTTP testing does not assess TLS, infrastructure, browser behavior, or internet exposure."
+  ],
+  "passed": true
+}

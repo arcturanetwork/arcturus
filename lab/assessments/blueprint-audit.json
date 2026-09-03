@@ -1,0 +1,109 @@
+{
+  "as_of": "2026-09-03",
+  "maximum_age_days": 3,
+  "tracks": [
+    {
+      "id": "ncp-aai",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "prelaunch",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "domains": 10,
+        "numbered_objectives": 53
+      },
+      "blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "booking_ready": false
+    },
+    {
+      "id": "aws-sap",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "provisional-successor",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "domains": 4,
+        "numbered_tasks": 20
+      },
+      "blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "booking_ready": false
+    },
+    {
+      "id": "cka",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "published",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "domains": 5,
+        "competency_groups": 24
+      },
+      "blockers": [],
+      "booking_ready": true
+    },
+    {
+      "id": "ncp-genl",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "prelaunch",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "domains": 10,
+        "numbered_objectives": 45
+      },
+      "blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "booking_ready": false
+    },
+    {
+      "id": "ccsp",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "published",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "domains": 6,
+        "numbered_subdomains": 38
+      },
+      "blockers": [],
+      "booking_ready": true
+    },
+    {
+      "id": "google-pmle",
+      "age_days": 0,
+      "source_current": true,
+      "blueprint_state": "published",
+      "paths": {
+        "map": true,
+        "bank": true
+      },
+      "objective_structure": {
+        "sections": 6,
+        "numbered_tasks": 14
+      },
+      "blockers": [],
+      "booking_ready": true
+    }
+  ],
+  "all_booking_ready": false
+}

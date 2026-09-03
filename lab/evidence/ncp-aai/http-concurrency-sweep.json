@@ -1,0 +1,106 @@
+{
+  "recorded_at": "2026-09-03T08:44:04.093586+00:00",
+  "requests_per_trial": 100,
+  "groups": [
+    {
+      "workers": 1,
+      "trials": 3,
+      "median_throughput_rps": 174.50213780979533,
+      "median_latency_ms": {
+        "p50": 0.6612549987039529,
+        "p95": 0.8317469983012415,
+        "p99": 1.1180050023540389
+      },
+      "worst_p99_ms": 1.2287090030440595,
+      "unexpected_outcomes": 0,
+      "all_correlation_intact": true
+    },
+    {
+      "workers": 5,
+      "trials": 3,
+      "median_throughput_rps": 170.26873292767573,
+      "median_latency_ms": {
+        "p50": 4.080547001649393,
+        "p95": 5.299951997585595,
+        "p99": 5.815791999339126
+      },
+      "worst_p99_ms": 6.1333130033744965,
+      "unexpected_outcomes": 0,
+      "all_correlation_intact": true
+    },
+    {
+      "workers": 10,
+      "trials": 3,
+      "median_throughput_rps": 168.4232175267285,
+      "median_latency_ms": {
+        "p50": 8.898324002075242,
+        "p95": 10.093231998325791,
+        "p99": 10.862785999051994
+      },
+      "worst_p99_ms": 11.370913998689502,
+      "unexpected_outcomes": 0,
+      "all_correlation_intact": true
+    },
+    {
+      "workers": 20,
+      "trials": 3,
+      "median_throughput_rps": 163.93133330178497,
+      "median_latency_ms": {
+        "p50": 20.48329499666579,
+        "p95": 22.039596002287,
+        "p99": 23.054321001836797
+      },
+      "worst_p99_ms": 23.66750500004855,
+      "unexpected_outcomes": 0,
+      "all_correlation_intact": true
+    },
+    {
+      "workers": 40,
+      "trials": 3,
+      "median_throughput_rps": 162.836384717383,
+      "median_latency_ms": {
+        "p50": 34.36933600096381,
+        "p95": 42.144377999647986,
+        "p99": 42.73048200047924
+      },
+      "worst_p99_ms": 47.28769000212196,
+      "unexpected_outcomes": 0,
+      "all_correlation_intact": true
+    }
+  ],
+  "findings": {
+    "peak_median_throughput_workers": 1,
+    "peak_median_throughput_rps": 174.50213780979533,
+    "saturation_candidates": [
+      {
+        "from_workers": 1,
+        "to_workers": 5,
+        "throughput_gain": -0.02425990268803435,
+        "p95_growth": 5.372072286897586
+      },
+      {
+        "from_workers": 5,
+        "to_workers": 10,
+        "throughput_gain": -0.010838839105774878,
+        "p95_growth": 0.9044006441801333
+      },
+      {
+        "from_workers": 10,
+        "to_workers": 20,
+        "throughput_gain": -0.026670219764865166,
+        "p95_growth": 1.1836014475782193
+      },
+      {
+        "from_workers": 20,
+        "to_workers": 40,
+        "throughput_gain": -0.0066793123824977485,
+        "p95_growth": 0.9122119114740017
+      }
+    ],
+    "rule": "candidate when throughput gains <10% while p95 grows >50%"
+  },
+  "limitations": [
+    "short loopback trials with no model or external dependency",
+    "medians reduce run noise but do not replace sustained soak/resource telemetry"
+  ]
+}

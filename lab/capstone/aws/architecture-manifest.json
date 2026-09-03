@@ -1,0 +1,12 @@
+{
+  "version": "sap-c02-baseline-2026-09-03",
+  "requirements": {"availability_slo": 99.9, "ingestion_rpo_minutes": 15, "query_rto_minutes": 60},
+  "accounts": ["log-archive", "security-tooling", "network", "shared-services", "production", "staging", "development"],
+  "controls": ["scp", "federation", "least-privilege", "central-audit", "kms", "secret-rotation", "private-endpoints"],
+  "reliability": ["multi-az", "queue-buffer", "idempotency", "dlq", "backup-restore-test", "quota-review"],
+  "operations": ["iac", "policy-scan", "canary", "automatic-rollback", "slos", "game-day"],
+  "cost": ["allocation-tags", "budgets", "anomaly-detection", "cur-review", "transfer-model"],
+  "migration": ["portfolio-assessment", "7rs", "wave-plan", "rollback", "reconciliation"],
+  "evidence_status": "design-only"
+}
+

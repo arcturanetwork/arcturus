@@ -1,0 +1,28 @@
+{
+  "requests": 200,
+  "elapsed_seconds": 1.141736358000344,
+  "throughput_rps": 175.17178865205216,
+  "latency_ms": {
+    "p50": 24.62445100172772,
+    "p95": 433.2561020019057,
+    "p99": 476.41685099733877,
+    "max": 490.2410979993874
+  },
+  "status_counts": {
+    "200": 180,
+    "403": 20
+  },
+  "unexpected_outcomes": 0,
+  "correlation_integrity": true,
+  "limitations": [
+    "loopback dependency-free handler, not a model call",
+    "no container, Kubernetes, GPU, external dependency, or sustained soak claim"
+  ],
+  "recorded_at": "2026-09-03T08:42:37.038903+00:00",
+  "configuration": {
+    "workers": 20,
+    "unauthorized_every": 10,
+    "listen_backlog": 128
+  },
+  "expected_policy_rejections": 20
+}

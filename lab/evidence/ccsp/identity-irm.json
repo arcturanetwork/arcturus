@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "executed_at": "2026-09-03T08:54:30.408366+00:00",
+  "federation": {
+    "policy": {
+      "issuer": "https://idp.example.test",
+      "audience": "trustgraph",
+      "max_age_seconds": 300,
+      "required_assurance": "mfa"
+    },
+    "cases": [
+      {
+        "case": "valid-mfa",
+        "accepted": true,
+        "expected": true,
+        "reason": "accepted",
+        "passed": true
+      },
+      {
+        "case": "wrong-audience",
+        "accepted": false,
+        "expected": false,
+        "reason": "rejected:audience",
+        "passed": true
+      },
+      {
+        "case": "expired",
+        "accepted": false,
+        "expected": false,
+        "reason": "rejected:expiry",
+        "passed": true
+      },
+      {
+        "case": "stale",
+        "accepted": false,
+        "expected": false,
+        "reason": "rejected:freshness",
+        "passed": true
+      },
+      {
+        "case": "missing-mfa",
+        "accepted": false,
+        "expected": false,
+        "reason": "rejected:mfa",
+        "passed": true
+      }
+    ]
+  },
+  "secret_rotation": {
+    "old_version": 1,
+    "new_version": 2,
+    "old_rejected": true,
+    "new_accepted": true
+  },
+  "certificate": {
+    "subject": "service.trustgraph.internal",
+    "not_before": "2026-09-03T08:53:30.408366+00:00",
+    "not_after": "2026-10-03T08:54:30.408366+00:00",
+    "valid_now": true,
+    "renewal_due_before_days": 7
+  },
+  "irm": {
+    "cases": [
+      {
+        "case": "allow-view",
+        "observed": true,
+        "expected": true,
+        "passed": true
+      },
+      {
+        "case": "deny-export",
+        "observed": false,
+        "expected": false,
+        "passed": true
+      },
+      {
+        "case": "deny-other-subject",
+        "observed": false,
+        "expected": false,
+        "passed": true
+      },
+      {
+        "case": "deny-after-revoke",
+        "observed": false,
+        "expected": false,
+        "passed": true
+      }
+    ]
+  },
+  "audit": {
+    "events": [
+      {
+        "sequence": 1,
+        "actor": "identity_admin",
+        "action": "validate federation and MFA cases"
+      },
+      {
+        "sequence": 2,
+        "actor": "secrets_operator",
+        "action": "rotate secret v1 to v2"
+      },
+      {
+        "sequence": 3,
+        "actor": "pki_operator",
+        "action": "validate certificate lifetime and renewal threshold"
+      },
+      {
+        "sequence": 4,
+        "actor": "data_owner",
+        "action": "grant view-only document right"
+      },
+      {
+        "sequence": 5,
+        "actor": "data_owner",
+        "action": "revoke document right"
+      }
+    ],
+    "sha256": "d4bfdb4ec705e1a9b98bc88ab2d52a7a4bcd2bbf8bf0d60b0f956324cbc07d82",
+    "hmac_sha256": "a930ffc6a1872e619ef97662969cdb844118a40ae1209f127af25d3588e88f15",
+    "limitation": "Ephemeral symmetric lab key; use managed immutable audit signing in production."
+  },
+  "limitations": [
+    "Synthetic claims are validated locally; no external IdP or hardware MFA ceremony was used.",
+    "Certificate metadata is simulated; no public/private CA issuance was performed."
+  ],
+  "passed": true
+}

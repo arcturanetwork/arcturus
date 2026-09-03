@@ -1,0 +1,22 @@
+{
+  "repository": "https://github.com/akshan-main/NCP-AAI",
+  "audited_commit": "97b3754ee28d2734eff366a41ed681df0469ee9f",
+  "verified_on": "2026-09-03",
+  "license": "MIT",
+  "declared_and_observed_counts": {
+    "modules": 13,
+    "labs": 12,
+    "capstones": 2,
+    "practice_questions": 55,
+    "question_breakdown": {"conceptual": 30, "scenario": 15, "architecture": 10}
+  },
+  "adoption_decision": "reference_and_reimplement",
+  "observations": [
+    "Practice questions are described by the repository as inferred/original, not live exam questions.",
+    "Many labs are Markdown procedures rather than checked-in executable projects.",
+    "Several setup matrices explicitly require dependency verification.",
+    "The repository demonstrates printing NVIDIA_API_KEY; this curriculum prohibits displaying secrets.",
+    "Current NVIDIA Agent Toolkit 1.8 documentation is authoritative for package extras and commands."
+  ]
+}
+

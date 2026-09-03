@@ -53,3 +53,13 @@ Handoff protocol: confidence threshold triggers escalation to human reviewer wit
 ## Author
 
 Dominic Vael — Infrastructure Node, Arctura Network
+## Training Infrastructure
+
+The lab/ directory contains the full certification stack:
+- Six tracks: NCP-AAI, AWS SAP, CKA, NCP-GENL, CCSP, Google PMLE
+- Capstone: working agent with typed tools, bounded orchestration, memory, knowledge retrieval, 50-case eval suite
+- Assessments: readiness scorecard, evidence audit, blueprint coverage, scenario exam, campaign audit gate
+- Evidence: captured runtime proof from lab execution
+- Tests: repository-wide test suite
+
+See: https://github.com/arcturanetwork/arcturus/tree/main/lab

@@ -1,0 +1,16 @@
+{
+  "version": "ccsp-2026-08-01",
+  "controls": [
+    {"id":"DATA-01","objective":"classification and labeling","owner":"data-owner","operator":"customer","evidence":"catalog labels and quarterly sample"},
+    {"id":"DATA-02","objective":"encryption and key separation","owner":"security","operator":"shared","evidence":"key policy, rotation and restore/erase test"},
+    {"id":"DATA-03","objective":"retention, deletion and legal hold","owner":"legal","operator":"shared","evidence":"policy execution and deletion certificate"},
+    {"id":"IAM-01","objective":"federation, MFA and least privilege","owner":"security","operator":"customer","evidence":"access review and denied-path test"},
+    {"id":"APP-01","objective":"secure SDLC and abuse testing","owner":"engineering","operator":"customer","evidence":"threat model, SAST/SCA/DAST and release gate"},
+    {"id":"OPS-01","objective":"detection and incident response","owner":"soc","operator":"shared","evidence":"SIEM alert, exercise and after-action report"},
+    {"id":"BC-01","objective":"tested recovery","owner":"service-owner","operator":"shared","evidence":"RTO/RPO recovery exercise"},
+    {"id":"LEGAL-01","objective":"jurisdiction and privacy","owner":"privacy","operator":"customer","evidence":"PIA, transfer basis and processing inventory"},
+    {"id":"VEND-01","objective":"provider assurance and exit","owner":"procurement","operator":"customer","evidence":"SOC scope review, right-to-audit, export and deletion test"},
+    {"id":"AI-01","objective":"dataset/model privacy and integrity","owner":"ml-owner","operator":"customer","evidence":"lineage, access test, validation, red-team report"}
+  ]
+}
+

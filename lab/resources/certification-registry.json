@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "id": "ncp-aai",
+      "target": "NVIDIA Certified Professional: Agentic AI",
+      "blueprint_url": "https://www.nvidia.com/en-us/learn/certification/agentic-ai-professional/",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "prelaunch",
+      "exam_version": "launch edition not yet available",
+      "objective_structure": {"domains": 10, "numbered_objectives": 53},
+      "objective_ranges": ["1.1-1.8", "2.1-2.6", "3.1-3.5", "4.1-4.5", "5.1-5.5", "6.1-6.5", "7.1-7.5", "8.1-8.5", "9.1-9.5", "10.1-10.4"],
+      "map": "studies/ncp-aai/objective-map.md",
+      "bank": "studies/ncp-aai/scenario-labs.json",
+      "mandatory_refresh_events": ["registration opens", "study guide revision", "exam launches"],
+      "known_discrepancy": "PDF and live page disagree on deployment/operations weights; visible live weights total 98%."
+    },
+    {
+      "id": "aws-sap",
+      "target": "AWS Certified Solutions Architect - Professional SAP-C03",
+      "blueprint_url": "https://docs.aws.amazon.com/aws-certification/latest/examguides/aws-certification-exam-guides.html",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "provisional-successor",
+      "exam_version": "SAP-C02 baseline; SAP-C03 target",
+      "objective_structure": {"domains": 4, "numbered_tasks": 20},
+      "objective_ranges": ["1.1-1.5", "2.1-2.6", "3.1-3.5", "4.1-4.4"],
+      "map": "studies/aws-sap/objective-map.md",
+      "bank": "studies/aws-sap/task-labs.json",
+      "mandatory_refresh_events": ["2026-10-27 SAP-C03 guide publication", "2026-11-17 SAP-C03 launch"],
+      "known_discrepancy": "Detailed SAP-C03 task statements and weights were not published at check time."
+    },
+    {
+      "id": "cka",
+      "target": "Certified Kubernetes Administrator",
+      "blueprint_url": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "published",
+      "exam_version": "Kubernetes v1.35",
+      "objective_structure": {"domains": 5, "competency_groups": 24},
+      "objective_ranges": [],
+      "map": "studies/cka/objective-map.md",
+      "bank": "studies/cka/performance-labs.json",
+      "mandatory_refresh_events": ["exam Kubernetes minor version changes"],
+      "known_discrepancy": null
+    },
+    {
+      "id": "ncp-genl",
+      "target": "NVIDIA Certified Professional: Generative AI LLMs",
+      "blueprint_url": "https://www.nvidia.com/en-us/learn/certification/generative-ai-llm-professional/",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "prelaunch",
+      "exam_version": "launch edition not yet available",
+      "objective_structure": {"domains": 10, "numbered_objectives": 45},
+      "objective_ranges": ["1.1-1.6", "2.1-2.4", "3.1-3.3", "4.1-4.7", "5.1-5.4", "6.1-6.4", "7.1-7.4", "8.1-8.3", "9.1-9.5", "10.1-10.5"],
+      "map": "studies/ncp-genl/objective-map.md",
+      "bank": "studies/ncp-genl/scenario-labs.json",
+      "mandatory_refresh_events": ["registration opens", "study guide revision", "exam launches"],
+      "known_discrepancy": "Live page contains apparent misplaced deployment and OpenUSD text; numbered PDF governs this edition."
+    },
+    {
+      "id": "ccsp",
+      "target": "ISC2 Certified Cloud Security Professional",
+      "blueprint_url": "https://www.isc2.org/certifications/ccsp/ccsp-certification-exam-outline",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "published",
+      "exam_version": "outline effective 2026-08-01",
+      "objective_structure": {"domains": 6, "numbered_subdomains": 38},
+      "objective_ranges": ["1.1-1.6", "2.1-2.9", "3.1-3.5", "4.1-4.7", "5.1-5.6", "6.1-6.5"],
+      "map": "studies/ccsp/objective-map.md",
+      "bank": "studies/ccsp/scenario-labs.json",
+      "mandatory_refresh_events": ["ISC2 outline effective date changes"],
+      "known_discrepancy": null
+    },
+    {
+      "id": "google-pmle",
+      "target": "Google Cloud Professional Machine Learning Engineer",
+      "blueprint_url": "https://cloud.google.com/learn/certification/guides/machine-learning-engineer",
+      "guide_checked": "2026-09-03",
+      "blueprint_state": "published",
+      "exam_version": "current guide using Gemini Enterprise Agent Platform terminology",
+      "objective_structure": {"sections": 6, "numbered_tasks": 14},
+      "objective_ranges": ["1.1-1.2", "2.1-2.3", "3.1-3.3", "4.1-4.2", "5.1-5.2", "6.1-6.2"],
+      "map": "studies/google-pmle/objective-map.md",
+      "bank": "studies/google-pmle/scenario-labs.json",
+      "mandatory_refresh_events": ["exam guide revision"],
+      "known_discrepancy": "Rounded section weights total 101%; Google labels them approximate."
+    }
+  ]
+}

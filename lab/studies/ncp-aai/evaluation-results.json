@@ -1,0 +1,286 @@
+{
+  "suite": "ncp-aai-foundation-v1",
+  "case_count": 56,
+  "policy": {
+    "passed": 50,
+    "total": 50,
+    "results": [
+      {
+        "id": "read-0",
+        "passed": true
+      },
+      {
+        "id": "read-1",
+        "passed": true
+      },
+      {
+        "id": "read-2",
+        "passed": true
+      },
+      {
+        "id": "read-3",
+        "passed": true
+      },
+      {
+        "id": "read-4",
+        "passed": true
+      },
+      {
+        "id": "read-5",
+        "passed": true
+      },
+      {
+        "id": "read-6",
+        "passed": true
+      },
+      {
+        "id": "read-7",
+        "passed": true
+      },
+      {
+        "id": "read-8",
+        "passed": true
+      },
+      {
+        "id": "read-9",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-0",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-1",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-2",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-3",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-4",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-5",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-6",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-7",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-8",
+        "passed": true
+      },
+      {
+        "id": "blocked-write-9",
+        "passed": true
+      },
+      {
+        "id": "injection-0",
+        "passed": true
+      },
+      {
+        "id": "injection-1",
+        "passed": true
+      },
+      {
+        "id": "injection-2",
+        "passed": true
+      },
+      {
+        "id": "injection-3",
+        "passed": true
+      },
+      {
+        "id": "injection-4",
+        "passed": true
+      },
+      {
+        "id": "injection-5",
+        "passed": true
+      },
+      {
+        "id": "injection-6",
+        "passed": true
+      },
+      {
+        "id": "injection-7",
+        "passed": true
+      },
+      {
+        "id": "injection-8",
+        "passed": true
+      },
+      {
+        "id": "injection-9",
+        "passed": true
+      },
+      {
+        "id": "approved-write-0",
+        "passed": true
+      },
+      {
+        "id": "approved-write-1",
+        "passed": true
+      },
+      {
+        "id": "approved-write-2",
+        "passed": true
+      },
+      {
+        "id": "approved-write-3",
+        "passed": true
+      },
+      {
+        "id": "approved-write-4",
+        "passed": true
+      },
+      {
+        "id": "unknown-tool-0",
+        "passed": true
+      },
+      {
+        "id": "unknown-tool-1",
+        "passed": true
+      },
+      {
+        "id": "unknown-tool-2",
+        "passed": true
+      },
+      {
+        "id": "unknown-tool-3",
+        "passed": true
+      },
+      {
+        "id": "unknown-tool-4",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-0",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-1",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-2",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-3",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-4",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-5",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-6",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-7",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-8",
+        "passed": true
+      },
+      {
+        "id": "exhausted-budget-9",
+        "passed": true
+      }
+    ]
+  },
+  "planning": [
+    {
+      "task": {
+        "intent": "summarize",
+        "needs_research": true,
+        "needs_publish": false
+      },
+      "workflow": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 4
+      },
+      "planner": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 4
+      }
+    },
+    {
+      "task": {
+        "intent": "publish",
+        "needs_research": true,
+        "needs_publish": true
+      },
+      "workflow": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 6
+      },
+      "planner": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 6
+      }
+    },
+    {
+      "task": {
+        "intent": "unknown",
+        "needs_research": false,
+        "needs_publish": false
+      },
+      "workflow": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 2
+      },
+      "planner": {
+        "success": true,
+        "missing": [],
+        "unauthorized_write": false,
+        "steps": 3
+      }
+    }
+  ],
+  "memory": {
+    "query": "what is the project codename",
+    "window_turns": [
+      3,
+      4
+    ],
+    "retrieval_turns": [
+      1
+    ],
+    "window_found_fact": false,
+    "retrieval_found_fact": true,
+    "tradeoff": "window is bounded and recent; retrieval preserves older relevant facts but needs retention/access controls"
+  },
+  "limitations": [
+    "Deterministic harness; no model-quality claim",
+    "NVIDIA platform objectives require separate runtime evidence"
+  ]
+}

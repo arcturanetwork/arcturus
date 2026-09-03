@@ -928,6 +928,54 @@
     </table>
   </section>
 
+  <!-- ═══ TRAINING INFRASTRUCTURE ═══════════ -->
+  <section class="block" id="training">
+    <div class="block-label">training infrastructure</div>
+    <h2>Six tracks. One capstone. <em>Real code</em>.</h2>
+    <p>The <code style="font-family:'Azeret Mono',monospace;color:var(--teal);">lab/</code> directory contains the full certification stack behind Arcturus. Not slides. Not exam dumps. Working agent code, assessment tools, evidence capture, and a project-first curriculum across six complementary credentials.</p>
+    <table class="matrix">
+      <tr><th>Track</th><th>Certification</th><th>Effort</th></tr>
+      <tr><td><strong>1</strong></td><td>NCP-AAI (primary)</td><td>6 wk / 60h</td></tr>
+      <tr><td><strong>2</strong></td><td>AWS SAP-C03</td><td>10 wk / 100h</td></tr>
+      <tr><td><strong>3</strong></td><td>CKA</td><td>7 wk / 70h</td></tr>
+      <tr><td><strong>4</strong></td><td>NCP-GENL</td><td>8 wk / 80h</td></tr>
+      <tr><td><strong>5</strong></td><td>CCSP</td><td>8 wk / 80h</td></tr>
+      <tr><td><strong>6</strong></td><td>Google PMLE</td><td>8 wk / 80h</td></tr>
+    </table>
+    <p>The capstone is a working agent with typed tool contracts, bounded multi-agent orchestration, memory policies, knowledge retrieval with authorization-before-ranking, idempotency keys, circuit breakers, and a 50-case policy evaluation suite. All dependency-free Python. Every action is traced, every write requires approval, every claim links to evidence.</p>
+    <div class="diagram">
+<pre><span class="accent">─── Capstone Agent Architecture ──────────────</span>
+
+  Request → AgentGateway (HTTP, threaded)
+               │
+               ▼
+          TrustAgent (bounded)
+           ├── search_documents  [READ]   ← no approval needed
+           ├── publish_report    [WRITE]  ← approval + idempotency required
+           ├── RetryPolicy       (transient only)
+           ├── CircuitBreaker    (3 failures → open)
+           ├── Step Budget        (exhausted → PolicyError)
+           └── Trace             (every action logged)
+
+  Evaluation: 50 policy cases
+  ├── 10 read          → allowed
+  ├── 10 blocked-write  → blocked (no approval)
+  ├── 10 injection     → blocked
+  ├── 5  approved      → allowed (with token)
+  ├── 5  unknown-tool  → blocked
+  └── 10 exhausted     → blocked (budget spent)
+
+<span class="accent">Result:</span> 50/50 pass. Deterministic policy enforcement.
+<span class="warn">Limitation:</span> Proves control behavior, not model quality.</pre>
+    </div>
+    <p>Assessment infrastructure includes a readiness scorecard, evidence audit, blueprint coverage checker, scenario exam engine, and a combined campaign audit gate. A track goes green only when every objective scores 2+, practice performance hits 85%+ twice seven days apart, and all platform evidence links to real runs.</p>
+    <div class="cta-row">
+      <a class="btn" href="https://github.com/arcturanetwork/arcturus/tree/main/lab">Browse the lab →</a>
+      <a class="btn" href="https://github.com/arcturanetwork/arcturus/blob/main/lab/ROADMAP.md">Program roadmap</a>
+      <a class="btn" href="https://github.com/arcturanetwork/arcturus/blob/main/lab/projects/TRUSTGRAPH.md">Capstone spec</a>
+    </div>
+  </section>
+
   <!-- ═══ EVIDENCE ═════════════════════════ -->
   <section class="block">
     <div class="block-label">evidence</div>

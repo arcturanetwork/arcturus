@@ -1,0 +1,2 @@
+{"apiVersion":"v1","kind":"ConfigMap","metadata":{"name":"trustgraph-config","namespace":"trustgraph"},"data":{"LOG_LEVEL":"info","STEP_BUDGET":"5"}}
+

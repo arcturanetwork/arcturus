@@ -1,0 +1,182 @@
+{
+  "as_of": "2026-09-03",
+  "tracks": [
+    {
+      "id": "aws-sap",
+      "ready": false,
+      "gates": {
+        "blueprint": false,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "organization",
+          "network-data",
+          "resilience",
+          "operations-cost",
+          "c03-delta"
+        ],
+        "invalid": []
+      }
+    },
+    {
+      "id": "ccsp",
+      "ready": false,
+      "gates": {
+        "blueprint": true,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "provider-assurance",
+          "eligibility"
+        ],
+        "invalid": []
+      }
+    },
+    {
+      "id": "cka",
+      "ready": false,
+      "gates": {
+        "blueprint": true,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "cluster-lifecycle",
+          "workloads",
+          "networking",
+          "storage",
+          "timed-faults"
+        ],
+        "invalid": []
+      }
+    },
+    {
+      "id": "google-pmle",
+      "ready": false,
+      "gates": {
+        "blueprint": true,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "low-code",
+          "custom-training",
+          "pipeline",
+          "serving",
+          "monitoring-safety"
+        ],
+        "invalid": []
+      }
+    },
+    {
+      "id": "ncp-aai",
+      "ready": false,
+      "gates": {
+        "blueprint": false,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "model-agent",
+          "nvidia-stack",
+          "production",
+          "oversight"
+        ],
+        "invalid": []
+      }
+    },
+    {
+      "id": "ncp-genl",
+      "ready": false,
+      "gates": {
+        "blueprint": false,
+        "objective_coverage": true,
+        "scenario": false,
+        "platform": false
+      },
+      "blueprint_blockers": [
+        "target blueprint is provisional or prelaunch"
+      ],
+      "scenario": {
+        "ready": false,
+        "passing_attempts": 0,
+        "separated_pair": null,
+        "recurring_error_classes": [],
+        "limitations": "Scenario gate only; platform/lab and official-version gates remain separate."
+      },
+      "platform": {
+        "ready": false,
+        "pending": [
+          "model-baselines",
+          "training",
+          "gpu-distributed",
+          "optimization-serving",
+          "evaluation-safety"
+        ],
+        "invalid": []
+      }
+    }
+  ],
+  "all_certifications_ready": false
+}

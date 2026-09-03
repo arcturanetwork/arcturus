@@ -1,0 +1,53 @@
+{
+  "tracks": [
+    {
+      "id": "ncp-aai",
+      "declared": 53,
+      "expanded": 53,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    },
+    {
+      "id": "aws-sap",
+      "declared": 20,
+      "expanded": 20,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    },
+    {
+      "id": "cka",
+      "declared": null,
+      "expanded": 0,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    },
+    {
+      "id": "ncp-genl",
+      "declared": 45,
+      "expanded": 45,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    },
+    {
+      "id": "ccsp",
+      "declared": 38,
+      "expanded": 38,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    },
+    {
+      "id": "google-pmle",
+      "declared": 14,
+      "expanded": 14,
+      "count_matches": true,
+      "missing_ranges_in_map": [],
+      "covered": true
+    }
+  ],
+  "all_numbered_coverage_consistent": true
+}

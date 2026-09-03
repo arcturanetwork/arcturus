@@ -1,0 +1,285 @@
+{
+  "tracks": {
+    "ncp-aai": {
+      "map": "studies/ncp-aai/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 3,
+          "text": "Source: NVIDIA's 13-page Agentic AI Exam Study Guide, retrieved 2026-09-03. Status is evidence-based: `studied`, `implemented`, `tested`, or `needs-platform-lab`."
+        },
+        {
+          "line": 7,
+          "text": "| 1.1\u20131.8 UI, ReAct, agent protocols, memory, multi-agent orchestration, logic/prompt/state chains, knowledge graphs, scale | Typed correlated agent messages, role/message allowlists, decreasing hop budgets, approval/trace model, bounded state | tested locally; UI/model ReAct remain |"
+        },
+        {
+          "line": 8,
+          "text": "| 2.1\u20132.6 prompts, multimodal models, tools/APIs, failure recovery, streaming/feedback, decision refinement | Allowlisted typed tools; bounded transient retries; circuit breaker; failure events | tested (2.3\u20132.4); remaining studied |"
+        },
+        {
+          "line": 10,
+          "text": "| 4.1\u20134.5 production orchestration, MLOps, load profiling, containers/Kubernetes, cost/HA | Cross-track AWS/CKA lab pending | studied |"
+        },
+        {
+          "line": 11,
+          "text": "| 5.1\u20135.5 memory, decomposition, planning, stateful orchestration, feedback adaptation | Step budget, explicit state, workflow/planner comparison, window-vs-retrieval memory experiment | tested (5.1\u20135.4); feedback adaptation studied |"
+        },
+        {
+          "line": 12,
+          "text": "| 6.1\u20136.5 RAG/hybrid retrieval, vector DBs, ETL, quality, real-time structured/unstructured knowledge | Lexical+semantic score fusion, authorization-before-ranking, provenance, Recall/MRR, duplicate/metadata validation, graph traversal | tested locally; real vector DB/ETL streaming remain |"
+        },
+        {
+          "line": 15,
+          "text": "| 9.1\u20139.5 audit/security, privacy/policy, bias/toxicity, layered safety, licensing/regulation | Approval, audit and injection tests | tested (partial) |"
+        }
+      ],
+      "ready": false
+    },
+    "aws-sap": {
+      "map": "studies/aws-sap/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 3,
+          "text": "Authoritative baseline: AWS SAP-C02 Exam Guide retrieved 2026-09-03. Target exam: SAP-C03, whose full guide is scheduled for 2026-10-27. Status vocabulary: `studied`, `designed`, `tested`, `cloud-lab-required`."
+        },
+        {
+          "line": 9,
+          "text": "| Task | Required competence | Evidence | Status |"
+        },
+        {
+          "line": 19,
+          "text": "| Task | Required competence | Evidence | Status |"
+        },
+        {
+          "line": 30,
+          "text": "| Task | Required competence | Evidence | Status |"
+        },
+        {
+          "line": 40,
+          "text": "| Task | Required competence | Evidence | Status |"
+        }
+      ],
+      "ready": false
+    },
+    "cka": {
+      "map": "studies/cka/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 5,
+          "text": "The [24 original performance labs](performance-labs.json) cover each published competency, with a [safety/diagnosis/verification rubric](performance-rubric.md). They remain unscored until executed on varied disposable clusters."
+        },
+        {
+          "line": 9,
+          "text": "| Troubleshooting | 30% | Symptom-to-evidence runbook and fault drills | studied; live cluster required |"
+        },
+        {
+          "line": 10,
+          "text": "| Architecture/install/configuration | 25% | Namespaced least-privilege RBAC plus bootstrap, upgrade, etcd, HA, CNI/CSI/CRI, Helm/Kustomize and operator runbook | statically tested/studied; live kubeadm/Helm/operator work required |"
+        },
+        {
+          "line": 11,
+          "text": "| Services/networking | 20% | ClusterIP, default deny, scoped ingress/DNS egress, HTTPRoute | statically tested; live CNI/Gateway/DNS required |"
+        },
+        {
+          "line": 12,
+          "text": "| Workloads/scheduling | 15% | Rolling Deployment, probes, resources, HPA, spread, ConfigMap/Secret refs, PDB | statically tested; live scheduling/rollout required |"
+        },
+        {
+          "line": 13,
+          "text": "| Storage | 10% | StorageClass with delayed binding/retention/expansion plus PVC | statically tested; CSI/PV lifecycle required |"
+        },
+        {
+          "line": 15,
+          "text": "## Exam-relevant distinctions studied"
+        }
+      ],
+      "ready": false
+    },
+    "ncp-genl": {
+      "map": "studies/ncp-genl/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 3,
+          "text": "Source: NVIDIA's 13-page Gen AI LLMs Exam Study Guide, retrieved 2026-09-03. The downloadable guide corrects the obvious OpenUSD copy error on the live webpage. Status distinguishes `studied`, `tested-concept`, and `gpu/model-lab-required`."
+        },
+        {
+          "line": 7,
+          "text": "| 1.1\u20131.6 | Encoder/decoder structures, attention, embeddings, advanced/output sampling | Temperature, top-k and nucleus distribution/sampling tests | tested-concept; architecture/embedding model lab required |"
+        },
+        {
+          "line": 8,
+          "text": "| 2.1\u20132.4 | Prompt templates, zero/one/few-shot, causal LM, validation/constrained decoding | Deterministic output controls only | studied; model lab required |"
+        },
+        {
+          "line": 9,
+          "text": "| 3.1\u20133.3 | Cleaning/curation, formats/distributions, BPE/WordPiece and vocabulary | Provenance/duplicate tests plus deterministic BPE merge training | tested-concept; production tokenizer comparison required |"
+        },
+        {
+          "line": 10,
+          "text": "| 4.1\u20134.7 | Pruning/sparsity/quantization, distillation, tuning, ablations, TensorRT/KV cache, MLM | Symmetric INT8 error measurement and KV-cache scaling model | tested-concept; model/GPU experiments required |"
+        },
+        {
+          "line": 11,
+          "text": "| 5.1\u20135.4 | SFT/RLHF/DPO/GRPO, contrastive/PEFT, early stopping, hallucination assessment | LoRA update/parameter math, early-stopping tests and method selection notes | tested-concept; model training required |"
+        },
+        {
+          "line": 12,
+          "text": "| 6.1\u20136.4 | Human/LLM judge, BLEU/ROUGE/perplexity, error analysis, platform comparison, eval framework | Perplexity and ROUGE-L implementations; existing policy/retrieval suite | tested-concept; human/model judge and platform benchmark required |"
+        },
+        {
+          "line": 13,
+          "text": "| 7.1\u20137.4 | DDP/FSDP and model/pipeline/tensor/data/sequence/expert parallelism, mixed precision, GEMM/accumulation, CUDA profiling | Memory/parallelism notes only | gpu/model-lab-required |"
+        },
+        {
+          "line": 14,
+          "text": "| 8.1\u20138.3 | Model-type tradeoffs, container/dynamic batching/Dynamo-Triton, Kubernetes/monitoring | CKA manifests; no serving runtime | gpu/model-lab-required |"
+        },
+        {
+          "line": 15,
+          "text": "| 9.1\u20139.5 | Dashboards, logs/anomalies/RCA, version benchmarks, automated lifecycle, uptime/trust | Agent trace and versioned eval artifacts | partial tested-concept |"
+        },
+        {
+          "line": 16,
+          "text": "| 10.1\u201310.5 | Responsible deployment, bias/fairness audit, monitoring, mitigation, guardrails | Agent controls plus group selection/TPR fairness report with limitations | partial tested-concept; model guardrails required |"
+        },
+        {
+          "line": 18,
+          "text": "## Core distinctions studied"
+        }
+      ],
+      "ready": false
+    },
+    "ccsp": {
+      "map": "studies/ccsp/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 9,
+          "text": "| 1.1 concepts/roles/characteristics/building blocks | Service/deployment models, elasticity, pooling, tenancy, measured service, roles | studied |"
+        },
+        {
+          "line": 11,
+          "text": "| 1.3 cloud security concepts | Crypto/IAM/sanitization/network/virtualization/threats/hardening | Kubernetes and AWS controls; partial tested |"
+        },
+        {
+          "line": 13,
+          "text": "| 1.5 provider evaluation | Criteria, Common Criteria, FIPS 140-2 | scoped assurance/product-validation checklist designed; real report review pending |"
+        },
+        {
+          "line": 14,
+          "text": "| 1.6 AI/ML | Threat detection, source verification, SOAR, ethics, regulation | provenance/evaluation and incident controls; partial tested |"
+        },
+        {
+          "line": 21,
+          "text": "| 2.2 storage architectures/threats | Ephemeral/object/volume/archive and remanence/access risks | studied |"
+        },
+        {
+          "line": 23,
+          "text": "| 2.4 discovery | Structured/semi/unstructured data and location | ingestion metadata controls; partial tested |"
+        },
+        {
+          "line": 25,
+          "text": "| 2.6 IRM | Rights, provisioning/access, certificate issuance/revocation | studied; platform lab required |"
+        },
+        {
+          "line": 27,
+          "text": "| 2.8 auditability/traceability/accountability | Actor/network/location attributes, logging, custody/non-repudiation | agent trace and evidence controls; partial tested |"
+        },
+        {
+          "line": 28,
+          "text": "| 2.9 AI/ML data | Dataset/model privacy, integrity and validation | AI-01 control and dataset provenance tests; partial tested |"
+        },
+        {
+          "line": 34,
+          "text": "| 3.1 components | Physical, network, compute, virtualization, storage, management plane | studied |"
+        },
+        {
+          "line": 35,
+          "text": "| 3.2 secure data center | Tenant/access, location, environmental and connectivity resilience | provider-responsibility mapping; studied |"
+        },
+        {
+          "line": 37,
+          "text": "| 3.4 controls | Physical, system/storage/comms, IAM and audit mechanisms | AWS/Kubernetes designs; partial tested |"
+        },
+        {
+          "line": 44,
+          "text": "| 4.1 awareness | Development pitfalls; OWASP Top 10/API/LLM, ASVS, SANS 25 | prompt-injection and policy tests; partial |"
+        },
+        {
+          "line": 45,
+          "text": "| 4.2 SDLC | Business requirements and lifecycle/methodologies | studied |"
+        },
+        {
+          "line": 46,
+          "text": "| 4.3 apply secure SDLC | Cloud risks, STRIDE/DREAD/ATASM/PASTA, secure code/configuration | Trust-boundary STRIDE and code/config tests; partial tested |"
+        },
+        {
+          "line": 47,
+          "text": "| 4.4 assurance/validation | Functional/nonfunctional, SCA/IAST/SAST/DAST, QA, abuse cases | unit/adversarial tests; tool-specific scans pending |"
+        },
+        {
+          "line": 48,
+          "text": "| 4.5 verified software | APIs, supply chain, third party, licensing/integrity | dependency-free labs; formal SBOM/signing pending |"
+        },
+        {
+          "line": 49,
+          "text": "| 4.6 architecture | WAF/API gateway/load balancer/DAM, crypto, sandbox, containers/Kubernetes | AWS/Kubernetes designs; partial tested |"
+        },
+        {
+          "line": 50,
+          "text": "| 4.7 IAM | Federation/IdP/SSO/MFA/CASB/secrets/keys/certs | designed; identity-platform lab required |"
+        },
+        {
+          "line": 56,
+          "text": "| 5.1 build infrastructure | HSM/TPM, secure defaults, management plane, virtualization | studied; platform evidence required |"
+        },
+        {
+          "line": 57,
+          "text": "| 5.2 operate infrastructure | Access/network controls, hardening/patching, HA, capacity, backup, management plane | architecture/runbook; partial designed |"
+        },
+        {
+          "line": 61,
+          "text": "| 5.6 security operations | SOC, intelligent controls, SIEM/threat intel, IR, vulnerability and penetration testing | incident control; live exercises pending |"
+        },
+        {
+          "line": 67,
+          "text": "| 6.1 legal/cloud risks | Conflicting law, frameworks, eDiscovery and forensic standards | studied; counsel-dependent decisions identified |"
+        },
+        {
+          "line": 69,
+          "text": "| 6.3 audit | Internal/external controls, reports/scope, gaps/planning/ISMS, regulated sectors, distributed IT | control matrix and scoped assurance checklist; real report lab pending |"
+        }
+      ],
+      "ready": false
+    },
+    "google-pmle": {
+      "map": "studies/google-pmle/objective-map.md",
+      "unresolved_lines": [
+        {
+          "line": 7,
+          "text": "| 1 (~13%): 1.1 BigQuery ML/Agent Platform AutoML; 1.2 APIs/foundation models | Model/feature/prediction/AutoML/Gemini tuning; Model Garden and industry APIs; cost/latency/availability | studied; Google Cloud lab required |"
+        },
+        {
+          "line": 8,
+          "text": "| 2 (~16%): 2.1 preprocess; 2.2 notebooks; 2.3 experiments | Tool choice by scale, Feature Store/privacy; secure Workbench/Colab and frameworks; Experiments/Pipelines/Kubeflow, evaluation, artifacts/lineage | shared preprocessing, privacy controls, immutable registry/fingerprints tested; cloud lab required |"
+        },
+        {
+          "line": 9,
+          "text": "| 3 (~21%): 3.1 build; 3.2 train; 3.3 hardware | ARIMA/DNN/LLM and product/deployment/interpretability choices; ingestion/custom/AutoML/tuning/foundation tuning; CPU/GPU/TPU and parallelism | validated deterministic training tested; accelerator/cloud training required |"
+        },
+        {
+          "line": 10,
+          "text": "| 4 (~20%): 4.1 serve; 4.2 scale online | Batch/online, containers, registry, A/B/canary, pre/postprocess; Feature Store, endpoint exposure, hardware, throughput/tuning | gated version deployment/rollback plus explicit batch/online, SLO, autoscaling and private-exposure decision tested; load/cloud lab required |"
+        },
+        {
+          "line": 12,
+          "text": "| 6 (~13%): 6.1 risks; 6.2 monitoring | Exfiltration/malicious prompts/sensitive data, regex/filters/Model Armor, bias/explainability; continuous metrics, skew/data/concept/attribution drift, gen-AI evaluation | NCP/CCSP controls, shared preprocessing fingerprint, normalized mean shift, four-way change classification and slice-aware release gate tested; Google monitoring required |"
+        },
+        {
+          "line": 14,
+          "text": "## Decision rules studied"
+        }
+      ],
+      "ready": false
+    }
+  },
+  "all_ready": false
+}
