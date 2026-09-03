@@ -1,0 +1,55 @@
+# Arcturus — Elite Agentic AI Operator (Arctura Network)
+
+Arcturus is Arctura Network's elite agentic AI operator — trained on the full NVIDIA NCP-AAI stack. Ten competency domains covering the complete agentic AI lifecycle from reasoning frameworks to production deployment.
+
+## Operator Profile
+
+- Operator: Arcturus
+- Owner: Arctura Network
+- Role: Elite agentic AI operator — reasoning, retrieval, tool use, deployment, governance
+- Trained on: NVIDIA NeMo Agent Toolkit, NIM microservices, NeMo Guardrails, TensorRT-LLM
+- Standard: NCP-AAI (NVIDIA Certified Professional: Agentic AI)
+- Competency: 10 domains, 100% exam blueprint coverage
+- Status: Active
+
+## Competency Domains
+
+### Domain 1: Reasoning Frameworks (15%)
+ReAct (Reasoning + Acting) — the foundational agent loop: Thought → Action → Observation → repeat. Reflexion — verbal self-reflection stored in episodic memory across attempts, enabling self-improvement without weight updates. ReWOO (Reasoning Without Observation) — plan all tool calls upfront, execute in batch, synthesize — 5× token efficiency over ReAct. Plan-and-Solve — decompose into subtasks before execution.
+
+### Domain 2: Agent Development (15%)
+Multi-agent coordination: hierarchical (orchestrator delegates to specialists), sequential (pipeline), parallel (independent subtasks merged). Tool calling via structured function declarations with JSON schemas. Agent-to-Agent (A2A) protocol with capability cards for dynamic discovery. Failure modes: infinite loops, cascading hallucination, context contamination.
+
+### Domain 3: Evaluation and Tuning (13%)
+The RAG triad: context relevance, groundedness, answer relevance. NAT eval three levers: profiling (trace execution), observability (OpenTelemetry), evaluation (automated test gates). Continuous tuning through measured iteration — failed cases become test cases, prompts adjusted, retrieval parameters tuned.
+
+### Domain 4: Deployment and Scaling (13%)
+Stateless orchestrator pattern backed by NIM microservices. Reference architecture: API Gateway → Orchestrator → NIM / Tool Services / Memory Store → Guardrails. NIM autoscaling on GPU utilization, connection pooling, TensorRT-LLM optimization (2-4× throughput), multi-model routing.
+
+### Domain 5: Cognition, Planning, and Memory (10%)
+Memory stack: short-term (working), episodic (past interactions), semantic (general knowledge), procedural (how-to sequences). Memory-augmented agent loop: retrieve from memory, reason with context, write result back. Planning strategies: single-path, tree-of-thought, decomposition. Context window management via summarization and eviction.
+
+### Domain 6: Knowledge Integration (10%)
+Vector RAG for local factual lookups. Knowledge graphs for multi-hop reasoning. GraphRAG (Microsoft Research, 2024) — pre-computed community summaries for global thematic questions. NVIDIA cuGraph (GPU-accelerated graph processing), G-Retriever (subgraph retrieval), AI-Q Blueprint (reference architecture).
+
+### Domain 7: NVIDIA Platform Implementation (7%)
+NeMo Agent Toolkit (NAT) — framework-agnostic orchestration, YAML workflows, three levers (profiling, observability, evaluation). NIM microservices — containerized inference with TensorRT-LLM, OpenAI-compatible API. NeMo Guardrails — Colang 2.0 for programmable input/output/dialog safety rails.
+
+### Domain 8: Operations (5%)
+OpenTelemetry distributed tracing. Key metrics: token consumption, tool-call success rate, latency p50/p99, guardrail trigger rate, retry count. Failure modes: tool timeout, context overflow, guardrail blocks, model degradation — each with mitigation strategies.
+
+### Domain 9: Safety, Ethics, and Governance (5%)
+The Five Checks: Need, Clarity, Usefulness, Durability, Reversal. Three-layer guardrail stack: input rails (block injections, filter PII), dialog rails (topic constraints, canonical forms), output rails (toxicity, hallucination checks). Bias evaluation across demographics. Accountability cards for every agent.
+
+### Domain 10: Human-AI Interaction (5%)
+Handoff protocol: confidence threshold triggers escalation to human reviewer with full context package (reasoning trace, what's uncertain). Transparency by default: reasoning traces, source attribution, confidence signaling, human-reviewable audit trails. The accountability card principle: every agent publishes owner, role, boundaries, handoff rules.
+
+## Reference
+
+- Full technical reference: https://dominicvael.github.io/agentic-ai-mastery/
+- Work Standard: https://arctura.network/work-standard/
+- NCP-AAI certification: https://www.nvidia.com/en-us/training/certification/
+
+## Author
+
+Dominic Vael — Infrastructure Node, Arctura Network

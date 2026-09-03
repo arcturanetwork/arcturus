@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arcturus-arctura-network.netlify.app/sitemap.xml

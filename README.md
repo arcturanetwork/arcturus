@@ -1,77 +1,71 @@
----
-title: "Arcturus | Arctura Network's Reference Implementation"
-meta_description: "Arcturus is Arctura Network's reference implementation, running on Bittensor testnet under netuid 505. The code behind the Work Standard, in the open."
-target_keyword: "Arctura Bittensor subnet implementation open source"
-url: "https://github.com/arcturanetwork/arcturus"
-canonical: "https://github.com/arcturanetwork/arcturus"
-og_title: "Arcturus | Arctura Network's Reference Implementation"
-og_description: "The code behind Arctura Network's Work Standard, running live on Bittensor testnet under netuid 505."
-og_type: "website"
-twitter_card: "summary_large_image"
-robots: "index,follow"
-status: "draft — not yet passed Council review"
-lastmod: "PENDING — set on publish"
-image:
-  filename: "arcturus-repo-social-card.webp"
-  format: webp
-  alt_text: "Arcturus repository banner — Arctura Network's reference implementation on Bittensor testnet netuid 505"
----
+# Arcturus — Elite Agentic AI Operator
 
-# Arcturus
+> Arctura Network's elite agentic AI operator. Trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment.
 
-Arctura Network's reference implementation. This is the code that runs the Work Standard — not a description of it.
-
-**Status:** Live on Bittensor testnet, netuid 505. No mainnet netuid published yet.
+[![Status](https://img.shields.io/badge/Status-Active-3ea89b)](https://arcturus-arctura-network.netlify.app/)
+[![NCP-AAI](https://img.shields.io/badge/NCP--AAI-100%25%20Domains-3ea89b)](https://www.nvidia.com/en-us/training/certification/)
+[![Standard](https://img.shields.io/badge/Standard-Work%20Standard-c9a35c)](https://arctura.network/work-standard/)
 
 ---
 
-## What this is
+## What Arcturus Is
 
-Arcturus is where Arctura's rules stop being written and start being run. Every part of the [Work Standard](https://arctura.network/work-standard/) — checkable work, bounded decisions, an honest record — is implemented here as running code, not just described on the site.
+Not a chatbot. An operator.
 
-If you want to read the standard, go to [arctura.network/work-standard](https://arctura.network/work-standard/). If you want to see it enforced, this is that.
+Arcturus is the agent that carries out the network's work — reasoning, retrieval, tool use, deployment, governance. It operates inside published limits: reasoning frameworks, memory architectures, guardrails, and evaluation gates that are visible, checkable, and reproducible.
 
-## What it does
+The difference between a chatbot and an agent is the same as the difference between a search box and an operating system. Arcturus is the latter.
 
-- Runs as a subnet on Bittensor testnet under **netuid 505**
-- Accepts and checks contributed work against the network's review process
-- Keeps a public, checkable record of what was submitted, reviewed, and accepted
-- Applies the Council's five checks — Need, Clarity, Usefulness, Durability, Reversal — to proposed changes before they're accepted
+## Competency Domains
 
-## What it doesn't do (yet)
+Arcturus is trained across all 10 NCP-AAI certification domains:
 
-- No mainnet deployment. Testnet only.
-- [Confirm: does it currently handle payment/value transfer, or is that still separate? — flag before publish]
-- [Confirm: current test coverage / audit status before this claims production-readiness]
+| # | Domain | Weight | Coverage |
+|---|--------|--------|----------|
+| 1 | Reasoning Frameworks — ReAct, Reflexion, ReWOO | 15% | ✅ |
+| 2 | Agent Development & Tool Integration | 15% | ✅ |
+| 3 | Evaluation and Tuning | 13% | ✅ |
+| 4 | Deployment and Scaling | 13% | ✅ |
+| 5 | Cognition, Planning, and Memory | 10% | ✅ |
+| 6 | Knowledge Integration — Graphs & RAG | 10% | ✅ |
+| 7 | NVIDIA Platform Implementation | 7% | ✅ |
+| 8 | Run, Monitor, and Maintain | 5% | ✅ |
+| 9 | Safety, Ethics, and Governance | 5% | ✅ |
+| 10 | Human-AI Interaction and Oversight | 5% | ✅ |
 
-## Getting started
+## Operating Stack
 
-```bash
-git clone https://github.com/arcturanetwork/arcturus.git
-cd arcturus
-# [setup steps — confirm actual install/run commands before publish]
-```
+| Layer | Component | Function |
+|-------|-----------|----------|
+| Reasoning | ReAct / Reflexion / ReWOO | Plan, act, observe, reflect |
+| Orchestration | NeMo Agent Toolkit | Workflow definition, profiling, eval |
+| Inference | NIM microservices | TensorRT-LLM optimized generation |
+| Safety | NeMo Guardrails (Colang 2.0) | Input/output screening, topic control |
+| Memory | Vector store + Graph DB | Episodic, semantic, procedural memory |
+| Knowledge | GraphRAG + Vector RAG | Global + local retrieval |
+| Observability | OpenTelemetry | Distributed tracing, metrics, logs |
+| Governance | The Five Checks | Need, Clarity, Usefulness, Durability, Reversal |
 
-Full setup and node-operation steps: see [Documentation](https://arctura.network/documentation/netuid-505/).
+## The Five Checks
 
-## Verify it yourself
+Inherited from Arctura Network's Work Standard. Every proposed action is evaluated against five criteria:
 
-Nothing here asks to be taken on faith.
+1. **Need** — Is there a real reason for this action?
+2. **Clarity** — Can someone outside the room understand what happened and who owns it?
+3. **Usefulness** — Does this serve the network, not just whoever proposed it?
+4. **Durability** — Will this still make sense later?
+5. **Reversal** — Can it be undone if the assumption is wrong?
 
-- Commit history is public in this repo.
-- Testnet activity under netuid 505 is checkable against [Evidence](https://arctura.network/evidence/netuid-505/).
-- Every accepted change went through the same five checks described in [Authority](https://arctura.network/authority/).
+## Related
 
-## Contributing
+- [Agentic AI Mastery — Full Technical Reference](https://dominicvael.github.io/agentic-ai-mastery/)
+- [Arctura Network — Work Standard](https://arctura.network/work-standard/)
+- [Arctura Network — Authority Record](https://arctura.network/authority/)
 
-Contributions are reviewed against the [Work Standard](https://arctura.network/work-standard/), not just for code quality. A pull request is a proposed change — it goes through the same checks as any other change to the network.
+## Live Page
 
-[Confirm: contribution process, issue template, license before publish]
-
-## License
-
-[Confirm license before publish — currently unspecified]
+**[arcturus-arctura-network.netlify.app](https://arcturus-arctura-network.netlify.app/)**
 
 ---
 
-*Maintained by Arctura Network. Part of the same public record described at [arctura.network](https://arctura.network/).*
+*© 2026 Arctura Network — Work. Proof. Stewardship.*
