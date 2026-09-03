@@ -128,7 +128,8 @@
   }
   .ident-line span { color: var(--paper-dim); }
 
-  .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+  .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+  .cta-row .btn { white-space: nowrap; }
   .btn {
     font-family: 'Azeret Mono', monospace;
     font-size: 0.82rem;
@@ -147,6 +148,8 @@
     padding-top: 2.5rem;
     margin-bottom: 3.5rem;
   }
+  .arc-divider + section.block,
+  .arc-divider + div { margin-top: 0.5rem; }
   .block-label {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
@@ -289,6 +292,7 @@
     line-height: 1.5;
     color: var(--paper-dim);
     white-space: pre;
+    tab-size: 2;
   }
   .diagram pre .accent { color: var(--teal); }
   .diagram pre .warn { color: var(--gold); }
@@ -337,6 +341,7 @@
     font-size: 0.78rem;
     color: var(--paper-faint);
   }
+  footer .footer-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin-bottom: 0.5rem; }
   footer a { display: inline-block; margin-right: 1.25rem; color: var(--paper-dim); border: none; }
   footer a:hover { color: var(--gold); }
   footer .sig {
@@ -358,14 +363,39 @@
   @media (max-width: 600px) {
     dl.fact-grid { grid-template-columns: 1fr; row-gap: 0.3rem; }
     dl.fact-grid dt { padding-top: 0.5rem; }
+    .diagram { padding: 1rem 1rem; margin: 1rem -0.5rem; }
+    .diagram pre { font-size: 0.65rem; line-height: 1.4; }
+    .hero-grid { gap: 1.5rem; }
+    .arc-radar-wrap img { max-width: 220px; }
   }
 
+  /* ── Hero grid ───────────────────────────── */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .hero-visual img { width: 200px; height: 200px; display: block; }
+  .hero-content { min-width: 0; }
+  .status-dot { width: 10px; height: 10px; display: inline; vertical-align: middle; margin-right: 4px; }
+
   /* ── Animated SVG assets ────────────────── */
-  .arc-divider { width:100%;height:24px;display:block;margin:0;opacity:.7; }
-  .arc-radar-wrap { display:flex;justify-content:center;margin:2rem 0; }
-  .arc-radar-wrap img { max-width:280px;width:100%;height:auto; }
-  .arc-seal { width:80px;height:80px;display:inline-block;vertical-align:middle;margin-right:.5rem; }
-  @media (max-width:600px) { .hero-grid { grid-template-columns:1fr !important; } .hero-grid > div:first-child { display:none; } .hero-grid { grid-template-columns:1fr !important; } }
+  .arc-divider { width: 100%; height: 24px; display: block; margin: 0 0 1rem; opacity: .7; }
+  .arc-radar-wrap { display: flex; justify-content: center; margin: 1.5rem 0 2rem; }
+  .arc-radar-wrap img { max-width: 280px; width: 100%; height: auto; }
+  .arc-seal { width: 80px; height: 80px; display: inline-block; vertical-align: middle; margin-right: .5rem; }
+
+  @media (max-width: 600px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .hero-visual { order: -1; }
+    .hero-visual img { width: 140px; height: 140px; }
+  }
 
 </style>
 </head>
@@ -374,16 +404,16 @@
 
   <!-- ═══ HEADER ══════════════════════════ -->
   <header>
-    <div class="hero-grid" style="display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;">
-      <div style="display:flex;justify-content:center;align-items:center;">
-        <img src="/assets/svg/arcturus-constellation.svg" alt="Arcturus — animated constellation" style="width:200px;height:200px;display:block;" loading="eager">
+    <div class="hero-grid">
+      <div class="hero-visual">
+        <img src="/assets/svg/arcturus-constellation.svg" alt="Arcturus — animated constellation" loading="eager">
       </div>
-      <div>
+      <div class="hero-content">
         <div class="kicker">arctura network — elite operator profile</div>
         <h1>Arcturus. <em>Not a chatbot. An operator.</em></h1>
         <p class="lede">Arctura Network's elite agentic AI operator — trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment. An agent that plans, uses tools, manages memory, grounds in knowledge, and governs its own outputs.</p>
         <p class="ident-line">
-          <img src="/assets/svg/status-pulse.svg" alt="active" style="width:10px;height:10px;display:inline;vertical-align:middle;margin-right:4px;">
+          <img src="/assets/svg/status-pulse.svg" alt="active" class="status-dot">
           <span>Operator:</span> Arcturus &nbsp;·&nbsp;
           <span>Owner:</span> Arctura Network &nbsp;·&nbsp;
           <span>Stack:</span> NVIDIA NeMo · NIM · Guardrails &nbsp;·&nbsp;
@@ -392,7 +422,7 @@
         <div class="cta-row">
           <a class="btn primary" href="#domains">Competency Domains</a>
           <a class="btn" href="#architecture">Operating Architecture</a>
-          <a class="btn" href="https://dominicvael.github.io/agentic-ai-mastery/">Full Technical Reference →</a>
+          <a class="btn" href="https://dominicvael.github.io/agentic-ai-mastery/">Full Technical Reference</a>
         </div>
       </div>
     </div>
