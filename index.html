@@ -12,6 +12,8 @@
 <meta property="og:url" content="https://arcturus-arctura-network.netlify.app/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="icon" type="image/svg+xml" href="/assets/svg/favicon.svg">
+<meta property="og:image" content="https://arcturus-arctura-network.netlify.app/assets/svg/arcturus-constellation.svg">
 <meta name="theme-color" content="#0a0c0d">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -357,6 +359,14 @@
     dl.fact-grid { grid-template-columns: 1fr; row-gap: 0.3rem; }
     dl.fact-grid dt { padding-top: 0.5rem; }
   }
+
+  /* ── Animated SVG assets ────────────────── */
+  .arc-divider { width:100%;height:24px;display:block;margin:0;opacity:.7; }
+  .arc-radar-wrap { display:flex;justify-content:center;margin:2rem 0; }
+  .arc-radar-wrap img { max-width:280px;width:100%;height:auto; }
+  .arc-seal { width:80px;height:80px;display:inline-block;vertical-align:middle;margin-right:.5rem; }
+  @media (max-width:600px) { .hero-grid { grid-template-columns:1fr !important; } .hero-grid > div:last-child { display:none; } }
+
 </style>
 </head>
 <body>
@@ -364,10 +374,13 @@
 
   <!-- ═══ HEADER ══════════════════════════ -->
   <header>
-    <div class="kicker">arctura network — elite operator profile</div>
+    <div class="hero-grid" style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;">
+      <div>
+        <div class="kicker">arctura network — elite operator profile</div>
     <h1>Arcturus. <em>Not a chatbot. An operator.</em></h1>
     <p class="lede">Arctura Network's elite agentic AI operator — trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment. An agent that plans, uses tools, manages memory, grounds in knowledge, and governs its own outputs.</p>
     <p class="ident-line">
+    <img src="/assets/svg/status-pulse.svg" alt="active" style="width:10px;height:10px;display:inline;vertical-align:middle;margin-right:4px;">
       <span>Operator:</span> Arcturus &nbsp;·&nbsp;
       <span>Owner:</span> Arctura Network &nbsp;·&nbsp;
       <span>Stack:</span> NVIDIA NeMo · NIM · Guardrails &nbsp;·&nbsp;
@@ -383,6 +396,7 @@
   <!-- ═══ WHAT ARCTURUS IS ════════════════ -->
   <section class="block">
     <div class="block-label">what arcturus is</div>
+    <div class="arc-radar-wrap"><img src="/assets/svg/domain-radar.svg" alt="NCP-AAI domain coverage radar — all 10 domains" loading="lazy"></div>
     <h2>A bound operator, not a <em>language model with a chat interface</em>.</h2>
     <p>Arcturus is the agent that carries out the network's work. It doesn't operate on trust in its own judgment. It operates inside published limits — reasoning frameworks, memory architectures, guardrails, and evaluation gates that are visible, checkable, and reproducible.</p>
     <p>The difference between a chatbot and an agent is the same as the difference between a search box and an operating system. Arcturus is the latter. It plans multi-step workflows, calls external tools, retrieves grounded knowledge, manages episodic and semantic memory, and routes its own outputs through safety guardrails before anything reaches a user.</p>
@@ -928,6 +942,7 @@
     </table>
   </section>
 
+  <img src="/assets/svg/divider.svg" alt="" class="arc-divider" loading="lazy" aria-hidden="true">
   <!-- ═══ TRAINING INFRASTRUCTURE ═══════════ -->
   <section class="block" id="training">
     <div class="block-label">training infrastructure</div>
@@ -976,9 +991,11 @@
     </div>
   </section>
 
+  <img src="/assets/svg/divider.svg" alt="" class="arc-divider" loading="lazy" aria-hidden="true">
   <!-- ═══ EVIDENCE ═════════════════════════ -->
   <section class="block">
     <div class="block-label">evidence</div>
+    <img src="/assets/svg/arcturus-seal.svg" alt="Arctura Network operator seal" class="arc-seal" loading="lazy">
     <h2>Check it <em>yourself</em>.</h2>
     <p>Nothing here asks to be trusted on its word. The full technical reference is public. The reasoning frameworks, NVIDIA platform implementations, and evaluation methods are documented with source citations.</p>
     <div class="cta-row">

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" fill="none">
+  <!-- Arctura Network Operator Seal -->
+  <style>
+    @keyframes seal-rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes seal-glow { 0%,100%{opacity:.3} 50%{opacity:.7} }
+    .seal-ring { animation: seal-rotate 30s linear infinite; transform-origin: center; }
+    .seal-glow { animation: seal-glow 5s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .seal-ring,.seal-glow { animation: none; } }
+  </style>
+  <defs>
+    <linearGradient id="seal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3ea89b"/>
+      <stop offset="100%" stop-color="#c9a35c"/>
+    </linearGradient>
+  </defs>
+  <!-- Outer rotating ring with text -->
+  <g class="seal-ring">
+    <circle cx="70" cy="70" r="62" stroke="url(#seal-grad)" stroke-width="1" fill="none" stroke-dasharray="3 3" opacity=".4"/>
+    <path id="seal-text-path" d="M 70,70 m -52,0 a 52,52 0 1,1 104,0 a 52,52 0 1,1 -104,0" fill="none"/>
+    <text font-family="monospace" font-size="6.5" fill="#3ea89b" letter-spacing="4" opacity=".7">
+      <textPath href="#seal-text-path">ARCTURA NETWORK · OPERATOR · ARCTURA NETWORK · OPERATOR ·</textPath>
+    </text>
+  </g>
+  <!-- Inner static ring -->
+  <circle cx="70" cy="70" r="44" stroke="rgba(233,230,223,0.12)" stroke-width="1" fill="none"/>
+  <!-- Center star -->
+  <g class="seal-glow">
+    <path d="M 70 48 L 74 64 L 90 64 L 77 73 L 82 89 L 70 79 L 58 89 L 63 73 L 50 64 L 66 64 Z" fill="url(#seal-grad)" opacity=".8"/>
+    <circle cx="70" cy="70" r="4" fill="#0a0c0d"/>
+    <circle cx="70" cy="70" r="2" fill="#3ea89b"/>
+  </g>
+  <!-- Domain ticks (10 dots for 10 domains) -->
+  <g opacity=".5">
+    <circle cx="70" cy="14" r="1.5" fill="#c9a35c"/>
+    <circle cx="107" cy="32" r="1.5" fill="#c9a35c"/>
+    <circle cx="121" cy="70" r="1.5" fill="#c9a35c"/>
+    <circle cx="107" cy="108" r="1.5" fill="#c9a35c"/>
+    <circle cx="70" cy="126" r="1.5" fill="#c9a35c"/>
+    <circle cx="33" cy="108" r="1.5" fill="#c9a35c"/>
+    <circle cx="19" cy="70" r="1.5" fill="#c9a35c"/>
+    <circle cx="33" cy="32" r="1.5" fill="#c9a35c"/>
+    <circle cx="89" cy="18" r="1" fill="#3ea89b"/>
+    <circle cx="51" cy="18" r="1" fill="#3ea89b"/>
+  </g>
+</svg>

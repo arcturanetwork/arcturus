@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Arcturus loading spinner -->
+  <style>
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyizes spin-rev { from{transform:rotate(360deg)} to{transform:rotate(0deg)} }
+    .arc-spin { animation: spin 1.2s linear infinite; transform-origin: center; }
+    .arc-spin-rev { animation: spin-rev 1.8s linear infinite; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { .arc-spin,.arc-spin-rev { animation: none; } }
+  </style>
+  <circle cx="24" cy="24" r="20" stroke="rgba(233,230,223,0.08)" stroke-width="2" fill="none"/>
+  <g class="arc-spin">
+    <circle cx="24" cy="4" r="2" fill="#3ea89b"/>
+    <path d="M 24 4 A 20 20 0 0 1 44 24" stroke="#3ea89b" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
+  </g>
+  <g class="arc-spin-rev">
+    <circle cx="24" cy="44" r="1.5" fill="#c9a35c"/>
+    <path d="M 24 44 A 20 20 0 0 1 4 24" stroke="#c9a35c" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".4"/>
+  </g>
+  <circle cx="24" cy="24" r="2" fill="#3ea89b" opacity=".5"/>
+</svg>

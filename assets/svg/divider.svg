@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 24" fill="none" preserveAspectRatio="none">
+  <!-- Animated section divider — constellation line -->
+  <style>
+    @keyframes div-pulse { 0%{opacity:0;transform:translateX(-100px)} 100%{opacity:1;transform:translateX(0)} }
+    @keyactices div-flow { 0%{stroke-dashoffset:0} 100%{stroke-dashoffset:-20} }
+    .div-line { animation: div-flow 3s linear infinite; }
+    .div-node-a { animation: div-pulse 2s ease-out infinite; transform-origin: center; }
+    .div-node-b { animation: div-pulse 2s ease-out infinite .7s; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { .div-line,.div-node-a,.div-node-b { animation: none; } }
+  </style>
+  <line class="div-line" x1="0" y1="12" x2="800" y2="12" stroke="rgba(62,168,155,0.15)" stroke-width="1" stroke-dasharray="4 4"/>
+  <circle class="div-node-a" cx="100" cy="12" r="2" fill="#3ea89b"/>
+  <circle class="div-node-b" cx="700" cy="12" r="2" fill="#c9a35c"/>
+  <circle cx="400" cy="12" r="1.5" fill="#e9e6df" opacity=".4"/>
+</svg>

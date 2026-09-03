@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Arcturus Star — animated constellation core -->
+  <style>
+    @keyframes arc-pulse { 0%,100%{opacity:.4;r:3} 50%{opacity:1;r:5} }
+    @keyframes arc-ring  { 0%{transform:scale(.85);opacity:.6} 50%{transform:scale(1);opacity:.2} 100%{transform:scale(1.1);opacity:0} }
+    @keyframes arc-orbit { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes arc-twinkle { 0%,100%{opacity:.3} 50%{opacity:.9} }
+    .core { animation: arc-pulse 4s ease-in-out infinite; transform-origin: center; }
+    .ring-1 { animation: arc-ring 4s ease-out infinite; transform-origin: center; }
+    .ring-2 { animation: arc-ring 4s ease-out infinite 1.3s; transform-origin: center; }
+    .ring-3 { animation: arc-ring 4s ease-out infinite 2.6s; transform-origin: center; }
+    .orbit { animation: arc-orbit 20s linear infinite; transform-origin: center; }
+    .twinkle-a { animation: arc-twinkle 3s ease-in-out infinite; }
+    .twinkle-b { animation: arc-twinkle 3s ease-in-out infinite 1s; }
+    .twinkle-c { animation: arc-twinkle 3s ease-in-out infinite 2s; }
+    @media (prefers-reduced-motion: reduce) {
+      .core,.ring-1,.ring-2,.ring-3,.orbit,.twinkle-a,.twinkle-b,.twinkle-c { animation: none; }
+    }
+  </style>
+  <defs>
+    <radialGradient id="g-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3ea89b" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#3ea89b" stop-opacity=".4"/>
+      <stop offset="100%" stop-color="#3ea89b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9a35c" stop-opacity=".15"/>
+      <stop offset="100%" stop-color="#c9a35c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Ambient glow -->
+  <circle cx="100" cy="100" r="90" fill="url(#g-glow)"/>
+  <!-- Expanding rings -->
+  <circle class="ring-1" cx="100" cy="100" r="40" stroke="#3ea89b" stroke-width="1" fill="none" opacity=".3"/>
+  <circle class="ring-2" cx="100" cy="100" r="40" stroke="#3ea89b" stroke-width="1" fill="none" opacity=".2"/>
+  <circle class="ring-3" cx="100" cy="100" r="40" stroke="#3ea89b" stroke-width="1" fill="none" opacity=".15"/>
+  <!-- Orbit ring -->
+  <g class="orbit">
+    <circle cx="100" cy="100" r="55" stroke="rgba(233,230,223,0.08)" stroke-width="1" fill="none" stroke-dasharray="2 4"/>
+    <circle cx="155" cy="100" r="1.5" fill="#c9a35c"/>
+  </g>
+  <!-- Core star -->
+  <circle cx="100" cy="100" r="35" fill="url(#g-core)" opacity=".3"/>
+  <circle class="core" cx="100" cy="100" r="4" fill="#3ea89b"/>
+  <!-- Constellation lines to core -->
+  <line x1="100" y1="100" x2="40" y2="45" stroke="rgba(62,168,155,0.15)" stroke-width=".5"/>
+  <line x1="100" y1="100" x2="165" y2="55" stroke="rgba(62,168,155,0.15)" stroke-width=".5"/>
+  <line x1="100" y1="100" x2="35" y2="140" stroke="rgba(62,168,155,0.12)" stroke-width=".5"/>
+  <line x1="100" y1="100" x2="160" y2="155" stroke="rgba(62,168,155,0.12)" stroke-width=".5"/>
+  <!-- Companion stars -->
+  <circle class="twinkle-a" cx="40" cy="45" r="1.5" fill="#e9e6df"/>
+  <circle class="twinkle-b" cx="165" cy="55" r="1.5" fill="#e9e6df"/>
+  <circle class="twinkle-c" cx="35" cy="140" r="1" fill="#a8a6a0"/>
+  <circle class="twinkle-a" cx="160" cy="155" r="1" fill="#a8a6a0"/>
+  <!-- Label arc -->
+  <text x="100" y="190" font-family="monospace" font-size="6" fill="#6b6965" text-anchor="middle" letter-spacing="2">ARCTURUS</text>
+</svg>

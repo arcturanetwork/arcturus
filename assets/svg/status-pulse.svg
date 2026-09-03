@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none">
+  <!-- Live status indicator -->
+  <style>
+    @keyframes status-pulse { 0%,100%{opacity:1;r:3} 50%{opacity:.3;r:5} }
+    @keyframes status-ring { 0%{r:3;opacity:.6} 100%{r:6;opacity:0} }
+    .status-dot { animation: status-pulse 2s ease-in-out infinite; transform-origin: center; }
+    .status-ring { animation: status-ring 2s ease-out infinite; }
+    @media (prefers-reduced-motion: reduce) { .status-dot,.status-ring { animation: none; } }
+  </style>
+  <circle class="status-ring" cx="6" cy="6" r="3" fill="#3ea89b" opacity=".4"/>
+  <circle class="status-dot" cx="6" cy="6" r="3" fill="#3ea89b"/>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" fill="none">
+  <!-- NCP-AAI Domain Coverage Radar — 10 domains -->
+  <style>
+    @keyframes radar-sweep { 0%,100%{opacity:0} 50%{opacity:.15} }
+    .radar-sweep { animation: radar-sweep 6s ease-in-out infinite; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { .radar-sweep { animation: none; } }
+    .conn-line { stroke-dasharray:100; stroke-dashoffset:100; animation: draw 1.5s ease-out forwards; }
+    @keyframes draw { to { stroke-dashoffset:0; } }
+    @media (prefers-reduced-motion: reduce) { .conn-line { animation:none; stroke-dashoffset:0; } }
+  </style>
+  <defs>
+    <radialGradient id="radar-fill" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3ea89b" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#3ea89b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Grid rings -->
+  <polygon class="radar-sweep" points="150,30 231,75 261,162 220,243 127,270 55,227 22,152 49,69 102,39 185,20" fill="#3ea89b" opacity=".05"/>
+  <circle cx="150" cy="150" r="120" stroke="rgba(233,230,223,0.06)" stroke-width="1" fill="none"/>
+  <circle cx="150" cy="150" r="90" stroke="rgba(233,230,223,0.06)" stroke-width="1" fill="none"/>
+  <circle cx="150" cy="150" r="60" stroke="rgba(233,230,223,0.06)" stroke-width="1" fill="none"/>
+  <circle cx="150" cy="150" r="30" stroke="rgba(233,230,223,0.06)" stroke-width="1" fill="none"/>
+
+  <!-- Spokes to 10 domain points -->
+  <g stroke="rgba(233,230,223,0.05)" stroke-width="0.5">
+    <line x1="150" y1="150" x2="150" y2="30"/>
+    <line x1="150" y1="150" x2="231" y2="75"/>
+    <line x1="150" y1="150" x2="261" y2="162"/>
+    <line x1="150" y1="150" x2="220" y2="243"/>
+    <line x1="150" y1="150" x2="127" y2="270"/>
+    <line x1="150" y1="150" x2="55" y2="227"/>
+    <line x1="150" y1="150" x2="22" y2="152"/>
+    <line x1="150" y1="150" x2="49" y2="69"/>
+    <line x1="150" y1="150" x2="102" y2="39"/>
+    <line x1="150" y1="150" x2="185" y2="20"/>
+  </g>
+
+  <!-- Coverage polygon (full coverage = all domains) -->
+  <polygon class="conn-line" points="150,35 226,78 256,160 216,238 130,265 58,222 27,150 53,72 105,44 182,26"
+           fill="url(#radar-fill)" stroke="#3ea89b" stroke-width="1.5" stroke-linejoin="round" opacity=".8"/>
+
+  <!-- Domain points -->
+  <g>
+    <circle cx="150" cy="35" r="3" fill="#3ea89b"/>
+    <circle cx="226" cy="78" r="3" fill="#3ea89b"/>
+    <circle cx="256" cy="160" r="3" fill="#3ea89b"/>
+    <circle cx="216" cy="238" r="3" fill="#3ea89b"/>
+    <circle cx="130" cy="265" r="2.5" fill="#3ea89b"/>
+    <circle cx="58" cy="222" r="2.5" fill="#3ea89b"/>
+    <circle cx="27" cy="150" r="2" fill="#c9a35c"/>
+    <circle cx="53" cy="72" r="2" fill="#c9a35c"/>
+    <circle cx="105" cy="44" r="2" fill="#c9a35c"/>
+    <circle cx="182" cy="26" r="2" fill="#c9a35c"/>
+  </g>
+
+  <!-- Labels (abbreviated) -->
+  <g font-family="monospace" font-size="7" fill="#a8a6a0" opacity=".6">
+    <text x="150" y="22" text-anchor="middle">D1 15%</text>
+    <text x="240" y="72" text-anchor="start">D2 15%</text>
+    <text x="268" y="165" text-anchor="start">D3 13%</text>
+    <text x="226" y="252" text-anchor="start">D4 13%</text>
+    <text x="130" y="282" text-anchor="middle">D5 10%</text>
+    <text x="48" y="238" text-anchor="end">D6 10%</text>
+    <text x="12" y="153" text-anchor="end">D7 7%</text>
+    <text x="44" y="68" text-anchor="end">D8 5%</text>
+    <text x="97" y="34" text-anchor="end">D9 5%</text>
+    <text x="178" y="14" text-anchor="start">D10 5%</text>
+  </g>
+
+  <!-- Center -->
+  <circle cx="150" cy="150" r="3" fill="#c9a35c"/>
+  <text x="150" y="155" font-family="monospace" font-size="6" fill="#6b6965" text-anchor="middle" opacity=".5">NCP-AAI</text>
+</svg>

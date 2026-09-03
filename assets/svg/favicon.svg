@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Arcturus favicon — star + ring -->
+  <style>
+    @keyframes fav-pulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+    .fav-core { animation: fav-pulse 3s ease-in-out infinite; transform-origin: center; }
+    @media (prefers-reduced-motion: reduce) { .fav-core { animation: none; } }
+  </style>
+  <defs>
+    <radialGradient id="fav-g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3ea89b"/>
+      <stop offset="100%" stop-color="#2a7d73"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#0a0c0d"/>
+  <circle cx="32" cy="32" r="26" stroke="rgba(62,168,155,0.2)" stroke-width="1" fill="none" stroke-dasharray="2 3"/>
+  <circle cx="32" cy="32" r="18" stroke="rgba(201,163,92,0.15)" stroke-width="0.5" fill="none"/>
+  <path class="fav-core" d="M 32 16 L 36 28 L 48 28 L 38 36 L 42 48 L 32 40 L 22 48 L 26 36 L 16 28 L 28 28 Z" fill="url(#fav-g)"/>
+  <circle cx="32" cy="32" r="2" fill="#0a0c0d"/>
+</svg>
