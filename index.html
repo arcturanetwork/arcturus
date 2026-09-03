@@ -365,7 +365,7 @@
   .arc-radar-wrap { display:flex;justify-content:center;margin:2rem 0; }
   .arc-radar-wrap img { max-width:280px;width:100%;height:auto; }
   .arc-seal { width:80px;height:80px;display:inline-block;vertical-align:middle;margin-right:.5rem; }
-  @media (max-width:600px) { .hero-grid { grid-template-columns:1fr !important; } .hero-grid > div:last-child { display:none; } }
+  @media (max-width:600px) { .hero-grid { grid-template-columns:1fr !important; } .hero-grid > div:first-child { display:none; } .hero-grid { grid-template-columns:1fr !important; } }
 
 </style>
 </head>
@@ -374,22 +374,27 @@
 
   <!-- ═══ HEADER ══════════════════════════ -->
   <header>
-    <div class="hero-grid" style="display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;">
+    <div class="hero-grid" style="display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;">
+      <div style="display:flex;justify-content:center;align-items:center;">
+        <img src="/assets/svg/arcturus-constellation.svg" alt="Arcturus — animated constellation" style="width:200px;height:200px;display:block;" loading="eager">
+      </div>
       <div>
         <div class="kicker">arctura network — elite operator profile</div>
-    <h1>Arcturus. <em>Not a chatbot. An operator.</em></h1>
-    <p class="lede">Arctura Network's elite agentic AI operator — trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment. An agent that plans, uses tools, manages memory, grounds in knowledge, and governs its own outputs.</p>
-    <p class="ident-line">
-    <img src="/assets/svg/status-pulse.svg" alt="active" style="width:10px;height:10px;display:inline;vertical-align:middle;margin-right:4px;">
-      <span>Operator:</span> Arcturus &nbsp;·&nbsp;
-      <span>Owner:</span> Arctura Network &nbsp;·&nbsp;
-      <span>Stack:</span> NVIDIA NeMo · NIM · Guardrails &nbsp;·&nbsp;
-      <span>Standard:</span> NCP-AAI
-    </p>
-    <div class="cta-row">
-      <a class="btn primary" href="#domains">Competency Domains</a>
-      <a class="btn" href="#architecture">Operating Architecture</a>
-      <a class="btn" href="https://dominicvael.github.io/agentic-ai-mastery/">Full Technical Reference →</a>
+        <h1>Arcturus. <em>Not a chatbot. An operator.</em></h1>
+        <p class="lede">Arctura Network's elite agentic AI operator — trained on the full NVIDIA NCP-AAI stack. Ten competency domains, from ReAct reasoning to production deployment. An agent that plans, uses tools, manages memory, grounds in knowledge, and governs its own outputs.</p>
+        <p class="ident-line">
+          <img src="/assets/svg/status-pulse.svg" alt="active" style="width:10px;height:10px;display:inline;vertical-align:middle;margin-right:4px;">
+          <span>Operator:</span> Arcturus &nbsp;·&nbsp;
+          <span>Owner:</span> Arctura Network &nbsp;·&nbsp;
+          <span>Stack:</span> NVIDIA NeMo · NIM · Guardrails &nbsp;·&nbsp;
+          <span>Standard:</span> NCP-AAI
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#domains">Competency Domains</a>
+          <a class="btn" href="#architecture">Operating Architecture</a>
+          <a class="btn" href="https://dominicvael.github.io/agentic-ai-mastery/">Full Technical Reference →</a>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -440,16 +445,49 @@
     <div class="diagram">
 <pre><span class="accent">─── ReAct Loop ───────────────────────────────</span>
 
-  ┌─────────┐     ┌─────────┐     ┌────────────┐
-  │  THOUGHT │────▶│  ACTION  │────▶│ OBSERVATION │
-  │  (reason) │     │ (tool?)  │     │  (result)  │
-  └─────────┘     └─────────┘     └────────────┘
-       ▲                                         │
-       └─────────── repeat until done ────────────┘
+  User Query
+      │
+      ▼
+  ┌───────────┐
+  │  THOUGHT   │  "I need to search for X"
+  │  (reason)  │  LLM generates reasoning + plan
+  └─────┬─────┘
+        │
+        ▼
+  ┌───────────┐
+  │  ACTION    │  search_documents({"query": "X"})
+  │  (execute) │  LLM selects tool + writes args
+  └─────┬─────┘
+        │
+        ▼
+  ┌───────────┐
+  │ OBSERVATION│  [{"doc": "policy-001", ...}]
+  │  (observe) │  Tool returns structured result
+  └─────┬─────┘
+        │
+        ▼
+  ┌───────────┐
+  │  THOUGHT   │  "Result confirms Y, now I need Z"
+  │  (reason)  │  LLM incorporates observation
+  └─────┬─────┘
+        │
+   ... repeat ...
+        │
+        ▼
+  ┌───────────┐
+  │  ANSWER    │  Final response to user
+  │  (finish)  │  No tool call = task complete
+  └───────────┘
 
-<span class="accent">Token cost:</span> Linear with steps taken.
-<span class="warn">Failure mode:</span> Loops without progress if the
-  observation doesn't change the reasoning.</pre>
+<span class="accent">Each step:</span> Thought + Action in one LLM call.
+<span class="accent">Observation:</span> Injected as system context
+  for the next Thought (not a separate model call).
+<span class="warn">Token cost:</span> Context grows linearly — each
+  observation appended to the prompt window.
+<span class="warn">Failure mode:</span> If observation doesn't shift
+  reasoning, agent loops without progress.
+<span class="warn">vs ReWOO:</span> ReAct interleaves plan + execute.
+  ReWO plans ALL calls first, then executes.</pre>
     </div>
     <p><strong>When to use:</strong> Interactive tasks, tool-heavy workflows, unknown step counts. The default agent pattern.</p>
     <p><strong>When not to use:</strong> Multi-step tasks where all tool calls are known upfront — use ReWOO instead.</p>
